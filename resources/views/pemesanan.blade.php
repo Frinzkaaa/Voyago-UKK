@@ -52,19 +52,52 @@
       const labelOrigin = document.getElementById('label-origin');
       const labelDest = document.getElementById('label-destination');
       const destContainer = document.getElementById('dest-container');
-      const classContainer = document.getElementById('class').closest('.flex-col');
+      const classContainer = document.getElementById('class-container');
+      const swapContainer = document.getElementById('swap-container');
+      const roundTripContainer = document.getElementById('round-trip-container');
+      const labelPassengers = document.getElementById('label-passengers');
+      const labelDeparture = document.getElementById('label-departure');
+      const labelReturn = document.getElementById('label-return');
+      const btnSearch = document.getElementById('btn-search');
+      const returnDateContainer = document.getElementById('return_date_container');
 
       const configs = {
-        'kereta': { labelO: 'Asal', labelD: 'Tujuan', showClass: true },
-        'pesawat': { labelO: 'Bandara Asal', labelD: 'Bandara Tujuan', showClass: true },
-        'bus': { labelO: 'Terminal Asal', labelD: 'Terminal Tujuan', showClass: false },
-        'hotel': { labelO: 'Lokasi', labelD: '', showClass: false },
-        'wisata': { labelO: 'Lokasi/Destinasi', labelD: '', showClass: false }
+        'kereta': { 
+            labelO: 'Asal', labelD: 'Tujuan', labelP: 'Jumlah Penumpang', labelDep: 'Tanggal Pergi', labelRet: 'Tanggal Pulang', 
+            showClass: true, showSwap: true, showRound: true, showRet: false, btnText: 'Cari Tiket Sekarang' 
+        },
+        'pesawat': { 
+            labelO: 'Bandara Asal', labelD: 'Bandara Tujuan', labelP: 'Jumlah Penumpang', labelDep: 'Tanggal Pergi', labelRet: 'Tanggal Pulang', 
+            showClass: true, showSwap: true, showRound: true, showRet: false, btnText: 'Cari Tiket Sekarang' 
+        },
+        'bus': { 
+            labelO: 'Terminal Asal', labelD: 'Terminal Tujuan', labelP: 'Jumlah Penumpang', labelDep: 'Tanggal Pergi', labelRet: 'Tanggal Pulang', 
+            showClass: false, showSwap: true, showRound: true, showRet: false, btnText: 'Cari Tiket Sekarang' 
+        },
+        'hotel': { 
+            labelO: 'Lokasi Hotel', labelD: '', labelP: 'Jumlah Tamu', labelDep: 'Check-in', labelRet: 'Check-out', 
+            showClass: false, showSwap: false, showRound: false, showRet: true, btnText: 'Cari Hotel Sekarang' 
+        },
+        'wisata': { 
+            labelO: 'Lokasi Wisata', labelD: '', labelP: 'Jumlah Pengunjung', labelDep: 'Tanggal Kunjungan', labelRet: '', 
+            showClass: false, showSwap: false, showRound: false, showRet: false, btnText: 'Cari Wisata Sekarang' 
+        }
       };
 
       const config = configs[category];
+      
+      // Update Labels
       labelOrigin.innerText = config.labelO;
+      labelPassengers.innerText = config.labelP;
+      labelDeparture.innerText = config.labelDep;
+      if (labelReturn && config.labelRet) labelReturn.innerText = config.labelRet;
+      if (btnSearch) btnSearch.innerText = config.btnText;
+
+      // Toggle Containers
       classContainer.style.display = config.showClass ? 'flex' : 'none';
+      swapContainer.style.display = config.showSwap ? 'flex' : 'none';
+      roundTripContainer.style.display = config.showRound ? 'flex' : 'none';
+      returnDateContainer.style.display = config.showRet ? 'flex' : (document.getElementById('round_trip').checked ? 'flex' : 'none');
 
       if (config.labelD) {
         destContainer.style.display = 'flex';
@@ -122,7 +155,7 @@
 
     async function performSearch() {
       const list = document.getElementById('ticketList');
-      list.innerHTML = '<div class="text-center py-20"><i class="fas fa-spinner fa-spin text-orange-500 text-5xl"></i><p class="mt-4 font-bold text-gray-500 text-xl tracking-widest uppercase">Mencari Tiket...</p></div>';
+      list.innerHTML = '<div class="text-center py-20"><i class="fas fa-spinner fa-spin text-orange-500 text-5xl"></i><p class="mt-4 font-bold text-gray-500 dark:text-[#A1A1AA] text-xl tracking-widest uppercase">Mencari Tiket...</p></div>';
 
       const origin = document.getElementById('origin').value;
       const dest = document.getElementById('destination') ? document.getElementById('destination').value : '';
@@ -137,7 +170,7 @@
         renderTickets(data.tickets, currentCategory);
       } catch (error) {
         console.error('Search failed', error);
-        list.innerHTML = '<div class="text-center py-20 bg-white rounded-[2rem] border-2 border-dashed border-red-100 text-red-500 font-bold">Terjadi kesalahan saat memuat data.</div>';
+        list.innerHTML = '<div class="text-center py-20 bg-white dark:bg-dark-card rounded-[2rem] border-2 border-dashed border-red-100 text-red-500 font-bold transition-colors duration-300">Terjadi kesalahan saat memuat data.</div>';
       }
     }
 
@@ -146,7 +179,7 @@
       container.innerHTML = '';
 
       if (tickets.length === 0) {
-        container.innerHTML = '<div class="text-center py-20 bg-white rounded-[2rem] border-2 border-dashed border-gray-100"><i class="fas fa-ticket text-5xl text-gray-200 mb-4"></i><p class="font-bold text-gray-400">Belum ada tiket tersedia untuk kategori ini.</p></div>';
+        container.innerHTML = '<div class="text-center py-20 bg-white dark:bg-dark-card rounded-[2rem] border-2 border-dashed border-gray-100 dark:border-dark-border transition-colors duration-300"><i class="fas fa-ticket text-5xl text-gray-200 mb-4"></i><p class="font-bold text-gray-400">Belum ada tiket tersedia untuk kategori ini.</p></div>';
         return;
       }
 
@@ -164,18 +197,18 @@
           timeInfo = `
                           <div class="flex items-center gap-12 flex-grow">
                             <div class="flex flex-col">
-                              <span class="text-gray-800 font-black text-[2rem] leading-none">${dTime}</span>
+                              <span class="text-gray-800 dark:text-white font-black text-[2rem] leading-none">${dTime}</span>
                             </div>
                             <div class="flex flex-col items-center flex-grow max-w-[120px]">
                               <span class="text-[10px] font-bold text-gray-400">${ticket.duration || ''}</span>
                               <div class="w-full flex items-center gap-1 py-1">
-                                <div class="h-[1.5px] bg-gray-200 flex-grow rounded-full"></div>
+                                <div class="h-[1.5px] bg-gray-200 dark:bg-dark-border flex-grow rounded-full"></div>
                                 <i class="fas fa-chevron-right text-[8px] text-gray-300"></i>
                               </div>
                               <span class="text-[10px] font-bold text-gray-400">Langsung</span>
                             </div>
                             <div class="flex flex-col">
-                              <span class="text-gray-800 font-black text-[2rem] leading-none">${aTime}</span>
+                              <span class="text-gray-800 dark:text-white font-black text-[2rem] leading-none">${aTime}</span>
                             </div>
                           </div>
                         `;
@@ -183,7 +216,7 @@
           timeInfo = `
                           <div class="flex items-center gap-12 flex-grow">
                              <div class="flex flex-col">
-                                <span class="text-gray-600 font-bold text-sm"><i class="fas fa-map-marker-alt text-orange-500 mr-2"></i> ${ticket.location || ticket.category || 'Indonesia'}</span>
+                                <span class="text-gray-600 dark:text-[#A1A1AA] font-bold text-sm"><i class="fas fa-map-marker-alt text-orange-500 mr-2"></i> ${ticket.location || ticket.category || 'Indonesia'}</span>
                                 ${ticket.rating ? `<span class="text-orange-400 font-bold text-sm mt-1"><i class="fas fa-star mr-2"></i> ${ticket.rating}</span>` : ''}
                              </div>
                           </div>
@@ -191,7 +224,7 @@
         }
 
         const card = document.createElement('div');
-        card.className = 'bg-white border-2 border-gray-100 rounded-[2rem] p-6 hover:border-orange-300 transition-all flex flex-col gap-4 group';
+        card.className = 'bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2rem] p-6 hover:border-orange-300 transition-all flex flex-col gap-4 group';
         card.innerHTML = `
                         <div class="flex items-start justify-between">
                           <div class="flex flex-col">
@@ -209,19 +242,19 @@
                           ${timeInfo}
                           <div class="flex gap-2">
                              <button onclick="addToPlan('${encodeURIComponent(JSON.stringify(ticket))}')"
-                               class="w-12 h-12 bg-gray-50 text-gray-400 hover:text-orange-500 hover:bg-orange-50 rounded-2xl flex items-center justify-center transition-all" title="Simpan ke Rencana">
+                               class="w-12 h-12 bg-gray-50 dark:bg-[#121212] text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-[#2A2A2A] rounded-2xl flex items-center justify-center transition-all" title="Simpan ke Rencana">
                                <input type="checkbox" class="hidden">
                                <i class="fas fa-folder-plus text-xl"></i>
                              </button>
                              <button onclick="selectTicket(${ticket.id}, ${price}, '${encodeURIComponent(JSON.stringify(ticket))}')"
-                              class="bg-orange-100 group-hover:bg-orange-500 group-hover:text-white text-orange-400 font-black px-12 py-3 rounded-2xl transition-all shadow-sm">
+                              class="bg-orange-100 group-hover:bg-orange-50 dark:hover:bg-[#2A2A2A]0 group-hover:text-white text-orange-400 font-black px-12 py-3 rounded-2xl transition-all shadow-sm">
                               Pilih
                              </button>
                           </div>
                         </div>
-                        <div class="flex gap-4 border-t border-gray-50 pt-3">
-                          <button class="text-xs font-black text-gray-800 hover:text-orange-500 transition-colors uppercase tracking-widest">Detail ${ticket.price_per_night ? 'Hotel' : 'Perjalanan'}</button>
-                          <button class="text-xs font-black text-gray-800 hover:text-orange-500 transition-colors uppercase tracking-widest">Info</button>
+                        <div class="flex gap-4 border-t border-gray-50 dark:border-dark-border pt-3">
+                          <button class="text-xs font-black text-gray-800 dark:text-white hover:text-orange-500 transition-colors uppercase tracking-widest">Detail ${ticket.price_per_night ? 'Hotel' : 'Perjalanan'}</button>
+                          <button class="text-xs font-black text-gray-800 dark:text-white hover:text-orange-500 transition-colors uppercase tracking-widest">Info</button>
                         </div>
                       `;
         container.appendChild(card);
@@ -256,7 +289,7 @@
 
     let selectedSeats = [];
 
-    function selectTicket(id, price, ticketJson) {
+    async function selectTicket(id, price, ticketJson) {
       selectedTicketId = id;
       selectedTicketPrice = price;
 
@@ -277,9 +310,25 @@
       // Reset Seats Selection UI
       selectedSeats = [];
       document.querySelectorAll('.seat-item').forEach(el => {
-        el.classList.remove('bg-orange-500', 'text-white');
-        el.classList.add('bg-gray-50', 'text-gray-400');
+        el.classList.remove('!bg-orange-500', '!text-white', 'opacity-20', 'cursor-not-allowed', 'pointer-events-none');
+        el.classList.add('bg-gray-50', 'dark:bg-[#121212]', 'text-gray-400');
       });
+
+      // Fetch booked seats for integrity
+      try {
+        const response = await fetch(`/booked-seats?category=${currentCategory}&item_id=${id}`);
+        const booked = await response.json();
+        document.querySelectorAll('.seat-item').forEach(el => {
+          const sNo = el.innerText.trim();
+          if (booked.includes(sNo)) {
+             el.classList.add('opacity-20', 'cursor-not-allowed', 'pointer-events-none');
+             el.classList.remove('bg-gray-50', 'dark:bg-[#121212]', 'text-gray-400');
+          }
+        });
+      } catch (e) {
+        console.error('Failed to fetch booked seats', e);
+      }
+
       updateSeatCountDisplay();
       updatePaymentSummary();
 
@@ -295,13 +344,13 @@
 
       if (selectedSeats.includes(seatNo)) {
         selectedSeats = selectedSeats.filter(s => s !== seatNo);
-        element.classList.remove('bg-orange-500', 'text-white');
-        element.classList.add('bg-gray-50', 'text-gray-400');
+        element.classList.remove('!bg-orange-500', '!text-white');
+        element.classList.add('bg-gray-50', 'dark:bg-[#121212]', 'text-gray-400');
       } else {
         if (selectedSeats.length < passengerCount) {
           selectedSeats.push(seatNo);
-          element.classList.add('bg-orange-500', 'text-white');
-          element.classList.remove('bg-gray-50', 'text-gray-400');
+          element.classList.add('!bg-orange-500', '!text-white');
+          element.classList.remove('text-gray-400');
         } else {
           alert(`Anda hanya dapat memilih ${passengerCount} kursi sesuai jumlah penumpang.`);
         }
@@ -326,7 +375,7 @@
       selectedSeats = [];
       document.querySelectorAll('.seat-item').forEach(el => {
         el.classList.remove('bg-orange-500', 'text-white');
-        el.classList.add('bg-gray-50', 'text-gray-400');
+        el.classList.add('bg-gray-50 dark:bg-[#121212]', 'text-gray-400');
       });
       updateSeatCountDisplay();
     }
@@ -393,8 +442,23 @@
 
         const data = await response.json();
         if (data.success) {
-          alert('Pesanan berhasil! Silakan cek tiket Anda di menu Riwayat.');
-          window.location.href = '{{ route('my.bookings') }}';
+          // Trigger Midtrans Snap
+          window.snap.pay(data.snap_token, {
+            onSuccess: function (result) {
+              alert('Pembayaran Berhasil!');
+              window.location.href = '{{ route('my.bookings') }}';
+            },
+            onPending: function (result) {
+              alert('Pembayaran Menunggu Konfirmasi.');
+              window.location.href = '{{ route('my.bookings') }}';
+            },
+            onError: function (result) {
+              alert('Pembayaran Gagal!');
+            },
+            onClose: function () {
+              alert('Anda menutup popup pembayaran sebelum selesai.');
+            }
+          });
         } else {
           alert('Gagal: ' + (data.error || 'Unknown error'));
         }

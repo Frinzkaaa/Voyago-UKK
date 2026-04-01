@@ -21,8 +21,8 @@
         @dragover.prevent="isDragging = true" 
         @dragleave.prevent="isDragging = false" 
         @drop.prevent="handleDrop($event)"
-        :class="{'border-[#FF7304] bg-orange-50': isDragging, 'border-gray-100 bg-gray-50': !isDragging}"
-        class="relative min-h-[160px] rounded-3xl border-2 border-dashed flex flex-col items-center justify-center transition-all cursor-pointer group hover:border-[#FF7304] hover:bg-orange-50/30">
+        :class="{'border-[#FF7304] bg-orange-50': isDragging, 'border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-[#121212]': !isDragging}"
+        class="relative min-h-[160px] rounded-3xl border-2 border-dashed flex flex-col items-center justify-center transition-all cursor-pointer group hover:border-[#FF7304] hover:bg-orange-50 dark:hover:bg-[#2A2A2A]/30">
         
         <input 
             type="file" 
@@ -35,18 +35,18 @@
             accept="image/jpeg,image/png,image/webp">
 
         <div class="flex flex-col items-center text-center p-6 space-y-2 pointer-events-none">
-            <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-gray-300 group-hover:text-[#FF7304] shadow-sm transition-colors">
+            <div class="w-12 h-12 bg-white dark:bg-dark-card rounded-2xl flex items-center justify-center text-gray-300 group-hover:text-[#FF7304] shadow-sm transition-color transition-colors duration-300s">
                 <i class="fa-solid fa-cloud-arrow-up text-xl"></i>
             </div>
             <div>
-                <p class="text-[11px] font-black text-gray-800 uppercase tracking-widest">Tarik Gambar atau Klik</p>
+                <p class="text-[11px] font-black text-gray-800 dark:text-white uppercase tracking-widest">Tarik Gambar atau Klik</p>
                 <p class="text-[10px] text-gray-400 font-medium mt-1">{{ $helper }}</p>
             </div>
         </div>
 
         <!-- Upload Progress Indicator -->
         <div x-show="isUploading" class="absolute bottom-0 left-0 right-0 p-4 z-20">
-            <div class="bg-white/90 backdrop-blur rounded-xl p-3 shadow-lg border border-orange-100">
+            <div class="bg-white dark:bg-dark-card/90 backdrop-blur rounded-xl p-3 shadow-lg border border-orange-100 transition-colors duration-300">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-[9px] font-black text-[#FF7304] uppercase tracking-widest">Memproses Gambar...</span>
                     <span class="text-[9px] font-black text-[#FF7304]" x-text="progress + '%'"></span>
@@ -62,7 +62,7 @@
     <template x-if="previews.length > 0">
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             <template x-for="(preview, index) in previews" :key="index">
-                <div class="relative aspect-square rounded-2xl overflow-hidden border border-gray-100 group shadow-sm">
+                <div class="relative aspect-square rounded-2xl overflow-hidden border border-gray-100 dark:border-dark-border group shadow-sm">
                     <img :src="preview" class="w-full h-full object-cover">
                     <button 
                         @click.prevent="removeImage(index)"

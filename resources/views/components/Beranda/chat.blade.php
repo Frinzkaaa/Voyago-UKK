@@ -1,4 +1,4 @@
-<div class="bg-white rounded-3xl p-5 shadow-sm border border-gray-50 flex flex-col gap-5 h-full">
+<div class="bg-white dark:bg-dark-card rounded-3xl p-5 shadow-sm border border-gray-50 dark:border-dark-border flex flex-col gap-5 h-full transition-colors duration-300">
   @php
     $chatUsers = [
       ['name' => 'Frinzka', 'img' => 'https://i.pravatar.cc/100?u=1'],
@@ -11,14 +11,14 @@
   @endphp
 
   @foreach($chatUsers as $cu)
-    <div class="flex items-center justify-between p-2 hover:bg-orange-50 rounded-2xl transition-all cursor-pointer group">
+    <div class="flex items-center justify-between p-2 hover:bg-orange-50 dark:hover:bg-[#2A2A2A] rounded-2xl transition-all cursor-pointer group">
       <div class="flex items-center gap-3">
         <div class="flex gap-1.5 opacity-20 group-hover:opacity-100 transition-opacity">
           <i class="far fa-file text-[10px] text-gray-400 group-hover:text-orange-500"></i>
           <i class="far fa-comment-dots text-[10px] text-gray-400 group-hover:text-orange-500"></i>
         </div>
         <span
-          class="font-black text-gray-800 text-xs tracking-tight group-hover:text-orange-600 transition-colors">{{ $cu['name'] }}</span>
+          class="font-black text-gray-800 dark:text-white text-xs tracking-tight group-hover:text-orange-600 transition-colors">{{ $cu['name'] }}</span>
       </div>
       <div class="relative">
         <img src="{{ $cu['img'] }}"

@@ -41,9 +41,9 @@
     $partner = $user->partner;
 @endphp
 
-<body class="min-h-screen flex items-center justify-center p-6 bg-gray-50/50">
+<body class="min-h-screen flex items-center justify-center p-6 bg-gray-50 dark:bg-[#121212]/50">
     <div
-        class="max-w-md w-full bg-white rounded border border-gray-100 p-10 text-center shadow-xl relative overflow-hidden">
+        class="max-w-md w-full bg-white dark:bg-dark-card rounded border border-gray-100 dark:border-dark-border p-10 text-center shadow-xl relative overflow-hidden transition-colors duration-300">
 
         @if($isActive)
             <!-- ACTIVE STATUS -->
@@ -51,10 +51,10 @@
                 class="w-16 h-16 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-emerald-100">
                 <i class="fa-solid fa-circle-check text-2xl text-emerald-500"></i>
             </div>
-            <h1 class="text-xl font-bold text-gray-900 mb-3 tracking-tight">Akun Terverifikasi</h1>
-            <p class="text-sm text-gray-500 mb-8 leading-relaxed">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">Akun Terverifikasi</h1>
+            <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-8 leading-relaxed">
                 Selamat! Peninjauan dokumen Anda telah selesai. Anda kini resmi menjadi <span
-                    class="text-gray-900 font-bold">Mitra Strategis Voyago</span>.
+                    class="text-gray-900 dark:text-white font-bold">Mitra Strategis Voyago</span>.
             </p>
             <div class="space-y-4">
                 <a href="{{ route('partner.dashboard') }}"
@@ -70,12 +70,12 @@
                 class="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-8 border border-red-100 text-red-500">
                 <i class="fa-solid fa-circle-xmark text-2xl"></i>
             </div>
-            <h1 class="text-xl font-bold text-gray-900 mb-2 tracking-tight">Verifikasi Ditolak</h1>
-            <p class="text-sm text-gray-500 mb-6 leading-relaxed">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-2 tracking-tight">Verifikasi Ditolak</h1>
+            <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-6 leading-relaxed">
                 Mohon maaf, aplikasi kemitraan Anda belum dapat kami setujui karena beberapa kendala pada data.
             </p>
 
-            <div class="bg-gray-50 border border-gray-100 rounded p-4 mb-8 text-left">
+            <div class="bg-gray-50 dark:bg-[#121212] border border-gray-100 dark:border-dark-border rounded p-4 mb-8 text-left">
                 <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">Catatan Penolakan:</p>
                 <p class="text-[11px] font-medium text-red-600 italic leading-relaxed">
                     "{{ $partner->rejection_reason ?? 'Data yang dilampirkan tidak sesuai dengan standar verifikasi kami.' }}"
@@ -99,14 +99,14 @@
                 <i class="fa-solid fa-hourglass-half text-xl"></i>
             </div>
 
-            <h1 class="text-xl font-bold text-gray-900 mb-3 tracking-tight">Sedang Ditinjau</h1>
-            <p class="text-sm text-gray-500 mb-10 leading-relaxed">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-3 tracking-tight">Sedang Ditinjau</h1>
+            <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-10 leading-relaxed">
                 Tim kurasi Voyago sedang memverifikasi identitas bisnis Anda. Proses ini biasanya memakan waktu <span
-                    class="text-gray-900 font-bold">1-2 hari kerja</span>.
+                    class="text-gray-900 dark:text-white font-bold">1-2 hari kerja</span>.
             </p>
 
             <div class="space-y-5 mb-10 relative">
-                <div class="absolute left-4 top-2 bottom-2 w-px bg-gray-100"></div>
+                <div class="absolute left-4 top-2 bottom-2 w-px bg-gray-100 dark:bg-dark-border"></div>
 
                 <div class="flex items-center gap-4 relative">
                     <div
@@ -114,7 +114,7 @@
                         <i class="fa-solid fa-check text-[10px]"></i>
                     </div>
                     <div class="text-left">
-                        <p class="text-[11px] font-bold text-gray-900">Pendaftaran Akun</p>
+                        <p class="text-[11px] font-bold text-gray-900 dark:text-white">Pendaftaran Akun</p>
                         <p class="text-[9px] text-gray-400 font-medium">Selesai pada
                             {{ $user->created_at->format('d M Y') }}</p>
                     </div>
@@ -126,18 +126,18 @@
                         <i class="fa-solid fa-spinner fa-spin text-[10px]"></i>
                     </div>
                     <div class="text-left">
-                        <p class="text-[11px] font-bold text-gray-900">Kurasi Dokumen</p>
+                        <p class="text-[11px] font-bold text-gray-900 dark:text-white">Kurasi Dokumen</p>
                         <p class="text-[9px] text-orange-500 font-bold uppercase tracking-widest">In Progress</p>
                     </div>
                 </div>
 
                 <div class="flex items-center gap-4 relative opacity-30">
                     <div
-                        class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 ring-4 ring-white shadow-sm">
+                        class="w-8 h-8 rounded-full bg-gray-100 dark:bg-dark-border flex items-center justify-center text-gray-400 ring-4 ring-white shadow-sm">
                         <i class="fa-solid fa-rocket text-[10px]"></i>
                     </div>
                     <div class="text-left">
-                        <p class="text-[11px] font-bold text-gray-900">Dashboard Aktif</p>
+                        <p class="text-[11px] font-bold text-gray-900 dark:text-white">Dashboard Aktif</p>
                         <p class="text-[9px] text-gray-400 font-medium">Tahap Terakhir</p>
                     </div>
                 </div>
@@ -145,12 +145,12 @@
 
             <div class="flex flex-col gap-4">
                 <a href="https://wa.me/628123456789"
-                    class="w-full bg-white border border-gray-200 text-gray-700 py-3 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                    class="w-full bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border text-gray-700 dark:text-gray-300 py-3 rounded text-[10px] font-bold uppercase tracking-widest hover:bg-gray-50 dark:bg-[#121212] transition-all flex items-center justify-center gap-2 transition-colors duration-300">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
                     Bantuan CS
                 </a>
                 <a href="{{ route('partner.logout') }}"
-                    class="text-[9px] text-gray-400 font-bold hover:text-gray-600 transition-all uppercase tracking-widest">Keluar</a>
+                    class="text-[9px] text-gray-400 font-bold hover:text-gray-600 dark:text-[#A1A1AA] transition-all uppercase tracking-widest">Keluar</a>
             </div>
         @endif
     </div>

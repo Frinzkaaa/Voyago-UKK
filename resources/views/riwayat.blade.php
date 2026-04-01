@@ -6,30 +6,30 @@
         <!-- Left Sidebar -->
         <aside class="w-full md:w-64 shrink-0">
             <div
-                class="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible">
+                class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible transition-colors duration-300">
                 <button onclick="switchTab('pesanan')" id="btn-pesanan"
                     class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group active-nav">
                     <i class="fa-solid fa-receipt text-lg group-[.active-nav]:text-white text-gray-400"></i>
-                    <span class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600">Pesanan
+                    <span class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Pesanan
                         Saya</span>
                 </button>
                 <button onclick="switchTab('wishlist')" id="btn-wishlist"
                     class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
                     <i class="fa-solid fa-heart text-lg group-[.active-nav]:text-white text-gray-400"></i>
                     <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600">Wishlist</span>
+                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Wishlist</span>
                 </button>
                 <button onclick="switchTab('komplain')" id="btn-komplain"
                     class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
                     <i class="fa-solid fa-headset text-lg group-[.active-nav]:text-white text-gray-400"></i>
                     <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600">Komplain</span>
+                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Komplain</span>
                 </button>
                 <button onclick="switchTab('pengaturan')" id="btn-pengaturan"
                     class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
                     <i class="fa-solid fa-user-gear text-lg group-[.active-nav]:text-white text-gray-400"></i>
                     <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600">Pengaturan</span>
+                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Pengaturan</span>
                 </button>
 
                 <div
@@ -37,7 +37,7 @@
                     <h4 class="font-bold mb-2">Jadi Mitra Voyago</h4>
                     <p class="text-[10px] opacity-90 mb-4">Punya bisni travel? Bergabunglah dengan kami!</p>
                     <a href="{{ route('partner.auth.page') }}"
-                        class="block text-center py-2 bg-white text-[#FF7304] rounded-full text-xs font-bold shadow-md hover:scale-105 transition-all">Daftar
+                        class="block text-center py-2 bg-white dark:bg-dark-card text-[#FF7304] rounded-full text-xs font-bold shadow-md hover:scale-105 transition-al transition-colors duration-300l">Daftar
                         Sekarang</a>
                 </div>
             </div>
@@ -49,25 +49,25 @@
             <!-- Pesanan Saya Content -->
             <div id="section-pesanan" class="dashboard-section">
                 <div class="flex items-center justify-between mb-6">
-                    <h1 class="text-2xl font-bold text-gray-800">Pesanan Saya</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Pesanan Saya</h1>
                 </div>
 
                 <!-- Tabs -->
-                <div class="flex items-center gap-8 border-b border-gray-200 mb-8 overflow-x-auto">
+                <div class="flex items-center gap-8 border-b border-gray-200 dark:border-dark-border mb-8 overflow-x-auto">
                     <button onclick="filterStatus('semua')"
-                        class="status-tab active-tab pb-3 font-semibold text-gray-500 hover:text-[#FF7304] transition-all relative">Semua</button>
+                        class="status-tab active-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Semua</button>
                     <button onclick="filterStatus('upcoming')"
-                        class="status-tab pb-3 font-semibold text-gray-500 hover:text-[#FF7304] transition-all relative">Upcoming</button>
+                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Upcoming</button>
                     <button onclick="filterStatus('selesai')"
-                        class="status-tab pb-3 font-semibold text-gray-500 hover:text-[#FF7304] transition-all relative">Selesai</button>
+                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Selesai</button>
                     <button onclick="filterStatus('dibatalkan')"
-                        class="status-tab pb-3 font-semibold text-gray-500 hover:text-[#FF7304] transition-all relative">Dibatalkan</button>
+                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Dibatalkan</button>
                 </div>
 
                 <!-- Booking Lists -->
                 <div class="space-y-4" id="booking-list">
                     @forelse($bookings as $booking)
-                        <div class="booking-card bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 flex flex-col lg:flex-row items-center gap-6"
+                        <div class="booking-card bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col lg:flex-row items-center gap-6 transition-colors duration-300"
                             data-status="{{ $booking->payment_status }}">
                             <!-- Left Part -->
                             <div class="flex items-center gap-4 w-full lg:w-1/4">
@@ -105,7 +105,13 @@
                                         }
                                     @endphp
                                     <span
-                                        class="px-3 py-1 rounded-full text-[10px] font-bold {{ $statusClass }}">{{ $statusLabel }}</span>
+                                        class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider {{ $statusClass }}">{{ $statusLabel }}</span>
+                                    @if($booking->payment_status === \App\Enums\PaymentStatus::PENDING && $booking->snap_token)
+                                        <button onclick="continuePayment('{{ $booking->snap_token }}')" 
+                                            class="mt-2 flex items-center gap-2 text-[10px] font-black text-orange-500 hover:text-orange-600 transition-colors uppercase tracking-widest">
+                                            <i class="fas fa-credit-card"></i> Bayar Sekarang
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
@@ -113,16 +119,35 @@
                             <div class="flex-grow grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
                                 <div>
                                     <p class="text-xs text-gray-400 mb-1">Tujuan / Nama</p>
-                                    <p class="font-bold text-gray-700 text-sm">Destinasi Populer</p>
+                                    @php
+                                        $itemName = 'Produk Tidak Ditemukan';
+                                        if ($booking->item) {
+                                            $itemName = $booking->item->name ?? $booking->item->airline_name ?? $booking->item->operator ?? 'Tiket Perjalanan';
+                                        }
+                                    @endphp
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">{{ $itemName }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-400 mb-1">Tanggal Keberangkatan</p>
-                                    <p class="font-bold text-gray-700 text-sm">{{ $booking->created_at->format('d M Y') }}</p>
+                                    <p class="text-xs text-gray-400 mb-1">Tanggal Pemesanan</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">{{ $booking->created_at->format('d M Y') }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-400 mb-1">Penumpang</p>
-                                    <p class="font-bold text-gray-700 text-sm">{{ $booking->passenger_count }} Penumpang</p>
+                                    <p class="text-xs text-gray-400 mb-1">Penumpang & Kursi</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">
+                                        {{ $booking->passenger_count }} Pax 
+                                        @if($booking->seats)
+                                            <span class="text-orange-500">• {{ implode(', ', $booking->seats) }}</span>
+                                        @endif
+                                    </p>
                                 </div>
+                                @if($booking->item && ($booking->item->origin || $booking->item->location))
+                                <div>
+                                    <p class="text-xs text-gray-400 mb-1">Detail Rute/Lokasi</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">
+                                        {{ $booking->item->origin ? $booking->item->origin . ' → ' . $booking->item->destination : $booking->item->location }}
+                                    </p>
+                                </div>
+                                @endif
                             </div>
 
                             <!-- Right Part -->
@@ -148,12 +173,12 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-20 bg-white rounded-[24px] shadow-sm border border-gray-100">
+                        <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                             <div class="w-32 h-32 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center">
                                 <i class="fa-solid fa-suitcase-rolling text-5xl text-orange-300"></i>
                             </div>
-                            <h3 class="text-xl font-bold text-gray-800 mb-2">Belum ada perjalanan nih 😢</h3>
-                            <p class="text-gray-500 mb-8">Yuk rencanakan liburan pertamamu!</p>
+                            <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Belum ada perjalanan nih 😢</h3>
+                            <p class="text-gray-500 dark:text-[#A1A1AA] mb-8">Yuk rencanakan liburan pertamamu!</p>
                             <a href="/"
                                 class="px-8 py-3 bg-[#FF7304] text-white rounded-full font-bold shadow-lg shadow-orange-200 hover:scale-105 transition-all">Cari
                                 Destinasi</a>
@@ -170,7 +195,7 @@
                 <!-- Modal Content -->
                 <div
                     class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl animate-in fade-in zoom-in duration-300">
-                    <div class="bg-white rounded-[2rem] overflow-hidden shadow-2xl mx-4 md:mx-0">
+                    <div class="bg-white dark:bg-dark-card rounded-[2rem] overflow-hidden shadow-2xl mx-4 md:mx-0 transition-colors duration-300">
                         <!-- Header -->
                         <div class="bg-gradient-to-r from-[#FF7304] to-[#FFAC63] p-8 text-white relative">
                             <button onclick="closeOrderModal()"
@@ -187,53 +212,53 @@
                                 <div>
                                     <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tipe
                                         Pesanan</p>
-                                    <p class="font-bold text-gray-800 text-lg mb-1 capitalize" id="modal-product-name">
+                                    <p class="font-bold text-gray-800 dark:text-white text-lg mb-1 capitalize" id="modal-product-name">
                                         Pesawat</p>
                                     <p class="text-xs text-[#FF7304] uppercase font-bold" id="modal-payment-status">Paid</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Waktu
                                         Pemesanan</p>
-                                    <p class="font-bold text-gray-800" id="modal-order-date">23 Feb 2026</p>
+                                    <p class="font-bold text-gray-800 dark:text-white" id="modal-order-date">23 Feb 2026</p>
                                     <p class="text-xs text-gray-400" id="modal-order-time">11:18</p>
                                 </div>
                             </div>
 
-                            <div class="bg-gray-50 rounded-3xl p-6 mb-10">
+                            <div class="bg-gray-50 dark:bg-[#121212] rounded-3xl p-6 mb-10">
                                 <div class="flex items-center justify-between mb-6">
                                     <div class="flex items-center gap-4">
                                         <div
-                                            class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#FF7304] shadow-sm">
+                                            class="w-12 h-12 bg-white dark:bg-dark-card rounded-2xl flex items-center justify-center text-[#FF7304] shadow-sm transition-colors duration-300">
                                             <i class="fa-solid fa-plane text-xl" id="modal-product-icon"></i>
                                         </div>
                                         <div>
                                             <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
                                                 Status Perjalanan</p>
-                                            <h4 class="font-black text-gray-800 text-lg capitalize"
+                                            <h4 class="font-black text-gray-800 dark:text-white text-lg capitalize"
                                                 id="modal-travel-status">Upcoming</h4>
                                         </div>
                                     </div>
                                     <div class="text-right">
                                         <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
                                             Jumlah</p>
-                                        <p class="font-black text-gray-800 text-xl" id="modal-passenger-count">2 Pax</p>
+                                        <p class="font-black text-gray-800 dark:text-white text-xl" id="modal-passenger-count">2 Pax</p>
                                     </div>
                                 </div>
 
-                                <div class="h-px bg-gray-200/50 mb-6"></div>
+                                <div class="h-px bg-gray-200 dark:bg-dark-border/50 mb-6"></div>
 
                                 <div class="space-y-4">
                                     <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 font-bold">Harga Satuan</span>
-                                        <span class="font-bold text-gray-800" id="modal-unit-price">Rp 0</span>
+                                        <span class="text-gray-500 dark:text-[#A1A1AA] font-bold">Harga Satuan</span>
+                                        <span class="font-bold text-gray-800 dark:text-white" id="modal-unit-price">Rp 0</span>
                                     </div>
                                     <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 font-bold">Metode Pembayaran</span>
+                                        <span class="text-gray-500 dark:text-[#A1A1AA] font-bold">Metode Pembayaran</span>
                                         <span class="font-bold text-[#FF7304] uppercase tracking-wider"
                                             id="modal-payment-method">Transfer Bank</span>
                                     </div>
                                     <div class="flex justify-between items-center pt-2">
-                                        <span class="text-gray-800 font-black uppercase text-xs tracking-widest">Total
+                                        <span class="text-gray-800 dark:text-white font-black uppercase text-xs tracking-widest">Total
                                             Bayar</span>
                                         <span class="text-2xl font-black text-[#FF7304]" id="modal-total-price">Rp 0</span>
                                     </div>
@@ -251,26 +276,26 @@
 
             <!-- Wishlist Content -->
             <div id="section-wishlist" class="dashboard-section hidden">
-                <h1 class="text-2xl font-bold text-gray-800 mb-8">Wishlist Saya</h1>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Wishlist Saya</h1>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <!-- Sample Wishlist Card -->
                     <div
-                        class="bg-white rounded-[24px] overflow-hidden shadow-sm border border-gray-100 group hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        class="bg-white dark:bg-dark-card rounded-[24px] overflow-hidden shadow-sm border border-gray-100 dark:border-dark-border group hover:-translate-y-2 hover:shadow-xl transition-all duration-300 transition-colors duration-300">
                         <div class="relative h-48 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             <button
-                                class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-[#FF7304]">
+                                class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-dark-card rounded-full shadow-md flex items-center justify-center text-[#FF7304] transition-colors duration-300">
                                 <i class="fa-solid fa-heart text-xl"></i>
                             </button>
                         </div>
                         <div class="p-5">
                             <div class="flex items-center gap-1 mb-2">
                                 <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <span class="text-xs font-bold text-gray-600">4.8</span>
+                                <span class="text-xs font-bold text-gray-600 dark:text-[#A1A1AA]">4.8</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 mb-1">Bali, Indonesia</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white mb-1">Bali, Indonesia</h3>
                             <p class="text-xs text-gray-400 mb-4 flex items-center gap-1">
                                 <i class="fa-solid fa-location-dot"></i> Indonesia
                             </p>
@@ -288,21 +313,21 @@
 
                     <!-- More sample cards or empty state -->
                     <div
-                        class="bg-white rounded-[24px] overflow-hidden shadow-sm border border-gray-100 group hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
+                        class="bg-white dark:bg-dark-card rounded-[24px] overflow-hidden shadow-sm border border-gray-100 dark:border-dark-border group hover:-translate-y-2 hover:shadow-xl transition-all duration-300 transition-colors duration-300">
                         <div class="relative h-48 overflow-hidden">
                             <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=400"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                             <button
-                                class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-[#FF7304]">
+                                class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-dark-card rounded-full shadow-md flex items-center justify-center text-[#FF7304] transition-colors duration-300">
                                 <i class="fa-solid fa-heart text-xl"></i>
                             </button>
                         </div>
                         <div class="p-5">
                             <div class="flex items-center gap-1 mb-2">
                                 <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <span class="text-xs font-bold text-gray-600">4.9</span>
+                                <span class="text-xs font-bold text-gray-600 dark:text-[#A1A1AA]">4.9</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 mb-1">Kyoto, Japan</h3>
+                            <h3 class="font-bold text-gray-800 dark:text-white mb-1">Kyoto, Japan</h3>
                             <p class="text-xs text-gray-400 mb-4 flex items-center gap-1">
                                 <i class="fa-solid fa-location-dot"></i> Japan
                             </p>
@@ -321,12 +346,12 @@
 
                 <!-- Empty Wishlist -->
                 <div id="wishlist-empty"
-                    class="hidden text-center py-20 bg-white rounded-[24px] shadow-sm border border-gray-100 mt-6">
+                    class="hidden text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border mt-6 transition-colors duration-300">
                     <div class="w-32 h-32 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center">
                         <i class="fa-solid fa-heart-crack text-5xl text-orange-300"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Belum ada destinasi favorit</h3>
-                    <p class="text-gray-500 mb-8">Simpan dulu biar nggak lupa!</p>
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Belum ada destinasi favorit</h3>
+                    <p class="text-gray-500 dark:text-[#A1A1AA] mb-8">Simpan dulu biar nggak lupa!</p>
                     <a href="/"
                         class="px-8 py-3 bg-[#FF7304] text-white rounded-full font-bold shadow-lg shadow-orange-200 hover:scale-105 transition-all">Eksplor
                         Sekarang</a>
@@ -336,7 +361,7 @@
             <!-- Komplain Content -->
             <div id="section-komplain" class="dashboard-section hidden">
                 <div class="flex items-center justify-between mb-8">
-                    <h1 class="text-2xl font-bold text-gray-800">Komplain Saya</h1>
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Komplain Saya</h1>
                     <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Pusat Bantuan & Resolusi</p>
                 </div>
 
@@ -346,34 +371,34 @@
                     @endphp
 
                     @forelse($userComplaints as $complaint)
-                        <div class="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100">
+                        <div class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center gap-3">
                                     <span
                                         class="px-3 py-1 bg-orange-50 text-[#FF7304] rounded-full text-[10px] font-black uppercase tracking-widest">
                                         {{ $complaint->booking->booking_code }}
                                     </span>
-                                    <h4 class="font-bold text-gray-800 text-sm">{{ $complaint->subject }}</h4>
+                                    <h4 class="font-bold text-gray-800 dark:text-white text-sm">{{ $complaint->subject }}</h4>
                                 </div>
                                 @php
                                     $statusColors = [
-                                        'pending' => 'bg-gray-100 text-gray-500',
+                                        'pending' => 'bg-gray-100 dark:bg-dark-border text-gray-500 dark:text-[#A1A1AA]',
                                         'in_progress' => 'bg-blue-50 text-blue-500',
                                         'resolved' => 'bg-green-50 text-green-500',
                                     ];
                                 @endphp
                                 <span
-                                    class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusColors[$complaint->status] ?? 'bg-gray-100' }}">
+                                    class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusColors[$complaint->status] ?? 'bg-gray-100 dark:bg-dark-border' }}">
                                     {{ str_replace('_', ' ', $complaint->status) }}
                                 </span>
                             </div>
-                            <p class="text-sm text-gray-500 mb-4">{{ $complaint->description }}</p>
+                            <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-4">{{ $complaint->description }}</p>
 
                             @if($complaint->admin_response)
-                                <div class="bg-gray-50 rounded-2xl p-4 border-l-4 border-orange-400">
+                                <div class="bg-gray-50 dark:bg-[#121212] rounded-2xl p-4 border-l-4 border-orange-400">
                                     <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Respon Admin
                                     </p>
-                                    <p class="text-sm text-gray-700 italic">"{{ $complaint->admin_response }}"</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->admin_response }}"</p>
                                 </div>
                             @endif
                             <div class="mt-4 text-[10px] text-gray-300 font-bold uppercase tracking-widest">
@@ -381,11 +406,11 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-20 bg-white rounded-[24px] shadow-sm border border-gray-100">
-                            <div class="w-24 h-24 mx-auto mb-6 bg-gray-50 rounded-full flex items-center justify-center">
+                        <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-gray-50 dark:bg-[#121212] rounded-full flex items-center justify-center">
                                 <i class="fa-solid fa-comments text-3xl text-gray-200"></i>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-1">Belum ada komplain</h3>
+                            <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1">Belum ada komplain</h3>
                             <p class="text-xs text-gray-400">Hubungi kami jika Anda mengalami kendala pada pesanan.</p>
                         </div>
                     @endforelse
@@ -394,9 +419,9 @@
 
             <!-- Settings Content -->
             <div id="section-pengaturan" class="dashboard-section hidden">
-                <h1 class="text-2xl font-bold text-gray-800 mb-8">Pengaturan Akun</h1>
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Pengaturan Akun</h1>
                 <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"
-                    class="bg-white rounded-[24px] p-8 shadow-sm border border-gray-100">
+                    class="bg-white dark:bg-dark-card rounded-[24px] p-8 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                     @csrf
                     <div class="flex items-center gap-6 mb-8">
                         <div class="relative group">
@@ -411,8 +436,8 @@
                             </label>
                         </div>
                         <div>
-                            <h2 class="text-xl font-bold text-gray-800">{{ auth()->user()->name }}</h2>
-                            <p class="text-gray-500">{{ auth()->user()->email }}</p>
+                            <h2 class="text-xl font-bold text-gray-800 dark:text-white">{{ auth()->user()->name }}</h2>
+                            <p class="text-gray-500 dark:text-[#A1A1AA]">{{ auth()->user()->email }}</p>
                             <span
                                 class="mt-2 inline-block px-3 py-1 bg-green-100 text-green-600 rounded-full text-[10px] font-bold">Verified
                                 Member</span>
@@ -424,12 +449,12 @@
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 mb-2 uppercase">Nama Lengkap</label>
                                 <input type="text" name="name" value="{{ auth()->user()->name }}" required
-                                    class="w-full bg-[#F5F5F5] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700">
+                                    class="w-full bg-[#FFFFFF] dark:bg-dark-card border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700 dark:text-gray-300">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 mb-2 uppercase">Email</label>
                                 <input type="email" name="email" value="{{ auth()->user()->email }}" required
-                                    class="w-full bg-[#F5F5F5] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700">
+                                    class="w-full bg-[#FFFFFF] dark:bg-dark-card border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700 dark:text-gray-300">
                             </div>
                         </div>
                         <div class="space-y-4">
@@ -437,13 +462,13 @@
                                 <label class="block text-xs font-bold text-gray-400 mb-2 uppercase">Nomor Telepon</label>
                                 <input type="text" name="phone" value="{{ auth()->user()->phone ?? '' }}"
                                     placeholder="+62 8xx xxxx xxxx"
-                                    class="w-full bg-[#F5F5F5] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700">
+                                    class="w-full bg-[#FFFFFF] dark:bg-dark-card border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700 dark:text-gray-300">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-gray-400 mb-2 uppercase">Alamat</label>
                                 <input type="text" name="address" value="{{ auth()->user()->address ?? '' }}"
                                     placeholder="Masukkan alamat Anda"
-                                    class="w-full bg-[#F5F5F5] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700">
+                                    class="w-full bg-[#FFFFFF] dark:bg-dark-card border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none font-medium text-gray-700 dark:text-gray-300">
                             </div>
                         </div>
                     </div>
@@ -495,7 +520,7 @@
     <div id="complaintModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="closeComplaintModal()"></div>
         <div class="relative min-h-screen flex items-center justify-center p-4">
-            <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden relative"
+            <div class="bg-white dark:bg-dark-card rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden relative transition-colors duration-300"
                 onclick="event.stopPropagation()">
                 <div class="bg-gradient-to-r from-red-500 to-red-400 p-6 text-white">
                     <h3 class="text-xl font-bold">Ajukan Komplain</h3>
@@ -511,7 +536,7 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kategori
                             Komplain</label>
                         <select name="category" required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium">
                             <option value="">Pilih Kategori</option>
                             <option value="layanan">Layanan Tidak Memuaskan</option>
                             <option value="fasilitas">Fasilitas Bermasalah</option>
@@ -525,7 +550,7 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Subyek /
                             Judul</label>
                         <input type="text" name="subject" placeholder="Contoh: AC Kamar Tidak Dingin" required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium">
                     </div>
 
                     <div>
@@ -533,12 +558,12 @@
                             class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deskripsi
                             Keluhan</label>
                         <textarea name="description" rows="4" placeholder="Jelaskan detail keluhan Anda..." required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium resize-none"></textarea>
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium resize-none"></textarea>
                     </div>
 
                     <div class="pt-4 flex gap-4">
                         <button type="button" onclick="closeComplaintModal()"
-                            class="flex-1 px-6 py-4 border-2 border-gray-100 text-gray-400 font-bold rounded-2xl hover:bg-gray-50 transition-all text-sm">Batal</button>
+                            class="flex-1 px-6 py-4 border-2 border-gray-100 dark:border-dark-border text-gray-400 font-bold rounded-2xl hover:bg-gray-50 dark:bg-[#121212] transition-all text-sm">Batal</button>
                         <button type="submit"
                             class="flex-1 px-6 py-4 bg-red-500 text-white font-bold rounded-2xl shadow-lg shadow-red-100 hover:scale-105 transition-all text-sm">Kirim
                             Komplain</button>
@@ -655,6 +680,21 @@
             const modal = document.getElementById('orderModal');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
+        }
+
+        function continuePayment(snapToken) {
+            window.snap.pay(snapToken, {
+                onSuccess: function(result) {
+                    alert('Pembayaran Berhasil!');
+                    window.location.reload();
+                },
+                onPending: function(result) {
+                    alert('Pembayaran Menunggu Konfirmasi.');
+                },
+                onError: function(result) {
+                    alert('Pembayaran Gagal!');
+                }
+            });
         }
 
         function previewImage(input) {

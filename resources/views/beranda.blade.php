@@ -48,10 +48,10 @@
           Voyago. Kelola bisnismu lebih cerdas dan jangkau jutaan penjelajah.</p>
         <div class="flex flex-wrap gap-4">
           <a href="{{ route('partner.auth.page') }}"
-            class="bg-white text-[#FF7304] px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center">Daftar
+            class="bg-white dark:bg-dark-card text-[#FF7304] px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center transition-colors duration-300">Daftar
             Mitra</a>
           <a href="#"
-            class="border-2 border-white/30 backdrop-blur-sm text-white px-10 py-4 rounded-2xl font-black hover:bg-white/10 transition-all text-center">Pelajari
+            class="border-2 border-white/30 backdrop-blur-sm text-white px-10 py-4 rounded-2xl font-black hover:bg-white dark:bg-dark-card/10 transition-all text-center transition-colors duration-300">Pelajari
             Selengkapnya</a>
         </div>
       </div>
@@ -59,7 +59,7 @@
         <i class="fa-solid fa-handshake-angle text-[200px]"></i>
       </div>
       <!-- Decorative blobs -->
-      <div class="absolute -top-10 -right-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+      <div class="absolute -top-10 -right-10 w-64 h-64 bg-white dark:bg-dark-card/10 rounded-full blur-3xl transition-colors duration-300"></div>
       <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-orange-800/10 rounded-full blur-3xl"></div>
     </section>
   </div>

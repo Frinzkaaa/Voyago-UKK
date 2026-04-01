@@ -111,7 +111,12 @@ class MitraController extends Controller
         $totalRevenue = Booking::where('mitra_id', Auth::id())->where('status', BookingStatus::CONFIRMED)->sum('total_price');
         $totalCommission = Booking::where('mitra_id', Auth::id())->where('status', BookingStatus::CONFIRMED)->sum('commission_amount');
 
-        return view('mitra.dashboard', compact('totalProducts', 'totalOrders', 'totalRevenue', 'totalCommission'));
+        $recentOrders = Booking::where('mitra_id', Auth::id())
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('mitra.dashboard', compact('totalProducts', 'totalOrders', 'totalRevenue', 'totalCommission', 'recentOrders'));
     }
 
     public function products()
@@ -345,13 +350,61 @@ class MitraController extends Controller
         return redirect()->route('partner.products')->with('success', 'Produk berhasil diperbarui.');
     }
 
+    public function toggleProductStatus($id)
+    {
+        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
+        $type = $this->resolveProductType($serviceType);
+
+        $product = match ($type) {
+            'hotel' => Hotel::findOrFail($id),
+            'pesawat' => FlightTicket::findOrFail($id),
+            'kereta' => TrainTicket::findOrFail($id),
+            'bus' => BusTicket::findOrFail($id),
+            default => WisataSpot::findOrFail($id),
+        };
+
+        if ($product->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $product->is_active = !($product->is_active);
+        $product->save();
+
+        return back()->with('success', 'Status ketersediaan produk berhasil diperbarui.');
+    }
+
     public function deleteProduct($id)
     {
-        $product = WisataSpot::findOrFail($id);
-        Gate::authorize('update', $product); // Use update policy as deletion right
+        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
+        $type = $this->resolveProductType($serviceType);
+
+        $product = match ($type) {
+            'hotel' => Hotel::findOrFail($id),
+            'pesawat' => FlightTicket::findOrFail($id),
+            'kereta' => TrainTicket::findOrFail($id),
+            'bus' => BusTicket::findOrFail($id),
+            default => WisataSpot::findOrFail($id),
+        };
+
+        if ($product->user_id !== Auth::id()) {
+            abort(403);
+        }
 
         $product->delete();
-        return redirect()->route('partner.products')->with('success', 'Produk berhasil dihapus.');
+        return redirect()->route('partner.products')->with('success', 'Produk berhasil dihapus dari katalog.');
+    }
+
+    private function resolveProductType($serviceType)
+    {
+        if (str_contains($serviceType, 'Hotel') || str_contains($serviceType, 'Akomodasi'))
+            return 'hotel';
+        elseif (str_contains($serviceType, 'Pesawat') || str_contains($serviceType, 'Maskapai'))
+            return 'pesawat';
+        elseif (str_contains($serviceType, 'Kereta'))
+            return 'kereta';
+        elseif (str_contains($serviceType, 'Bus'))
+            return 'bus';
+        return 'wisata';
     }
 
     public function orders()

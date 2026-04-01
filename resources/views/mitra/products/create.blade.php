@@ -1,216 +1,196 @@
 @extends('mitra.layout')
 
 @section('content')
-    <div class="mb-8 flex items-center justify-between">
-        <div>
-            <h2 class="text-xl font-bold text-gray-900 tracking-tight">Tambah Inventori
-                @if ($type == 'hotel')
-                Hotel & Akomodasi @elseif($type == 'pesawat') Tiket Pesawat @elseif($type == 'kereta') Tiket Kereta Api
-                @elseif($type == 'bus') Tiket Bus & Travel @else Produk Wisata
-                @endif
+    <div class="mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="space-y-1">
+            <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight uppercase italic">
+                @if ($type == 'hotel') Registrasi Akomodasi @elseif($type == 'pesawat') Flight Listing @elseif($type == 'kereta') Rail Management @elseif($type == 'bus') Transport Entry @else Atraksi Wisata @endif
             </h2>
-            <p class="text-sm text-gray-500 mt-1">Lengkapi data produk sesuai dengan profil layanan bisnis Anda</p>
+            <p class="text-sm text-gray-500 dark:text-zinc-400 font-medium">Lengkapi metadata layanan dengan teliti untuk memikat pelanggan.</p>
         </div>
         <a href="{{ route('partner.products') }}"
-            class="text-[10px] font-bold text-gray-400 hover:text-gray-900 transition-colors uppercase tracking-widest flex items-center gap-2">
-            <i class="fa-solid fa-xmark"></i>
-            Batal
+            class="flex items-center gap-3 px-6 py-3 bg-gray-50 dark:bg-zinc-900 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border border-transparent hover:border-gray-200">
+            <i class="fa-solid fa-arrow-left"></i>
+            Kembali
         </a>
     </div>
 
-    <form action="{{ route('partner.products.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('partner.products.store') }}" method="POST" enctype="multipart/form-data" class="pb-20">
         @csrf
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
             <!-- Main Form Section -->
-            <div class="lg:col-span-8 space-y-8">
-                <div class="premium-card p-6 bg-white border border-gray-100 shadow-sm">
-                    <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-6 pb-4 border-b border-gray-50">
-                        Informasi Dasar</h3>
+            <div class="lg:col-span-8 space-y-10">
+                <!-- Section: Basic Info -->
+                <div class="bg-white dark:bg-zinc-900 p-10 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm">
+                    <div class="flex items-center gap-3 mb-10 pb-6 border-b border-gray-50 dark:border-zinc-800">
+                        <div class="w-10 h-10 bg-orange-100 dark:bg-orange-950/20 text-orange-500 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Informasi Utama</h3>
+                    </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                @if ($type == 'pesawat')
-                                    Nama Maskapai / Operator
-                                @elseif($type == 'bus')
-                                    Nama Operator Bus
-                                @else
-                                    Nama Produk / @if ($type == 'hotel') Hotel @else Atraksi @endif
-                                @endif
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
+                                @if ($type == 'pesawat') Nama Maskapai @elseif($type == 'bus') PO Bus / Operator @else Judul Layanan / Nama Properti @endif
                             </label>
                             <input type="text" name="name" required
-                                placeholder="Contoh: @if($type == 'hotel') The Ritz-Carlton Mega Kuningan @elseif($type == 'pesawat') Garuda Indonesia Airways @elseif($type == 'kereta') KA Argo Bromo Anggrek @elseif($type == 'bus') PO Lorena Transport @else Tiket Terusan Dufan @endif"
-                                class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                placeholder="@if($type == 'hotel') Ex: Villa Tanah Gajah Ubud @elseif($type == 'pesawat') Ex: Emirates Airways @else Ex: Nama Layanan Anda @endif"
+                                class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white placeholder:text-gray-300">
                         </div>
 
                         @if ($type == 'pesawat' || $type == 'kereta')
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kode
-                                    @if ($type == 'pesawat') Penerbangan @else Trayek/No Kereta @endif</label>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Kode Unik / No. Armada</label>
                                 <input type="text" name="code" required
-                                    placeholder="Contoh: @if ($type == 'pesawat') GA-402 @else KA-001 @endif"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                    placeholder="Ex: EK-034"
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                         @endif
 
                         @if ($type == 'hotel' || $type == 'wisata')
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                                    @if ($type == 'hotel') Tipe Kamar/Unit @else Kategori Wisata @endif
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
+                                    @if ($type == 'hotel') Klasifikasi Kamar @else Kategori @endif
                                 </label>
                                 <input type="text" name="@if ($type == 'hotel') room_type @else category @endif" required
-                                    placeholder="@if ($type == 'hotel') Deluxe Ocean View @else Theme Park / Nature @endif"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                    placeholder="Ex: Superior Luxury"
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                         @else
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kelas
-                                    Layanan</label>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Kelas Pelayanan</label>
                                 <select name="class" required
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium cursor-pointer">
-                                    <option value="Economy">Economy Class</option>
-                                    <option value="Business">Business Class</option>
-                                    <option value="Executive">Executive Class</option>
-                                    <option value="Standard">Standard Class</option>
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-black text-gray-500 dark:text-zinc-400 appearance-none cursor-pointer">
+                                    <option value="Economy">Economy</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Executive">Executive</option>
+                                    <option value="Premium">Premium</option>
                                 </select>
                             </div>
                         @endif
 
                         @if ($type == 'hotel' || $type == 'wisata')
                             <div class="md:col-span-2">
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Lokasi
-                                    Terdaftar</label>
-                                <input type="text" name="location" required placeholder="Contoh: Seminyak, Bali - Indonesia"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Alamat / Lokasi Presisi</label>
+                                <input type="text" name="location" required placeholder="Jl. Raya Canggu No. 10..."
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                         @else
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Titik
-                                    Keberangkatan</label>
-                                <input type="text" name="origin" required
-                                    placeholder="Contoh: @if($type == 'pesawat') Jakarta (CGK) @elseif($type == 'kereta') Surabaya Gubeng (SGU) @else Terminal Lebak Bulus @endif"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Origin (Dari)</label>
+                                <input type="text" name="origin" required placeholder="Ex: Jakarta (CGK)"
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Titik
-                                    Kedatangan</label>
-                                <input type="text" name="destination" required
-                                    placeholder="Contoh: @if($type == 'pesawat') Singapore (SIN) @elseif($type == 'kereta') Yogyakarta (YK) @else Terminal Bungurasih @endif"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Destination (Ke)</label>
+                                <input type="text" name="destination" required placeholder="Ex: London (LHR)"
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                         @endif
 
                         @if ($type != 'hotel' && $type != 'wisata')
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Jadwal
-                                    Berangkat</label>
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Departure (Keberangkatan)</label>
                                 <input type="datetime-local" name="departure_time" required
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
+                                    class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Estimasi
-                                    Tiba & Durasi</label>
-                                <div class="flex gap-2">
+                                <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Est. Arrival (Tiba)</label>
+                                <div class="flex gap-4">
                                     <input type="datetime-local" name="arrival_time"
-                                        class="flex-grow bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium">
-                                    <input type="text" name="duration" placeholder="Ex: 2j 15m"
-                                        class="w-24 bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium text-center">
+                                        class="flex-grow bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-6 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white">
+                                    <input type="text" name="duration" placeholder="Ex: 8j 45m"
+                                        class="w-32 bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-2xl py-4 px-2 outline-none transition-all text-sm font-bold text-center text-gray-900 dark:text-white">
                                 </div>
                             </div>
                         @endif
                     </div>
 
                     @if ($type == 'wisata' || $type == 'hotel')
-                        <div class="mt-6">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deskripsi
-                                Produk & Layanan</label>
-                            <textarea name="description" rows="5" @if($type == 'wisata') required @endif
-                                placeholder="@if($type == 'hotel') Jelaskan fasilitas eksklusif, tipe bed, pemandangan, dan kelengkapan kamar lainnya... @else Deskripsikan daya tarik utama, jam operasional, dan pengalaman unik yang ditawarkan... @endif"
-                                class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium resize-none leading-relaxed"></textarea>
+                        <div class="mt-10">
+                            <label class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">Highlight & Deskripsi</label>
+                            <textarea name="description" rows="6" @if($type == 'wisata') required @endif
+                                placeholder="Jelaskan detail unik, fasilitas, dan apa yang membuat layanan ini spesial..."
+                                class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-[32px] py-6 px-8 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white leading-relaxed resize-none"></textarea>
                         </div>
                     @endif
                 </div>
 
-                <div class="premium-card p-6 bg-white border border-gray-100 shadow-sm">
-                    <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-6 pb-4 border-b border-gray-50">
-                        Kebijakan & Syarat</h3>
+                <!-- Section: T&C -->
+                <div class="bg-white dark:bg-zinc-900 p-10 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-50 dark:bg-orange-950/10 rounded-full blur-3xl -mr-10 -mt-10 group-hover:scale-150 transition-transform duration-700"></div>
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-scroll"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Ketentuan Layanan</h3>
+                    </div>
                     <textarea name="terms" rows="4"
-                        placeholder="Jabarkan syarat pembatalan, pengembalian dana, atau ketentuan khusus lainnya bagi pelanggan..."
-                        class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-medium resize-none leading-relaxed"></textarea>
+                        placeholder="Jabarkan syarat pembatalan, refund, atau peraturan khusus bagi tamu..."
+                        class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-[32px] py-6 px-8 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white leading-relaxed resize-none"></textarea>
                 </div>
             </div>
 
-            <!-- Price & Media Section -->
-            <div class="lg:col-span-4 space-y-8">
-                <div class="premium-card p-6 bg-white border border-gray-100 shadow-sm">
-                    <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-6 pb-4 border-b border-gray-50">
-                        Harga & Ketersediaan</h3>
+            <!-- Price & Sidebar Section -->
+            <div class="lg:col-span-4 space-y-10">
+                <div class="bg-gray-900 dark:bg-orange-600 p-10 rounded-[40px] text-white shadow-2xl relative overflow-hidden group">
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+                    <h3 class="text-[10px] font-black uppercase tracking-[0.3em] mb-10 opacity-70 italic">Monetisasi & Quota</h3>
 
-                    <div class="space-y-6">
+                    <div class="space-y-8 relative z-10">
                         <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Harga
-                                @if($type == 'hotel') per Malam @else per Tiket @endif (IDR)</label>
+                            <label class="block text-[10px] font-black uppercase tracking-[0.2em] mb-3 text-orange-200/80">Rate Harga (Nett)</label>
                             <div class="relative group">
-                                <span
-                                    class="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-400 text-xs">Rp</span>
+                                <span class="absolute left-6 top-1/2 -translate-y-1/2 font-black text-xl opacity-40">Rp</span>
                                 <input type="number" name="price" required placeholder="0"
-                                    class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 pl-10 rounded outline-none transition-all text-sm font-bold text-gray-900">
+                                    class="w-full bg-white/10 border border-white/20 focus:border-white focus:bg-white/20 rounded-2xl py-5 pl-16 pr-6 outline-none transition-all text-xl font-black text-white placeholder:text-white/20">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Kuota
-                                @if ($type == 'hotel') Kamar @else Stok Tiket @endif</label>
-                            <input type="number" name="quota" required placeholder="Ex: 25"
-                                class="w-full bg-gray-50 border border-gray-200 focus:border-orange-500 focus:bg-white p-3 rounded outline-none transition-all text-sm font-bold text-gray-900 text-center">
-                            <p class="mt-3 text-[9px] text-gray-400 leading-relaxed italic">Inventori akan terupdate
-                                otomatis saat terjadi pemesanan sukses oleh pelanggan.</p>
+                            <label class="block text-[10px] font-black uppercase tracking-[0.2em] mb-4 text-orange-200/80">Stok Inventori (@if ($type == 'hotel') Kamar @else Tiket @endif)</label>
+                            <input type="number" name="quota" required placeholder="Ex: 50"
+                                class="w-full bg-white/10 border border-white/20 focus:border-white focus:bg-white/20 rounded-2xl py-4 px-6 outline-none transition-all text-lg font-black text-white text-center">
+                            <p class="mt-4 text-[10px] text-orange-200/50 leading-relaxed font-bold italic">Sistem akan melakukan reservasi otomatis dan mengurangi quota secara real-time.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="premium-card p-6 bg-white border border-gray-100 shadow-sm">
-                    <h3 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-1">Visual Produk</h3>
-                    <p class="text-[9px] text-gray-400 font-medium uppercase tracking-widest mb-8">Lampirkan foto resolusi
-                        terbaik</p>
+                <div class="bg-white dark:bg-zinc-900 p-10 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm">
+                    <div class="flex items-center gap-3 mb-8">
+                        <div class="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 rounded-xl flex items-center justify-center">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Aset Visual</h3>
+                    </div>
 
                     <div class="space-y-10">
-                        {{-- Common: Thumbnail --}}
-                        <x-Form.image-uploader name="image" label="Foto Utama (Cover)"
-                            helper="Rasio 4:3 disarankan (Maks. 2MB)" :required="true" />
+                        <x-Form.image-uploader name="image" label="Foto Cover Profil" helper="Rasio 16:9 disarankan" :required="true" />
 
-                        {{-- Category Specific Media --}}
                         @if ($type == 'pesawat')
-                            <x-Form.image-uploader name="airline_logo" label="Logo Maskapai"
-                                helper="PNG transparent (Maks. 1MB)" :required="true" />
-                            <x-Form.image-uploader name="interior_images" label="Interior Kabin" :multiple="true" />
+                            <x-Form.image-uploader name="airline_logo" label="Logo Maskapai" />
                         @elseif($type == 'kereta')
-                            <x-Form.image-uploader name="train_images" label="Eksterior Kereta" :multiple="true"
-                                :required="true" />
-                            <x-Form.image-uploader name="seat_images" label="Tampilan Kursi" :multiple="true" />
+                            <x-Form.image-uploader name="train_images" label="Foto Exterior" :multiple="true" />
                         @elseif($type == 'hotel')
                                 <x-Form.image-uploader name="front_image" label="Fasad Bangunan" :required="true" />
-                                <x-Form.image-uploader name="room_images" label="Interior Kamar" :multiple="true"
-                                    :required="true" />
-                            </div>
+                                <x-Form.image-uploader name="room_images" label="Interior Kamar" :multiple="true" />
                         @elseif($type == 'wisata' || $type == 'bus')
-                        <x-Form.image-uploader name="main_image" label="Foto Ikonik" :required="true" />
-                        <x-Form.image-uploader name="spot_images" label="Gallery Spot" :multiple="true" :required="true" />
-                    @endif
+                            <x-Form.image-uploader name="main_image" label="Foto Ikonik" :required="true" />
+                        @endif
 
-                    {{-- Common: Gallery --}}
-                    <div class="pt-8 border-t border-gray-100">
-                        <x-Form.image-uploader name="gallery" label="Media Pendukung" :multiple="true" />
+                        <div class="pt-8 border-t border-gray-50 dark:border-zinc-800">
+                             <x-Form.image-uploader name="gallery" label="Media Tambahan" :multiple="true" />
+                        </div>
                     </div>
                 </div>
 
                 <button type="submit"
-                    class="w-full bg-gray-900 text-white py-4 rounded text-[10px] font-bold uppercase tracking-widest shadow-md hover:bg-black transition-all flex items-center justify-center gap-2 mt-8">
-                    <i class="fa-solid fa-cloud-arrow-up text-[10px]"></i>
-                    Publikasikan Inventori
+                    class="w-full bg-black dark:bg-orange-500 text-white py-6 rounded-3xl text-sm font-black uppercase tracking-[0.3em] shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-4 group">
+                    <i class="fa-solid fa-sparkles group-hover:rotate-45 transition-transform"></i>
+                    Publish Sekarang
                 </button>
             </div>
-        </div>
         </div>
     </form>
 @endsection

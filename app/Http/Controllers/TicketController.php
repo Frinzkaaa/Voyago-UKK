@@ -19,6 +19,7 @@ class TicketController extends Controller
             ->join('users', 'users.id', '=', $model->getTable() . '.user_id')
             ->join('partners', 'partners.user_id', '=', 'users.id')
             ->where($model->getTable() . '.status', 'active')
+            ->where($model->getTable() . '.is_active', true)
             ->where('partners.status', 'verified')
             ->select($model->getTable() . '.*');
     }
@@ -64,8 +65,10 @@ class TicketController extends Controller
                 $destinations = BusTicket::distinct()->pluck('destination_terminal');
                 break;
             case 'hotel':
+                $destinations = Hotel::distinct()->pluck('location');
+                break;
             case 'wisata':
-                $destinations = ($category === 'hotel') ? Hotel::distinct()->pluck('location') : WisataSpot::distinct()->pluck('location');
+                $destinations = WisataSpot::distinct()->pluck('name');
                 break;
         }
 
@@ -104,8 +107,7 @@ class TicketController extends Controller
                     $query->where('destination', $destination);
                 if ($date)
                     $query->whereDate('departure_time', $date);
-                if ($class && $class !== 'All')
-                    $query->where('class', 'LIKE', "%$class%");
+                // FlightTicket does not use 'class' fields yet in schema.
                 $tickets = $query->get();
                 break;
             case 'bus':
@@ -127,7 +129,7 @@ class TicketController extends Controller
             case 'wisata':
                 $query = $this->getActiveProductQuery(new WisataSpot);
                 if ($destination)
-                    $query->where('location', $destination);
+                    $query->where('name', $destination);
                 $tickets = $query->get();
                 break;
             default:
@@ -174,9 +176,48 @@ class TicketController extends Controller
             'passenger_count' => $request->passenger_count,
             'total_price' => $total,
             'payment_method' => $request->payment_method,
+            'seats' => $request->seats, // Save seats
             'status' => \App\Enums\BookingStatus::PENDING,
             'payment_status' => \App\Enums\PaymentStatus::PENDING,
         ]);
+
+        // Midtrans Integration
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $booking->booking_code,
+                'gross_amount' => (int) $total,
+            ],
+            'customer_details' => [
+                'first_name' => auth()->user()->name,
+                'email' => auth()->user()->email,
+            ],
+            'item_details' => [
+                [
+                    'id' => $booking->item_id,
+                    'price' => (int) $price,
+                    'quantity' => (int) $request->passenger_count,
+                    'name' => 'Tiket/Booking ' . ucfirst($request->category),
+                ],
+                [
+                    'id' => 'SERVICE-FEE',
+                    'price' => 10000,
+                    'quantity' => 1,
+                    'name' => 'Biaya Layanan',
+                ]
+            ]
+        ];
+
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $booking->update(['snap_token' => $snapToken]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Gagal membuat token pembayaran: ' . $e->getMessage()], 500);
+        }
 
         // Award Points and update Badge
         $user = auth()->user();
@@ -187,6 +228,7 @@ class TicketController extends Controller
         return response()->json([
             'success' => true,
             'booking_code' => $booking->booking_code,
+            'snap_token' => $snapToken,
             'awarded_points' => 10,
             'current_points' => $user->points,
             'current_badge' => $user->badge
@@ -203,6 +245,9 @@ class TicketController extends Controller
     public function myBookings()
     {
         $bookings = \App\Models\Booking::where('user_id', auth()->id())->latest()->get();
+        foreach ($bookings as $booking) {
+            $booking->item = $this->getItem($booking->category, $booking->item_id);
+        }
         return view('riwayat', compact('bookings'));
     }
 
@@ -546,5 +591,20 @@ class TicketController extends Controller
             case 'wisata':
                 return WisataSpot::find($id);
         }
+    }
+    public function getBookedSeats(Request $request)
+    {
+        $category = $request->query('category');
+        $itemId = $request->query('item_id');
+
+        $bookedSeats = \App\Models\Booking::where('category', $category)
+            ->where('item_id', $itemId)
+            ->whereNotIn('status', [\App\Enums\BookingStatus::CANCELLED])
+            ->pluck('seats')
+            ->flatten()
+            ->unique()
+            ->values();
+
+        return response()->json($bookedSeats);
     }
 }

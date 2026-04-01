@@ -17,6 +17,8 @@ class Booking extends Model
         'status',
         'payment_status',
         'payment_method',
+        'snap_token',
+        'seats',
         'commission_amount',
         'net_income',
         'confirmed_at',
@@ -27,6 +29,7 @@ class Booking extends Model
         'status' => \App\Enums\BookingStatus::class,
         'payment_status' => \App\Enums\PaymentStatus::class,
         'confirmed_at' => 'datetime',
+        'seats' => 'array',
     ];
 
     public function user()

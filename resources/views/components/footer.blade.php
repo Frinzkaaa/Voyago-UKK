@@ -42,7 +42,7 @@
       <form class="flex gap-2 mb-2">
         <input type="email" placeholder="Masukan Email"
           class="rounded-full px-3 py-1 text-orange-500 focus:outline-none w-full">
-        <button type="submit" class="bg-white text-orange-500 rounded-full px-3 py-1"><svg class="w-4 h-4" fill="none"
+        <button type="submit" class="bg-white dark:bg-dark-card text-orange-500 rounded-full px-3 py-1 transition-colors duration-300"><svg class="w-4 h-4" fill="none"
             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path d="M22 2L11 13" />
             <path d="M22 2L15 22L11 13L2 9L22 2Z" />

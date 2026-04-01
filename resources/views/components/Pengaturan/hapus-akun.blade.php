@@ -1,5 +1,5 @@
 <div id="section-delete" class="settings-section hidden">
-    <h1 class="text-2xl font-bold text-gray-800 mb-8">Hapus Akun</h1>
+    <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-8">Hapus Akun</h1>
     <div class="bg-red-50/50 rounded-[24px] p-8 shadow-sm border-2 border-red-100 border-dashed">
         <div class="flex items-center gap-4 mb-6">
             <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center text-red-600">
@@ -10,7 +10,7 @@
                 <p class="text-sm text-red-500">Tindakan ini tidak dapat dibatalkan.</p>
             </div>
         </div>
-        <p class="text-sm text-gray-600 mb-8 leading-relaxed">
+        <p class="text-sm text-gray-600 dark:text-[#A1A1AA] mb-8 leading-relaxed">
             Menghapus akun Anda akan menghapus secara permanen semua riwayat pemesanan, tiket yang tersimpan,
             saldo voucher, dan data perencanaan kolaboratif Anda. Pastikan Anda telah mengunduh semua data
             penting sebelum melanjutkan.

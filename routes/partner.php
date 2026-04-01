@@ -10,6 +10,7 @@ Route::middleware(['auth', 'role:partner'])->group(function () {
     Route::post('/products/store', [MitraController::class, 'storeProduct'])->name('products.store');
     Route::get('/products/{id}/edit', [MitraController::class, 'editProduct'])->name('products.edit');
     Route::post('/products/{id}/update', [MitraController::class, 'updateProduct'])->name('products.update');
+    Route::post('/products/{id}/toggle', [MitraController::class, 'toggleProductStatus'])->name('products.toggle');
     Route::delete('/products/{id}/delete', [MitraController::class, 'deleteProduct'])->name('products.delete');
 
     Route::get('/orders', [MitraController::class, 'orders'])->name('orders');

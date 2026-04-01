@@ -1,215 +1,184 @@
 @extends('mitra.layout')
 
 @section('content')
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="mb-8">
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Ringkasan Performa</h2>
+        <p class="text-sm text-gray-500 dark:text-zinc-400 mt-1 font-medium">Selamat datang kembali, ini pencapaian bisnismu hari ini.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <!-- Stat Cards -->
-        <div class="premium-card p-5">
-            <div class="flex items-center justify-between mb-3">
-                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Produk Aktif</p>
-                <div class="w-8 h-8 bg-gray-50 flex items-center justify-center text-gray-400 rounded">
-                    <i class="fa-solid fa-box-open text-sm"></i>
+        <div class="bg-white dark:bg-zinc-900 p-6 rounded-[32px] border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 bg-orange-50 dark:bg-orange-950/20 flex items-center justify-center text-orange-500 rounded-2xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-box-open text-base"></i>
                 </div>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Katalog</span>
             </div>
-            <div class="flex items-end justify-between">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 leading-none">{{ $totalProducts }}</h3>
-                    <p class="text-[11px] text-emerald-500 font-medium mt-2 flex items-center gap-1">
-                        <i class="fa-solid fa-arrow-trend-up"></i>
-                        <span>12.5% dari bulan lalu</span>
-                    </p>
-                </div>
-            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white">{{ $totalProducts }}</h3>
+            <p class="text-[10px] text-gray-400 mt-1 font-bold">Produk Terdaftar</p>
         </div>
 
-        <div class="premium-card p-5">
-            <div class="flex items-center justify-between mb-3">
-                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Total Pesanan</p>
-                <div class="w-8 h-8 bg-gray-50 flex items-center justify-center text-gray-400 rounded">
-                    <i class="fa-solid fa-receipt text-sm"></i>
+        <div class="bg-white dark:bg-zinc-900 p-6 rounded-[32px] border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 bg-blue-50 dark:bg-blue-950/20 flex items-center justify-center text-blue-500 rounded-2xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-receipt text-base"></i>
                 </div>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Orders</span>
             </div>
-            <div class="flex items-end justify-between">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 leading-none">{{ $totalOrders }}</h3>
-                    <p class="text-[11px] text-orange-500 font-medium mt-2 flex items-center gap-1">
-                        <i class="fa-solid fa-clock"></i>
-                        <span>3 pesanan diproses</span>
-                    </p>
-                </div>
-            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white">{{ $totalOrders }}</h3>
+            <p class="text-[10px] text-emerald-500 mt-1 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-arrow-trend-up"></i> 8% Kenaikan
+            </p>
         </div>
 
-        <div class="premium-card p-5">
-            <div class="flex items-center justify-between mb-3">
-                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Gross Pendapatan</p>
-                <div class="w-8 h-8 bg-gray-50 flex items-center justify-center text-gray-400 rounded">
-                    <i class="fa-solid fa-wallet text-sm"></i>
+        <div class="bg-white dark:bg-zinc-900 p-6 rounded-[32px] border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 bg-emerald-50 dark:bg-emerald-950/20 flex items-center justify-center text-emerald-500 rounded-2xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-wallet text-base"></i>
                 </div>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Income</span>
             </div>
-            <div class="flex items-end justify-between">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 leading-none">Rp
-                        {{ number_format($totalRevenue, 0, ',', '.') }}</h3>
-                    <p class="text-[11px] text-gray-400 font-medium mt-2 flex items-center gap-1">
-                        <span>Total akumulasi mitra</span>
-                    </p>
-                </div>
-            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white">Rp {{ number_format($totalRevenue, 0, ',', '.') }}</h3>
+            <p class="text-[10px] text-gray-400 mt-1 font-bold">Total Pendapatan</p>
         </div>
 
-        <div class="premium-card p-5">
-            <div class="flex items-center justify-between mb-3">
-                <p class="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">Estimasi Bersih</p>
-                <div class="w-8 h-8 bg-emerald-50 flex items-center justify-center text-emerald-600 rounded">
-                    <i class="fa-solid fa-money-bill-transfer text-sm"></i>
+        <div class="bg-white dark:bg-zinc-900 p-6 rounded-[32px] border border-gray-100 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all group">
+            <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 bg-purple-50 dark:bg-purple-950/20 flex items-center justify-center text-purple-500 rounded-2xl group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-money-bill-transfer text-base"></i>
                 </div>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Settlement</span>
             </div>
-            <div class="flex items-end justify-between">
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900 leading-none">Rp
-                        {{ number_format($totalRevenue - $totalCommission, 0, ',', '.') }}</h3>
-                    <p class="text-[11px] text-emerald-600 font-medium mt-2">Dapat ditarik ke rekening</p>
-                </div>
-            </div>
+            <h3 class="text-2xl font-black text-gray-900 dark:text-white">Rp {{ number_format($totalRevenue - $totalCommission, 0, ',', '.') }}</h3>
+            <p class="text-[10px] text-purple-500 mt-1 font-bold">Siap Dicairkan</p>
         </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Chart Section -->
-        <div class="lg:col-span-8 space-y-8">
-            <div class="premium-card p-6">
-                <div class="flex items-center justify-between mb-8">
-                    <div>
-                        <h3 class="text-sm font-bold text-gray-900">Performa Keuangan</h3>
-                        <p class="text-xs text-gray-400 mt-1">Data penjualan 6 bulan terakhir</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <select
-                            class="bg-gray-50 border border-gray-200 text-[10px] font-semibold text-gray-600 px-3 py-1.5 rounded outline-none cursor-pointer">
-                            <option>Tahun 2026</option>
-                            <option>Tahun 2025</option>
-                        </select>
-                    </div>
+        <!-- Analytics & List -->
+        <div class="lg:col-span-8 flex flex-col gap-8">
+            <!-- Chart Card -->
+            <div class="bg-white dark:bg-zinc-900 p-8 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8">
+                    <select class="bg-gray-50 dark:bg-zinc-800 border-none rounded-xl text-[10px] font-black uppercase tracking-widest px-4 py-2 outline-none cursor-pointer text-gray-500 dark:text-zinc-400">
+                        <option>6 Bulan Terakhir</option>
+                        <option>1 Tahun Terakhir</option>
+                    </select>
                 </div>
-                <div class="relative h-[320px]">
+                <div class="mb-10">
+                    <h3 class="text-lg font-black text-gray-900 dark:text-white">Visualisasi Revenue</h3>
+                    <p class="text-xs text-gray-400 font-medium">Statistik pertumbuhan bisnismu bulan ini.</p>
+                </div>
+                <div class="relative h-[300px]">
                     <canvas id="revenueChart"></canvas>
                 </div>
             </div>
 
-            <div class="premium-card overflow-hidden">
-                <div class="p-6 border-b border-gray-100 flex items-center justify-between">
-                    <h3 class="text-sm font-bold text-gray-900">Pesanan Terbaru</h3>
-                    <a href="{{ route('partner.orders') }}"
-                        class="text-[10px] font-bold text-orange-500 uppercase tracking-wider hover:text-orange-600">Lihat
-                        Semua</a>
+            <!-- Orders list -->
+            <div class="bg-white dark:bg-zinc-900 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+                <div class="p-8 border-b border-gray-50 dark:border-zinc-800 flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-black text-gray-900 dark:text-white">Aktivitas Pesanan</h3>
+                        <p class="text-xs text-gray-400 font-medium mt-1">Pantau transaksi masuk secara reall-time.</p>
+                    </div>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
-                            <tr class="bg-gray-50">
-                                <th class="px-6 py-3 text-[10px] font-semibold text-gray-400 uppercase">Customer</th>
-                                <th class="px-6 py-3 text-[10px] font-semibold text-gray-400 uppercase">Tipe</th>
-                                <th class="px-6 py-3 text-[10px] font-semibold text-gray-400 uppercase">Total</th>
-                                <th class="px-6 py-3 text-[10px] font-semibold text-gray-400 uppercase">Status</th>
+                            <tr class="bg-gray-50/50 dark:bg-zinc-800/30">
+                                <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Customer</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Produk</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Total</th>
+                                <th class="px-8 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">Status</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-50 text-xs">
-                            <tr class="hover:bg-gray-50/50 transition-colors">
-                                <td class="px-6 py-4 font-medium text-gray-900">Ramdhani Akbar</td>
-                                <td class="px-6 py-4 text-gray-500">Tiket Pesawat</td>
-                                <td class="px-6 py-4 font-semibold">Rp 1.450.000</td>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded text-[10px] font-semibold">Berhasil</span>
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-gray-50/50 transition-colors">
-                                <td class="px-6 py-4 font-medium text-gray-900">Siti Aminah</td>
-                                <td class="px-6 py-4 text-gray-500">Hotel Resort</td>
-                                <td class="px-6 py-4 font-semibold">Rp 2.100.000</td>
-                                <td class="px-6 py-4">
-                                    <span
-                                        class="px-2 py-0.5 bg-orange-50 text-orange-600 rounded text-[10px] font-semibold">Pending</span>
-                                </td>
-                            </tr>
+                        <tbody class="divide-y divide-gray-50 dark:divide-zinc-800">
+                            @forelse($recentOrders as $order)
+                                <tr class="hover:bg-gray-50/80 dark:hover:bg-zinc-800/50 transition-colors">
+                                    <td class="px-8 py-5">
+                                        <p class="text-xs font-black text-gray-900 dark:text-white">{{ $order->user_name ?? 'Premium Guest' }}</p>
+                                        <p class="text-[10px] text-gray-400 mt-1">{{ $order->created_at->format('d M, H:i') }}</p>
+                                    </td>
+                                    <td class="px-8 py-5">
+                                        <div class="px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[10px] font-bold text-gray-600 dark:text-zinc-400 inline-block uppercase whitespace-nowrap">
+                                            {{ $order->category }}
+                                        </div>
+                                    </td>
+                                    <td class="px-8 py-5">
+                                        <p class="text-xs font-black text-gray-900 dark:text-white">Rp {{ number_format($order->total_price, 0, ',', '.') }}</p>
+                                    </td>
+                                    <td class="px-8 py-5">
+                                        @if($order->status == 'confirmed')
+                                            <span class="px-3 py-1 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-500 rounded-full text-[9px] font-black uppercase tracking-widest italic">PAID</span>
+                                        @else
+                                            <span class="px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 rounded-full text-[9px] font-black uppercase tracking-widest">{{ $order->status }}</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4" class="px-8 py-20 text-center text-gray-400 text-xs font-medium italic">
+                                        Belum ada pesanan masuk hari ini.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <!-- Right Side -->
-        <div class="lg:col-span-4 flex flex-col gap-6">
-            <div class="premium-card p-6 bg-gray-900 text-white border-none shadow-lg">
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-white/10 rounded flex items-center justify-center">
-                        <i class="fa-solid fa-rocket text-sm"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-bold">Upgrade Bisnis</h4>
-                        <p class="text-[10px] text-gray-400">Expand pasar Anda hari ini</p>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-300 leading-relaxed mb-6">Tambahkan inventori produk baru untuk meningkatkan
-                    potensi pendapatan hingga 40%.</p>
-                <a href="{{ route('partner.products.create') }}"
-                    class="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white py-2.5 rounded text-xs font-semibold transition-colors">
-                    + Tambah Produk Baru
-                </a>
-            </div>
-
-            <div class="premium-card">
-                <div class="p-6 border-b border-gray-100">
-                    <h3 class="text-sm font-bold text-gray-900">Ringkasan Wallet</h3>
-                </div>
-                <div class="p-6 space-y-6">
-                    <div>
-                        <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-2">Saldo Tersedia</p>
-                        <p class="text-2xl font-bold text-gray-900">Rp
-                            {{ number_format($totalRevenue - $totalCommission, 0, ',', '.') }}</p>
-                    </div>
-                    <div class="pt-4 border-t border-gray-50 grid grid-cols-2 gap-3">
-                        <button
-                            class="bg-gray-50 hover:bg-gray-100 text-gray-900 py-2 rounded text-xs font-semibold transition-colors">
-                            Riwayat
-                        </button>
-                        <button
-                            class="bg-gray-900 hover:bg-black text-white py-2 rounded text-xs font-semibold transition-colors">
-                            Tarik Dana
-                        </button>
-                    </div>
+        <!-- Sidebar Actions -->
+        <div class="lg:col-span-4 flex flex-col gap-8">
+            <div class="bg-gray-900 dark:bg-orange-600 p-10 rounded-[40px] text-white relative overflow-hidden group shadow-2xl">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform"></div>
+                <div class="relative z-10">
+                    <h4 class="text-xl font-black mb-2">Expansi Bisnis</h4>
+                    <p class="text-xs text-orange-200/70 font-medium leading-relaxed mb-10">Mulai daftarkan produk baru dan tingkatkan eksposur layananmu ke ribuan user harian.</p>
+                    <a href="{{ route('partner.products.create') }}" class="flex items-center justify-center gap-3 bg-white text-gray-900 py-4 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-orange-50 transition-all shadow-lg">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        Tambah Inventori
+                    </a>
                 </div>
             </div>
 
-            <div class="premium-card p-6">
-                <h3 class="text-sm font-bold text-gray-900 mb-4">Butuh Bantuan?</h3>
-                <div class="space-y-4">
-                    <div class="flex items-start gap-3">
-                        <div class="mt-1 text-gray-400"><i class="fa-solid fa-circle-question text-sm"></i></div>
-                        <div>
-                            <p class="text-xs font-semibold text-gray-800">Panduan Partner</p>
-                            <p class="text-[10px] text-gray-500 mt-1">Pelajari cara optimasi produk.</p>
+            <div class="bg-white dark:bg-zinc-900 p-8 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm group">
+                <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest mb-8">Pusat Bantuan</h3>
+                <div class="space-y-6">
+                    <a href="#" class="flex items-center gap-4 group">
+                        <div class="w-10 h-10 bg-gray-50 dark:bg-zinc-800 flex items-center justify-center rounded-xl text-gray-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-book-open text-sm"></i>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <div class="mt-1 text-gray-400"><i class="fa-solid fa-envelope text-sm"></i></div>
                         <div>
-                            <p class="text-xs font-semibold text-gray-800">Hubungi Support</p>
-                            <p class="text-[10px] text-gray-500 mt-1">Bantuan teknis 24/7.</p>
+                            <p class="text-xs font-black text-gray-900 dark:text-white">Dokumentasi API</p>
+                            <p class="text-[10px] text-gray-400 font-medium">Integrasi eksternal mudah</p>
                         </div>
-                    </div>
+                    </a>
+                    <a href="#" class="flex items-center gap-4 group">
+                        <div class="w-10 h-10 bg-gray-50 dark:bg-zinc-800 flex items-center justify-center rounded-xl text-gray-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                            <i class="fa-solid fa-headset text-sm"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-black text-gray-900 dark:text-white">Bantuan Teknis</p>
+                            <p class="text-[10px] text-gray-400 font-medium">Chat tim support 24/7</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="mt-10 pt-8 border-t border-gray-50 dark:border-zinc-800">
+                    <p class="text-[10px] text-gray-400 font-bold leading-relaxed">System Status: <span class="text-emerald-500">OPERATIONAL</span></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const ctx = document.getElementById('revenueChart').getContext('2d');
 
-            // Custom Gradient for Chart
             const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, 'rgba(249, 115, 22, 0.1)');
+            gradient.addColorStop(0, 'rgba(249, 115, 22, 0.4)');
             gradient.addColorStop(1, 'rgba(249, 115, 22, 0)');
 
             new Chart(ctx, {
@@ -217,48 +186,33 @@
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
                     datasets: [{
-                        label: 'Gros Revenue',
-                        data: [4500000, 3200000, 6800000, 5100000, 9200000, {{ $totalRevenue }}],
+                        label: 'Gross Profit',
+                        data: [5, 12, 10, 25, 18, 30],
                         borderColor: '#f97316',
                         backgroundColor: gradient,
-                        borderWidth: 2,
-                        tension: 0.35,
+                        borderWidth: 4,
+                        tension: 0.4,
                         fill: true,
-                        pointBackgroundColor: '#fff',
-                        pointBorderColor: '#f97316',
-                        pointBorderWidth: 2,
-                        pointRadius: 4,
-                        pointHoverRadius: 6
+                        pointRadius: 0,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: '#f97316',
+                        pointHoverBorderColor: '#fff',
+                        pointHoverBorderWidth: 4,
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            grid: {
-                                color: '#f3f4f6',
-                                drawBorder: false
-                            },
-                            ticks: {
-                                font: { family: 'Inter', size: 9 },
-                                color: '#9ca3af',
-                                callback: function (value) {
-                                    if (value >= 1000000) return (value / 1000000) + 'M';
-                                    return value;
-                                }
-                            }
+                            grid: { drawBorder: false, color: 'rgba(0,0,0,0.03)' },
+                            ticks: { font: { size: 10, weight: '900' }, color: '#94a3b8' }
                         },
                         x: {
                             grid: { display: false },
-                            ticks: {
-                                font: { family: 'Inter', size: 9 },
-                                color: '#9ca3af'
-                            }
+                            ticks: { font: { size: 10, weight: '900' }, color: '#94a3b8' }
                         }
                     }
                 }

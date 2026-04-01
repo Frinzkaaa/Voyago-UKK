@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-6">
   <div class="flex flex-col gap-1">
-    <h3 class="font-black text-2xl text-gray-800">Voucher</h3>
+    <h3 class="font-black text-2xl text-gray-800 dark:text-white">Voucher</h3>
     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-[-0.5rem]">Klaim promo dan dapatkan
       potongan harga</p>
   </div>
@@ -35,7 +35,7 @@
         </div>
         <!-- Background Decoration -->
         <div
-          class="absolute -right-6 -bottom-6 w-24 h-24 bg-white/10 rounded-full group-hover:scale-150 transition-transform duration-700">
+          class="absolute -right-6 -bottom-6 w-24 h-24 bg-white dark:bg-dark-card/10 rounded-full group-hover:scale-150 transition-transform duration-700 transition-colors duration-300">
         </div>
       </div>
     @endforeach

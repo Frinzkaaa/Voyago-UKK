@@ -4,11 +4,11 @@
     <div class="max-w-[1280px] mx-auto">
         <!-- Top Section -->
         <div
-            class="bg-white rounded-[24px] p-6 mb-8 shadow-sm border border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            class="bg-white dark:bg-dark-card rounded-[24px] p-6 mb-8 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-300">
             <div>
                 <div class="flex items-center gap-3 mb-2">
                     <div class="flex items-center gap-2 group cursor-pointer" onclick="editTitle()">
-                        <h1 class="text-2xl font-bold text-gray-800" id="room-title">{{ $room['title'] }}</h1>
+                        <h1 class="text-2xl font-bold text-gray-800 dark:text-white" id="room-title">{{ $room['title'] }}</h1>
                         <i
                             class="fa-solid fa-pen-to-square text-xs text-gray-300 group-hover:text-[#FF7304] transition-all"></i>
                     </div>
@@ -19,7 +19,7 @@
                         {{ $room['status'] === 'finalized' ? 'Finalized' : 'Planning' }}
                     </span>
                 </div>
-                <p class="text-sm text-gray-500 flex items-center gap-2">
+                <p class="text-sm text-gray-500 dark:text-[#A1A1AA] flex items-center gap-2">
                     <i class="fa-regular fa-calendar"></i> {{ $room['date'] }}
                 </p>
             </div>
@@ -33,7 +33,7 @@
                     @endforeach
                 </div>
 
-                <div class="h-10 w-px bg-gray-200 mx-2"></div>
+                <div class="h-10 w-px bg-gray-200 dark:bg-dark-border mx-2"></div>
 
                 <div class="flex items-center gap-2">
                     <button onclick="inviteUser()"
@@ -41,7 +41,7 @@
                         <i class="fa-solid fa-user-plus text-xs"></i> Invite
                     </button>
                     <button
-                        class="w-10 h-10 border-2 border-gray-100 rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:border-orange-100 transition-all">
+                        class="w-10 h-10 border-2 border-gray-100 dark:border-dark-border rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:border-orange-100 transition-all">
                         <i class="fa-solid fa-share-nodes"></i>
                     </button>
                 </div>
@@ -62,7 +62,7 @@
             <!-- Left: Saved Trip Items -->
             <div class="lg:w-[65%] shrink-0">
                 <!-- Tabs -->
-                <div class="flex items-center gap-8 border-b border-gray-200 mb-6 overflow-x-auto">
+                <div class="flex items-center gap-8 border-b border-gray-200 dark:border-dark-border mb-6 overflow-x-auto">
                     <button onclick="switchCategory('transport')"
                         class="cat-tab active-tab pb-3 font-semibold text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Transport</button>
                     <button onclick="switchCategory('hotel')"
@@ -77,7 +77,7 @@
                         <div id="cat-{{ $cat }}" class="category-section {{ $loop->first ? '' : 'hidden' }} space-y-4">
                             @forelse($savedItems[$cat] as $item)
                                 <div
-                                    class="bg-white rounded-[24px] p-5 shadow-sm border border-gray-50 flex flex-col md:flex-row items-center gap-5 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+                                    class="bg-white dark:bg-dark-card rounded-[24px] p-5 shadow-sm border border-gray-50 dark:border-dark-border flex flex-col md:flex-row items-center gap-5 hover:-translate-y-1 hover:shadow-md transition-all duration-300 transition-colors duration-300">
                                     <!-- Thumbnail -->
                                     <div class="w-full md:w-32 h-24 rounded-[18px] overflow-hidden shrink-0">
                                         <img src="/images/{{ $item->image ?? 'pd-1.jpeg' }}" class="w-full h-full object-cover">
@@ -85,14 +85,14 @@
 
                                     <!-- Content -->
                                     <div class="flex-grow">
-                                        <h3 class="font-bold text-gray-800 text-lg mb-1">{{ $item->title }}</h3>
+                                        <h3 class="font-bold text-gray-800 dark:text-white text-lg mb-1">{{ $item->title }}</h3>
                                         @if($item->subtitle)
                                             <p class="text-xs text-gray-400 mb-2 flex items-center gap-1">
                                                 <i class="fa-solid fa-location-dot"></i> {{ $item->subtitle }}
                                             </p>
                                         @endif
                                         <p
-                                            class="text-[11px] font-bold text-gray-500 uppercase tracking-tight flex items-center gap-2">
+                                            class="text-[11px] font-bold text-gray-500 dark:text-[#A1A1AA] uppercase tracking-tight flex items-center gap-2">
                                             <i class="fa-regular fa-calendar"></i> {{ $item->date_info }}
                                         </p>
 
@@ -105,20 +105,20 @@
                                                 class="flex items-center gap-1.5 group">
                                                 <i
                                                     class="fa-solid fa-thumbs-up text-sm {{ ($myVote && $myVote->type == 'up') ? 'text-[#FF7304]' : 'text-gray-300' }} group-hover:text-[#FF7304] transition-all"></i>
-                                                <span class="text-xs font-bold text-gray-500">{{ $item->votes_up }} votes</span>
+                                                <span class="text-xs font-bold text-gray-500 dark:text-[#A1A1AA]">{{ $item->votes_up }} votes</span>
                                             </button>
                                             <button onclick="voteItem({{ $item->id }}, 'down')"
                                                 class="flex items-center gap-1.5 group">
                                                 <i
                                                     class="fa-solid fa-thumbs-down text-sm {{ ($myVote && $myVote->type == 'down') ? 'text-[#FF7304]' : 'text-gray-300' }} group-hover:text-[#FF7304] transition-all"></i>
-                                                <span class="text-xs font-bold text-gray-500">{{ $item->votes_down }} votes</span>
+                                                <span class="text-xs font-bold text-gray-500 dark:text-[#A1A1AA]">{{ $item->votes_down }} votes</span>
                                             </button>
                                         </div>
                                     </div>
 
                                     <!-- Stats -->
                                     <div
-                                        class="text-center md:text-right px-4 border-x border-gray-50 flex flex-row md:flex-col justify-around md:justify-center gap-4 w-full md:w-auto">
+                                        class="text-center md:text-right px-4 border-x border-gray-50 dark:border-dark-border flex flex-row md:flex-col justify-around md:justify-center gap-4 w-full md:w-auto">
                                         <div>
                                             <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Price</p>
                                             <p class="font-bold text-[#FF7304]">Rp {{ number_format($item->price, 0, ',', '.') }}
@@ -127,7 +127,7 @@
                                         @if($item->optional_stats)
                                             <div>
                                                 <p class="text-[10px] text-gray-400 uppercase font-bold mb-1">Info</p>
-                                                <p class="font-bold text-gray-700">{{ $item->optional_stats }}</p>
+                                                <p class="font-bold text-gray-700 dark:text-gray-300">{{ $item->optional_stats }}</p>
                                             </div>
                                         @endif
                                     </div>
@@ -135,21 +135,21 @@
                                     <!-- Actions -->
                                     <div class="flex md:flex-col gap-3 shrink-0">
                                         <button
-                                            class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:bg-orange-50 transition-all">
+                                            class="w-10 h-10 bg-gray-50 dark:bg-[#121212] rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:bg-orange-50 dark:hover:bg-[#2A2A2A] transition-all">
                                             <i class="fa-regular fa-comment-dots"></i>
                                         </button>
                                         <button onclick="deleteItem({{ $item->id }})"
-                                            class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
+                                            class="w-10 h-10 bg-gray-50 dark:bg-[#121212] rounded-full flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
                                     </div>
                                 </div>
                             @empty
-                                <div class="text-center py-20 bg-white rounded-[24px] shadow-sm border border-gray-100">
+                                <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                                     <div class="w-24 h-24 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center">
                                         <i class="fa-solid fa-folder-open text-4xl text-orange-200"></i>
                                     </div>
-                                    <h3 class="text-lg font-bold text-gray-800 mb-2">Belum ada rencana yang ditambahkan</h3>
+                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">Belum ada rencana yang ditambahkan</h3>
                                     <p class="text-gray-400 text-sm mb-6 px-10">Yuk tambahkan tiket atau destinasi ke room ini!</p>
                                     <a href="/pemesanan"
                                         class="inline-block bg-[#FF7304] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-orange-100">Cari
@@ -161,19 +161,19 @@
                 </div>
 
                 <!-- Comment Section (Light Preview) -->
-                <div class="mt-8 bg-gray-50 rounded-[24px] p-6 border border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <div class="mt-8 bg-gray-50 dark:bg-[#121212] rounded-[24px] p-6 border border-gray-100 dark:border-dark-border">
+                    <h3 class="font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
                         <i class="fa-regular fa-comment-dots text-[#FF7304]"></i> Diskusi Room
                     </h3>
                     <div class="space-y-4 mb-6" id="comments-list">
                         @foreach($comments as $comment)
                             <div class="flex gap-3">
                                 <img src="/images/avatar2.jpeg" class="w-8 h-8 rounded-full object-cover">
-                                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm flex-grow">
-                                    <p class="text-xs font-bold text-gray-800 mb-1">{{ $comment->user->name }} <span
+                                <div class="bg-white dark:bg-dark-card p-3 rounded-2xl rounded-tl-none shadow-sm flex-grow transition-colors duration-300">
+                                    <p class="text-xs font-bold text-gray-800 dark:text-white mb-1">{{ $comment->user->name }} <span
                                             class="text-[10px] text-gray-400 font-normal ml-2">{{ $comment->created_at->diffForHumans() }}</span>
                                     </p>
-                                    <p class="text-sm text-gray-600">{{ $comment->comment }}</p>
+                                    <p class="text-sm text-gray-600 dark:text-[#A1A1AA]">{{ $comment->comment }}</p>
                                 </div>
                             </div>
                         @endforeach
@@ -181,7 +181,7 @@
                     <!-- Simple Input -->
                     <div class="relative">
                         <input type="text" id="comment-input" placeholder="Tulis komentar..."
-                            class="w-full bg-white border-2 border-gray-100 rounded-2xl px-5 py-3 pr-12 text-sm focus:border-orange-100 outline-none transition-all">
+                            class="w-full bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-2xl px-5 py-3 pr-12 text-sm focus:border-orange-100 outline-none transition-al transition-colors duration-300l">
                         <button onclick="postComment()"
                             class="absolute right-3 top-1/2 -translate-y-1/2 text-[#FF7304] font-bold text-sm p-2 hover:scale-110 transition-all">
                             <i class="fa-solid fa-paper-plane"></i>
@@ -194,43 +194,43 @@
             <div class="lg:w-[35%] shrink-0">
                 <div class="sticky top-28 space-y-6">
                     <!-- Budget Card -->
-                    <div class="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 overflow-hidden relative">
+                    <div class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border overflow-hidden relative transition-colors duration-300">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-full -mr-16 -mt-16 opacity-50">
                         </div>
 
-                        <h3 class="font-bold text-gray-800 mb-6 flex items-center gap-2 relative">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-6 flex items-center gap-2 relative">
                             <i class="fa-solid fa-chart-pie text-[#FF7304]"></i> Estimasi Biaya
                         </h3>
 
                         <div class="space-y-4 mb-8 relative">
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Transportasi</span>
-                                <span class="font-bold text-gray-800">Rp
+                                <span class="text-gray-500 dark:text-[#A1A1AA]">Transportasi</span>
+                                <span class="font-bold text-gray-800 dark:text-white">Rp
                                     {{ number_format($totalTransport, 0, ',', '.') }}</span>
                             </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Akomodasi (Hotel)</span>
-                                <span class="font-bold text-gray-800">Rp
+                                <span class="text-gray-500 dark:text-[#A1A1AA]">Akomodasi (Hotel)</span>
+                                <span class="font-bold text-gray-800 dark:text-white">Rp
                                     {{ number_format($totalHotel, 0, ',', '.') }}</span>
                             </div>
                             <div class="flex justify-between items-center text-sm">
-                                <span class="text-gray-500">Aktivitas & Wisata</span>
-                                <span class="font-bold text-gray-800">Rp
+                                <span class="text-gray-500 dark:text-[#A1A1AA]">Aktivitas & Wisata</span>
+                                <span class="font-bold text-gray-800 dark:text-white">Rp
                                     {{ number_format($totalWisata, 0, ',', '.') }}</span>
                             </div>
-                            <div class="h-px bg-dashed border-t border-dashed border-gray-200"></div>
+                            <div class="h-px bg-dashed border-t border-dashed border-gray-200 dark:border-dark-border"></div>
                             <div class="flex justify-between items-center">
-                                <span class="font-bold text-gray-800">Total Estimasi</span>
+                                <span class="font-bold text-gray-800 dark:text-white">Total Estimasi</span>
                                 <span class="text-xl font-bold text-[#FF7304]">Rp
                                     {{ number_format($totalEstimasi, 0, ',', '.') }}</span>
                             </div>
                         </div>
 
-                        <div class="bg-gray-50 rounded-2xl p-4 flex justify-between items-center">
+                        <div class="bg-gray-50 dark:bg-[#121212] rounded-2xl p-4 flex justify-between items-center">
                             <div>
                                 <p class="text-[10px] font-bold text-gray-400 uppercase">Per Orang ({{ $memberCount }}
                                     Member)</p>
-                                <p class="font-bold text-gray-800">Rp
+                                <p class="font-bold text-gray-800 dark:text-white">Rp
                                     {{ number_format($memberCount > 0 ? $totalEstimasi / $memberCount : 0, 0, ',', '.') }}
                                 </p>
                             </div>
@@ -239,25 +239,25 @@
                     </div>
 
                     <!-- Trip Info Card -->
-                    <div class="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100">
-                        <h3 class="font-bold text-gray-800 mb-4">Informasi Rencana</h3>
+                    <div class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                        <h3 class="font-bold text-gray-800 dark:text-white mb-4">Informasi Rencana</h3>
                         <div class="space-y-4">
                             <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-gray-50 dark:bg-[#121212] flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-location-dot text-[#FF7304] text-sm"></i>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-bold text-gray-400 uppercase">Tujuan</p>
-                                    <p class="text-sm font-bold text-gray-700">{{ $room['destination'] }}</p>
+                                    <p class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ $room['destination'] }}</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <div class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center shrink-0">
+                                <div class="w-8 h-8 rounded-full bg-gray-50 dark:bg-[#121212] flex items-center justify-center shrink-0">
                                     <i class="fa-regular fa-calendar text-[#FF7304] text-sm"></i>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-bold text-gray-400 uppercase">Waktu</p>
-                                    <p class="text-sm font-bold text-gray-700">{{ $room['date'] }}</p>
+                                    <p class="text-sm font-bold text-gray-700 dark:text-gray-300">{{ $room['date'] }}</p>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +274,7 @@
                                 </button>
                             @endif
                             <button
-                                class="w-full border-2 border-orange-100 text-[#FF7304] py-3.5 rounded-[20px] font-bold hover:bg-orange-50 transition-all flex items-center justify-center gap-2">
+                                class="w-full border-2 border-orange-100 text-[#FF7304] py-3.5 rounded-[20px] font-bold hover:bg-orange-50 dark:hover:bg-[#2A2A2A] transition-all flex items-center justify-center gap-2">
                                 <i class="fa-solid fa-share-nodes"></i> Share Room
                             </button>
                         </div>

@@ -2,7 +2,7 @@
 
 <div id="section-payment" class="settings-section hidden">
     <div class="flex items-center justify-between mb-8">
-        <h1 class="text-2xl font-bold text-gray-800">Metode Pembayaran</h1>
+        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Metode Pembayaran</h1>
         <button onclick="togglePaymentModal()"
             class="bg-orange-50 text-[#FF7304] px-5 py-2.5 rounded-full font-bold text-sm hover:bg-[#FF7304] hover:text-white transition-all flex items-center gap-2">
             <i class="fa-solid fa-plus text-xs"></i> Tambah Metode
@@ -19,7 +19,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @forelse($methods as $method)
             <div
-                class="bg-white rounded-[24px] p-6 shadow-sm border-2 {{ $method->is_default ? 'border-orange-100' : 'border-gray-50' }} relative group transition-all hover:shadow-md">
+                class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border-2 {{ $method->is_default ? 'border-orange-100' : 'border-gray-50 dark:border-dark-border' }} relative group transition-all hover:shadow-md transition-colors duration-300">
                 @if($method->is_default)
                     <div class="absolute top-4 right-4">
                         <span
@@ -33,8 +33,8 @@
                             class="fa-solid {{ $method->type == 'bank' ? 'fa-building-columns' : ($method->type == 'card' ? 'fa-credit-card' : 'fa-wallet') }} text-xl"></i>
                     </div>
                     <div>
-                        <p class="font-bold text-gray-800">{{ $method->provider_name }}</p>
-                        <p class="text-xs text-gray-500">
+                        <p class="font-bold text-gray-800 dark:text-white">{{ $method->provider_name }}</p>
+                        <p class="text-xs text-gray-500 dark:text-[#A1A1AA]">
                             {{ $method->type == 'card' ? '•••• •••• •••• ' . substr($method->number, -4) : ($method->type == 'bank' ? 'Account: •••• ' . substr($method->number, -4) : 'Wallet: ' . $method->number) }}
                         </p>
                     </div>
@@ -59,9 +59,9 @@
                 </div>
             </div>
         @empty
-            <div class="col-span-full py-12 text-center bg-gray-50 rounded-[32px] border-2 border-dashed border-gray-200">
+            <div class="col-span-full py-12 text-center bg-gray-50 dark:bg-[#121212] rounded-[32px] border-2 border-dashed border-gray-200 dark:border-dark-border">
                 <i class="fa-solid fa-credit-card text-4xl text-gray-300 mb-4"></i>
-                <p class="text-gray-500 font-medium text-sm">Belum ada metode pembayaran yang disimpan.</p>
+                <p class="text-gray-500 dark:text-[#A1A1AA] font-medium text-sm">Belum ada metode pembayaran yang disimpan.</p>
             </div>
         @endforelse
     </div>
@@ -70,7 +70,7 @@
     <div id="paymentModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm" onclick="togglePaymentModal()"></div>
         <div class="relative min-h-screen flex items-center justify-center p-4">
-            <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden relative"
+            <div class="bg-white dark:bg-dark-card rounded-[32px] shadow-2xl w-full max-w-md overflow-hidden relative transition-colors duration-300"
                 onclick="event.stopPropagation()">
                 <div class="bg-gradient-to-r from-[#FF7304] to-[#FFAC63] p-6 text-white">
                     <h3 class="text-lg font-bold">Tambah Metode Pembayaran</h3>
@@ -83,7 +83,7 @@
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Tipe
                             Pembayaran</label>
                         <select name="type" required onchange="updateFormFields(this.value)"
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
                             <option value="bank">Transfer Bank</option>
                             <option value="card">Kartu Kredit/Debit</option>
                             <option value="wallet">E-Wallet (GoPay/OVO/DANA)</option>
@@ -95,7 +95,7 @@
                             class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama Bank /
                             Provider</label>
                         <input type="text" name="provider_name" placeholder="BCA, Mandiri, Visa, dll" required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
                     </div>
 
                     <div>
@@ -103,26 +103,26 @@
                             class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nomor
                             Rekening / Kartu</label>
                         <input type="text" name="number" placeholder="•••• •••• •••• ••••" required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium tracking-widest">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium tracking-widest">
                     </div>
 
                     <div>
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Nama
                             Pemilik</label>
                         <input type="text" name="holder_name" placeholder="Sesuai kartu/rekening" required
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
                     </div>
 
                     <div id="expiry-field" class="hidden">
                         <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Masa
                             Berlaku (MM/YY)</label>
                         <input type="text" name="expiry_date" placeholder="12/28"
-                            class="w-full bg-gray-50 border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
+                            class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-[#FF7304] outline-none text-sm font-medium">
                     </div>
 
                     <div class="pt-4 flex gap-3">
                         <button type="button" onclick="togglePaymentModal()"
-                            class="flex-1 px-6 py-3 border-2 border-gray-100 text-gray-400 font-bold rounded-2xl hover:bg-gray-50 transition-all text-sm">Batal</button>
+                            class="flex-1 px-6 py-3 border-2 border-gray-100 dark:border-dark-border text-gray-400 font-bold rounded-2xl hover:bg-gray-50 dark:bg-[#121212] transition-all text-sm">Batal</button>
                         <button type="submit"
                             class="flex-1 px-6 py-3 bg-[#FF7304] text-white font-bold rounded-2xl shadow-lg shadow-orange-100 hover:scale-105 transition-all text-sm">Simpan</button>
                     </div>

@@ -6,156 +6,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Voyago - Your Travel Partner</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: 'Outfit', sans-serif;
-            background-color: #f8fafc;
+            background-color: #fcfcfc;
         }
-
+        .bg-auth {
+            background-image: radial-gradient(circle at 0% 0%, rgba(255, 115, 4, 0.05) 0%, transparent 50%),
+                              radial-gradient(circle at 100% 100%, rgba(255, 115, 4, 0.05) 0%, transparent 50%);
+        }
         .auth-card {
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
-        }
-
-        .input-focus:focus {
-            border-color: #FF7304;
-            box-shadow: 0 0 0 4px rgba(255, 115, 4, 0.1);
+            border-radius: 32px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.08);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center p-4">
+<body class="min-h-screen flex items-center justify-center p-6 bg-auth dark:bg-[#09090b] transition-colors duration-500">
     <div class="max-w-md w-full" x-data="{ isLogin: true }">
-        <div class="text-center mb-8">
-            <a href="/" class="inline-flex items-center gap-2 text-2xl font-bold text-[#FF7304]">
-                <i class="fas fa-paper-plane"></i> Voyago
-            </a>
-            <p class="text-gray-500 mt-2" x-text="isLogin ? 'Masuk ke akun penjelajahmu' : 'Mulai petualangan barumu'">
-            </p>
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-white dark:bg-zinc-900 rounded-[22px] shadow-lg mb-6 border border-gray-100 dark:border-zinc-800 transition-all">
+                <i class="fas fa-paper-plane text-[#FF7304] text-2xl"></i>
+            </div>
+            <h1 class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Voyago</h1>
+            <p class="text-gray-500 dark:text-zinc-400 mt-2 font-medium" x-text="isLogin ? 'Selamat datang kembali, Penjelajah!' : 'Mari mulai perjalanan baru bersamamu!'"></p>
         </div>
 
-        <div class="bg-white p-8 auth-card">
-            @if(session('success'))
-                <div
-                    class="bg-green-50 text-green-600 p-4 rounded-xl mb-6 text-sm flex items-center gap-3 border border-green-100 animate-fade-in">
-                    <i class="fas fa-circle-check text-lg"></i>
-                    <span class="font-bold">{{ session('success') }}</span>
-                </div>
-            @endif
-
-            <!-- Toggle Tabs -->
-            <div class="flex p-1 bg-gray-100 rounded-xl mb-8">
-                <button @click="isLogin = true" :class="isLogin ? 'bg-white shadow-sm text-[#FF7304]' : 'text-gray-500'"
-                    class="flex-1 py-2 text-sm font-bold rounded-lg transition-all">Masuk</button>
-                <button @click="isLogin = false"
-                    :class="!isLogin ? 'bg-white shadow-sm text-[#FF7304]' : 'text-gray-500'"
-                    class="flex-1 py-2 text-sm font-bold rounded-lg transition-all">Daftar</button>
+        <div class="bg-white dark:bg-zinc-900 p-10 auth-card border border-gray-100 dark:border-zinc-800 relative overflow-hidden transition-all duration-300">
+            <!-- Form Header/Toggle -->
+            <div class="flex p-1.5 bg-gray-100/80 dark:bg-zinc-800/50 rounded-[18px] mb-8">
+                <button @click="isLogin = true" :class="isLogin ? 'bg-white dark:bg-zinc-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-zinc-400'"
+                    class="flex-1 py-2.5 text-sm font-black rounded-[14px] transition-all">Masuk</button>
+                <button @click="isLogin = false" :class="!isLogin ? 'bg-white dark:bg-zinc-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-zinc-400'"
+                    class="flex-1 py-2.5 text-sm font-black rounded-[14px] transition-all">Daftar</button>
             </div>
 
             @if($errors->any())
-                <div class="bg-red-50 text-red-500 p-4 rounded-xl mb-6 text-sm flex items-center gap-3">
-                    <i class="fas fa-circle-exclamation text-lg"></i>
-                    {{ $errors->first() }}
+                <div class="bg-red-50 dark:bg-red-900/10 text-red-500 text-xs font-bold p-4 rounded-2xl mb-6 flex items-start gap-3 border border-red-100 dark:border-red-900/20">
+                    <i class="fas fa-circle-exclamation text-base mt-0.5"></i>
+                    <span>{{ $errors->first() }}</span>
                 </div>
             @endif
 
             <!-- Login Form -->
-            <form action="{{ route('login.post') }}" method="POST" x-show="isLogin" x-transition>
+            <form action="{{ route('login.post') }}" method="POST" x-show="isLogin" x-transition.opacity>
                 @csrf
-                <div class="space-y-4">
+                <div class="space-y-6">
                     <div>
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Email</label>
-                        <div class="relative">
-                            <i class="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <label class="text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2.5 block">Alamat Email</label>
+                        <div class="relative group">
+                            <i class="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF7304] transition-colors"></i>
                             <input type="email" name="email" required
-                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl outline-none input-focus transition-all"
-                                placeholder="your@email.com">
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-2xl outline-none focus:ring-2 focus:ring-[#FF7304]/10 focus:border-[#FF7304] transition-all text-sm font-bold text-gray-800 dark:text-white placeholder:text-gray-300 dark:placeholder:text-zinc-600"
+                                placeholder="nama@email.com">
                         </div>
                     </div>
                     <div>
-                        <label
-                            class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Password</label>
-                        <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <div class="flex justify-between items-center mb-2.5">
+                            <label class="text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-[0.2em] block">Password</label>
+                            <a href="#" class="text-[10px] font-black text-[#FF7304] uppercase tracking-widest hover:underline">Lupa?</a>
+                        </div>
+                        <div class="relative group">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF7304] transition-colors"></i>
                             <input type="password" name="password" required
-                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl outline-none input-focus transition-all"
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-2xl outline-none focus:ring-2 focus:ring-[#FF7304]/10 focus:border-[#FF7304] transition-all text-sm font-bold text-gray-800 dark:text-white placeholder:text-gray-300 dark:placeholder:text-zinc-600"
                                 placeholder="••••••••">
                         </div>
                     </div>
-                    <div class="text-right">
-                        <a href="#" class="text-xs font-bold text-[#FF7304] hover:underline">Lupa Password?</a>
-                    </div>
-                    <button
-                        class="w-full bg-[#FF7304] text-white py-4 rounded-xl font-bold hover:bg-[#e66700] transition-colors shadow-lg shadow-orange-100">Masuk
-                        Sekarang</button>
+                    <button class="w-full bg-[#FF7304] text-white py-4.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e66700] transform active:scale-95 transition-all shadow-xl shadow-orange-500/20 mt-2">
+                        Masuk Sekarang
+                    </button>
                 </div>
             </form>
 
             <!-- Register Form -->
-            <form action="{{ route('register.post') }}" method="POST" x-show="!isLogin" x-transition
-                style="display: none;">
+            <form action="{{ route('register.post') }}" method="POST" x-show="!isLogin" x-transition.opacity style="display: none;">
                 @csrf
-                <div class="space-y-4">
+                <div class="space-y-6">
                     <div>
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Nama
-                            Lengkap</label>
-                        <div class="relative">
-                            <i class="far fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <label class="text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2.5 block">Nama Lengkap</label>
+                        <div class="relative group">
+                            <i class="far fa-user absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF7304] transition-colors"></i>
                             <input type="text" name="name" required
-                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl outline-none input-focus transition-all"
-                                placeholder="Nama Anda">
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-2xl outline-none focus:ring-2 focus:ring-[#FF7304]/10 focus:border-[#FF7304] transition-all text-sm font-bold text-gray-800 dark:text-white placeholder:text-gray-300 dark:placeholder:text-zinc-600"
+                                placeholder="Nama Lengkap">
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Email</label>
-                        <div class="relative">
-                            <i class="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <label class="text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2.5 block">Email</label>
+                        <div class="relative group">
+                            <i class="far fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF7304] transition-colors"></i>
                             <input type="email" name="email" required
-                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl outline-none input-focus transition-all"
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-2xl outline-none focus:ring-2 focus:ring-[#FF7304]/10 focus:border-[#FF7304] transition-all text-sm font-bold text-gray-800 dark:text-white placeholder:text-gray-300 dark:placeholder:text-zinc-600"
                                 placeholder="your@email.com">
                         </div>
                     </div>
                     <div>
-                        <label
-                            class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 block">Password</label>
-                        <div class="relative">
-                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <label class="text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-[0.2em] mb-2.5 block">Password</label>
+                        <div class="relative group">
+                            <i class="fas fa-lock absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF7304] transition-colors"></i>
                             <input type="password" name="password" required
-                                class="w-full pl-12 pr-4 py-3 bg-gray-50 border-2 border-gray-50 rounded-xl outline-none input-focus transition-all"
+                                class="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-zinc-800/50 border border-gray-200 dark:border-zinc-700 rounded-2xl outline-none focus:ring-2 focus:ring-[#FF7304]/10 focus:border-[#FF7304] transition-all text-sm font-bold text-gray-800 dark:text-white placeholder:text-gray-300 dark:placeholder:text-zinc-600"
                                 placeholder="Min. 6 karakter">
                         </div>
                     </div>
-                    <button
-                        class="w-full bg-[#FF7304] text-white py-4 rounded-xl font-bold hover:bg-[#e66700] transition-colors shadow-lg shadow-orange-100">Daftar
-                        Akun</button>
+                    <button class="w-full bg-[#FF7304] text-white py-4.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e66700] transform active:scale-95 transition-all shadow-xl shadow-orange-500/20 mt-2">
+                        Daftar Akun
+                    </button>
                 </div>
             </form>
 
-            <div class="mt-8 pt-6 border-t border-gray-100 flex items-center justify-center gap-4">
-                <span class="text-xs text-gray-400">Atau masuk dengan</span>
-                <div class="flex gap-3">
-                    <button
-                        class="w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"><i
-                            class="fab fa-google text-gray-600"></i></button>
-                    <button
-                        class="w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-colors"><i
-                            class="fab fa-facebook-f text-gray-600"></i></button>
-                </div>
+            <div class="mt-10 flex items-center justify-between gap-4">
+                <div class="h-px bg-gray-100 dark:bg-zinc-800 flex-1"></div>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest whitespace-nowrap">Atau Media Sosial</span>
+                <div class="h-px bg-gray-100 dark:bg-zinc-800 flex-1"></div>
+            </div>
+
+            <div class="mt-8 flex gap-4">
+                <button class="flex-1 py-3.5 bg-gray-100/50 dark:bg-zinc-800 rounded-2xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all border border-gray-100 dark:border-zinc-700">
+                    <i class="fab fa-google text-gray-600 dark:text-white text-lg"></i>
+                </button>
+                <button class="flex-1 py-3.5 bg-gray-100/50 dark:bg-zinc-800 rounded-2xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all border border-gray-100 dark:border-zinc-700">
+                    <i class="fab fa-apple text-gray-600 dark:text-white text-lg"></i>
+                </button>
             </div>
         </div>
 
-        <div class="mt-8 text-center">
-            <p class="text-sm text-gray-500">Punya bisnis properti atau transportasi? <br>
-                <a href="{{ route('partner.auth.page') }}" class="font-bold text-[#FF7304] hover:underline">Gabung
-                    sebagai Mitra Voyago</a>
+        <div class="mt-8 text-center px-6">
+            <p class="text-xs font-bold text-gray-400 dark:text-zinc-500 leading-relaxed">
+                Punya bisnis properti atau transportasi? <br>
+                <a href="{{ route('partner.auth.page') }}" class="text-[#FF7304] hover:underline">Gabung sebagai Mitra Voyago & Digitalisasikan Layananmu</a>
             </p>
         </div>
     </div>
 
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script>
+        // Check for theme
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
 </body>
-
 </html>

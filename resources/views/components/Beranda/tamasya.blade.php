@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-6 mb-12">
   <div class="flex flex-col gap-1">
-    <h3 class="font-black text-2xl text-gray-800 flex items-center gap-2">
+    <h3 class="font-black text-2xl text-gray-800 dark:text-white flex items-center gap-2">
       <i class="fas fa-globe-americas text-teal-400 text-xl"></i>
       Tamasya keliling dunia, cek panduannya!
     </h3>

@@ -6,7 +6,7 @@
         <h3 id="display-selected-name" class="text-3xl font-black mb-2">Nama Kereta</h3>
         <div class="flex items-center gap-4 text-sm font-bold opacity-90">
             <span id="display-selected-route">Asal → Tujuan</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-white/40"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-white dark:bg-dark-card/40 transition-colors duration-300"></span>
             <span id="display-selected-class">Executive</span>
         </div>
     </div>
@@ -14,10 +14,10 @@
   </div>
 
   <!-- Pilih Kursi (Moved here) -->
-  <div class="bg-white border-2 border-gray-100 rounded-[2rem] p-8 shadow-sm">
+  <div class="bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2rem] p-8 shadow-sm transition-colors duration-300">
       <div class="flex items-center justify-between mb-8">
           <div>
-              <h3 class="text-gray-800 font-black text-xl tracking-tight">Pilih Kursi</h3>
+              <h3 class="text-gray-800 dark:text-white font-black text-xl tracking-tight">Pilih Kursi</h3>
               <p class="text-xs font-bold text-gray-400">Silakan pilih posisi duduk yang Anda inginkan</p>
           </div>
           <div class="bg-orange-50 px-4 py-2 rounded-xl">
@@ -29,15 +29,15 @@
           @for($i = 1; $i <= 24; $i++)
             @php $seatNo = ($i < 10 ? 'A0' : 'A') . $i; @endphp
             <div onclick="toggleSeat(this, '{{ $seatNo }}')"
-              class="seat-item bg-gray-50 text-gray-400 font-bold h-12 w-full flex items-center justify-center rounded-xl text-xs border-2 border-transparent hover:border-orange-200 transition-all cursor-pointer">
+              class="seat-item bg-gray-50 dark:bg-[#121212] text-gray-400 font-bold h-12 w-full flex items-center justify-center rounded-xl text-xs border-2 border-transparent hover:border-orange-200 transition-all cursor-pointer">
               {{ $seatNo }}
             </div>
           @endfor
       </div>
 
-      <div class="flex gap-6 mt-8 pt-6 border-t border-gray-50">
+      <div class="flex gap-6 mt-8 pt-6 border-t border-gray-50 dark:border-dark-border">
           <div class="flex items-center gap-2">
-              <div class="w-4 h-4 bg-gray-100 rounded-md"></div>
+              <div class="w-4 h-4 bg-gray-100 dark:bg-dark-border rounded-md"></div>
               <span class="text-[10px] font-black text-gray-400 uppercase">Tersedia</span>
           </div>
           <div class="flex items-center gap-2">
@@ -47,8 +47,8 @@
       </div>
   </div>
   <!-- Rincian Pembayaran -->
-  <div class="bg-white border-2 border-gray-100 rounded-[2rem] p-8 shadow-sm">
-    <h3 class="text-gray-800 font-black text-lg mb-6">Rincian Pembayaran</h3>
+  <div class="bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2rem] p-8 shadow-sm transition-colors duration-300">
+    <h3 class="text-gray-800 dark:text-white font-black text-lg mb-6">Rincian Pembayaran</h3>
     <div class="flex flex-col gap-4">
       <div class="flex justify-between items-center text-orange-500 font-bold">
         <span id="label-summary-price">Harga tiket ( 1 pax ) :</span>
@@ -58,7 +58,7 @@
         <span>Biaya layanan :</span>
         <span>Rp 10.000</span>
       </div>
-      <div class="flex justify-between items-center text-orange-500 font-bold border-b border-gray-100 pb-4">
+      <div class="flex justify-between items-center text-orange-500 font-bold border-b border-gray-100 dark:border-dark-border pb-4">
         <span>Diskon voucher :</span>
         <span>Rp 50.000</span>
       </div>
@@ -70,9 +70,9 @@
   </div>
 
   <!-- Pilih Metode Pembayaran -->
-  <div class="bg-white border-2 border-gray-100 rounded-[2rem] p-8 shadow-sm flex items-center justify-between">
+  <div class="bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2rem] p-8 shadow-sm flex items-center justify-between transition-colors duration-300">
     <div class="flex flex-col gap-4">
-      <h3 class="text-gray-800 font-black text-lg">Pilih Metode Pembayaran</h3>
+      <h3 class="text-gray-800 dark:text-white font-black text-lg">Pilih Metode Pembayaran</h3>
       <div class="flex gap-8">
         <label class="flex items-center gap-3 cursor-pointer group">
           <input type="radio" name="payment" value="qris" checked class="hidden peer">
@@ -81,7 +81,7 @@
             <div class="w-2.5 h-2.5 bg-orange-500 rounded-full scale-0 peer-checked:scale-100 transition-transform">
             </div>
           </div>
-          <span class="font-black text-gray-800 group-hover:text-orange-500 transition-colors">QRIS</span>
+          <span class="font-black text-gray-800 dark:text-white group-hover:text-orange-500 transition-colors">QRIS</span>
         </label>
         <label class="flex items-center gap-3 cursor-pointer group">
           <input type="radio" name="payment" value="bank" class="hidden peer">
@@ -90,7 +90,7 @@
             <div class="w-2.5 h-2.5 bg-orange-500 rounded-full scale-0 peer-checked:scale-100 transition-transform">
             </div>
           </div>
-          <span class="font-black text-gray-800 group-hover:text-orange-500 transition-colors">Bank</span>
+          <span class="font-black text-gray-800 dark:text-white group-hover:text-orange-500 transition-colors">Bank</span>
         </label>
         <label class="flex items-center gap-3 cursor-pointer group">
           <input type="radio" name="payment" value="e-wallet" class="hidden peer">
@@ -99,7 +99,7 @@
             <div class="w-2.5 h-2.5 bg-orange-500 rounded-full scale-0 peer-checked:scale-100 transition-transform">
             </div>
           </div>
-          <span class="font-black text-gray-800 group-hover:text-orange-500 transition-colors">E-Wallet</span>
+          <span class="font-black text-gray-800 dark:text-white group-hover:text-orange-500 transition-colors">E-Wallet</span>
         </label>
       </div>
     </div>

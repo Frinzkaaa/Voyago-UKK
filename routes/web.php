@@ -11,6 +11,10 @@ use App\Http\Controllers\TicketController;
 
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\MidtransController;
+
+Route::post('/payment/callback', [MidtransController::class, 'callback'])->name('midtrans.callback');
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/register', [AuthController::class, 'register'])->name('register.post');
@@ -19,6 +23,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/', [TicketController::class, 'index'])->name('beranda');
 Route::get('/search', [TicketController::class, 'search'])->name('search');
 Route::get('/get-locations', [TicketController::class, 'getLocations'])->name('get.locations');
+Route::get('/booked-seats', [TicketController::class, 'getBookedSeats'])->name('booked.seats');
 Route::middleware('auth')->group(function () {
     Route::get('/pemesanan', [TicketController::class, 'bookingPage'])->name('booking.page');
     Route::post('/checkout', [TicketController::class, 'checkout'])->name('checkout');
