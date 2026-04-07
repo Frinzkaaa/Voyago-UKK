@@ -49,10 +49,6 @@
         .active-nav i {
             color: white !important;
         }
-
-        .hidden {
-            display: none !important;
-        }
     </style>
 
     <script>

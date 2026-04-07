@@ -10,6 +10,8 @@ use App\Models\FlightTicket;
 use App\Models\BusTicket;
 use App\Models\Hotel;
 use App\Models\WisataSpot;
+use Midtrans\Snap;
+use Midtrans\Config;
 
 class TicketController extends Controller
 {
@@ -155,17 +157,52 @@ class TicketController extends Controller
         if (!$item)
             return response()->json(['error' => 'Item not found'], 404);
 
-        // Limit check: Max 4 active/pending tickets per user
-        $activeBookingsCount = \App\Models\Booking::where('user_id', auth()->id())
-            ->whereNotIn('status', [\App\Enums\BookingStatus::CANCELLED])
-            ->count();
-
-        if ($activeBookingsCount >= 4) {
-            return response()->json(['error' => 'Batas maksimal pemesanan adalah 4 tiket per user.'], 403);
+        // --- Validasi Batas Penumpang ---
+        $category = $request->category;
+        $passengerCount = $request->passenger_count;
+        
+        switch ($category) {
+            case 'pesawat':
+                if ($passengerCount > 7) {
+                    return response()->json(['error' => 'Pemesanan tiket penerbangan maksimal 7 penumpang.'], 422);
+                }
+                break;
+            case 'hotel':
+                $roomCapacity = $item->room_capacity ?? $item->availability ?? 2;
+                if ($passengerCount > $roomCapacity) {
+                    return response()->json(['error' => "Jumlah tamu melebihi kapasitas kamar (maksimal $roomCapacity orang)."], 422);
+                }
+                break;
+            case 'airport_transfer':
+                if ($passengerCount > 4) {
+                    return response()->json(['error' => 'Airport Transfer maksimal 4 penumpang.'], 422);
+                }
+                break;
+            case 'rent_car':
+            case 'car_rental':
+                $carCapacity = $item->capacity ?? $item->seats_available ?? 4;
+                if ($passengerCount > $carCapacity) {
+                    return response()->json(['error' => "Jumlah penumpang melebihi kapasitas mobil (maksimal $carCapacity orang)."], 422);
+                }
+                break;
+            case 'bus':
+            case 'kereta':
+            case 'train':
+                $availableSeats = $item->seats_available ?? 0;
+                if ($passengerCount > $availableSeats) {
+                    return response()->json(['error' => "Jumlah penumpang melebihi kursi yang tersedia (sisa $availableSeats kursi)."], 422);
+                }
+                break;
         }
-
         $price = $item->price ?? $item->price_per_night;
-        $total = ($price * $request->passenger_count) + 10000; // Service fee
+        $discount = 0;
+        $serviceFee = 10000;
+        $baseTotal = $price * $request->passenger_count;
+        if ($baseTotal > 50000) {
+            $discount = 50000;
+        }
+        
+        $total = $baseTotal + $serviceFee - $discount;
 
         $booking = \App\Models\Booking::create([
             'booking_code' => 'VYG-' . strtoupper(str()->random(8)),
@@ -176,16 +213,43 @@ class TicketController extends Controller
             'passenger_count' => $request->passenger_count,
             'total_price' => $total,
             'payment_method' => $request->payment_method,
-            'seats' => $request->seats, // Save seats
+            'seats' => $request->seats,
             'status' => \App\Enums\BookingStatus::PENDING,
             'payment_status' => \App\Enums\PaymentStatus::PENDING,
         ]);
 
-        // Midtrans Integration
-        \Midtrans\Config::$serverKey = config('midtrans.server_key');
-        \Midtrans\Config::$isProduction = config('midtrans.is_production');
-        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
-        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+        $user = auth()->user();
+        // Point removed from here, only added after actual payment (PAID status)
+
+        // Midtrans Config
+        Config::$serverKey = config('services.midtrans.server_key') ?: config('midtrans.server_key');
+        Config::$isProduction = config('midtrans.is_production');
+        Config::$isSanitized = config('midtrans.is_sanitized');
+        Config::$is3ds = config('midtrans.is_3ds');
+
+        $itemDetails = [
+            [
+                'id' => (string) $booking->item_id,
+                'price' => (int) $price,
+                'quantity' => (int) $request->passenger_count,
+                'name' => 'Tiket ' . ucfirst($request->category),
+            ],
+            [
+                'id' => 'SERVICE-FEE',
+                'price' => (int) $serviceFee,
+                'quantity' => 1,
+                'name' => 'Service Fee',
+            ]
+        ];
+
+        if ($discount > 0) {
+            $itemDetails[] = [
+                'id' => 'DISCOUNT',
+                'price' => -(int)$discount,
+                'quantity' => 1,
+                'name' => 'Voucher Discount',
+            ];
+        }
 
         $params = [
             'transaction_details' => [
@@ -193,46 +257,92 @@ class TicketController extends Controller
                 'gross_amount' => (int) $total,
             ],
             'customer_details' => [
-                'first_name' => auth()->user()->name,
-                'email' => auth()->user()->email,
+                'first_name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone ?? '08111222333',
             ],
-            'item_details' => [
-                [
-                    'id' => $booking->item_id,
-                    'price' => (int) $price,
-                    'quantity' => (int) $request->passenger_count,
-                    'name' => 'Tiket/Booking ' . ucfirst($request->category),
-                ],
-                [
-                    'id' => 'SERVICE-FEE',
-                    'price' => 10000,
-                    'quantity' => 1,
-                    'name' => 'Biaya Layanan',
-                ]
-            ]
+            'item_details' => $itemDetails,
         ];
 
         try {
-            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $snapToken = Snap::getSnapToken($params);
             $booking->update(['snap_token' => $snapToken]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Gagal membuat token pembayaran: ' . $e->getMessage()], 500);
-        }
 
-        // Award Points and update Badge
+            return response()->json([
+                'success' => true,
+                'snap_token' => $snapToken,
+                'booking_code' => $booking->booking_code,
+                'total_price' => $total,
+                'awarded_points' => 10,
+                'current_points' => $user->points,
+                'current_badge' => $user->badge
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function simulatePayment(Request $request)
+    {
+        $request->validate(['booking_code' => 'required']);
+        $booking = \App\Models\Booking::where('booking_code', $request->booking_code)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        // Calculate commission for the partner
+        $partner = \App\Models\Partner::where('user_id', $booking->mitra_id)->first();
+        $rate = $partner->commission_rate ?? 10; // Default 10% commission
+        $basePrice = max(0, $booking->total_price - 10000); // 10k is Voyago service fee
+        $commissionAmount = $basePrice * ($rate / 100);
+        $netIncome = $basePrice - $commissionAmount;
+
+        $booking->update([
+            'status' => \App\Enums\BookingStatus::CONFIRMED,
+            'payment_status' => \App\Enums\PaymentStatus::PAID,
+            'commission_amount' => $commissionAmount,
+            'net_income' => $netIncome,
+        ]);
+
+        // Award points on successful simulation
         $user = auth()->user();
         $user->points += 10;
         $user->updateBadge();
         $user->save();
 
-        return response()->json([
-            'success' => true,
-            'booking_code' => $booking->booking_code,
-            'snap_token' => $snapToken,
-            'awarded_points' => 10,
-            'current_points' => $user->points,
-            'current_badge' => $user->badge
+        return response()->json(['success' => true]);
+    }
+
+    public function cancelBooking($id)
+    {
+        $booking = \App\Models\Booking::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        if ($booking->status === \App\Enums\BookingStatus::CANCELLED || $booking->status === \App\Enums\BookingStatus::COMPLETED) {
+            return back()->with('error', 'Pesanan ini tidak dapat dibatalkan.');
+        }
+
+        // Deduct points if it was paid
+        if ($booking->payment_status === \App\Enums\PaymentStatus::PAID) {
+            $user = auth()->user();
+            $user->points = max(0, $user->points - 10);
+            $user->updateBadge();
+            $user->save();
+            
+            $booking->update([
+                'status' => \App\Enums\BookingStatus::REFUNDED,
+                'payment_status' => \App\Enums\PaymentStatus::REFUNDED,
+            ]);
+            
+            return back()->with('success', 'Pesanan berhasil dibatalkan dan sedang diproses untuk refund.');
+        }
+
+        $booking->update([
+            'status' => \App\Enums\BookingStatus::CANCELLED,
+            'payment_status' => \App\Enums\PaymentStatus::FAILED,
         ]);
+
+        return back()->with('success', 'Pesanan berhasil dibatalkan.');
     }
 
     public function bookingPage()

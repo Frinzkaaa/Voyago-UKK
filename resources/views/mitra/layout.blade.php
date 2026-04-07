@@ -5,10 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voyago Business - Premium Partner Dashboard</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <style>
         :root {
             --brand-orange: #FF7304;
@@ -41,10 +43,23 @@
     </style>
 </head>
 
-<body class="flex min-h-screen bg-[#FAFAFA] dark:bg-black transition-colors duration-500">
+<body class="flex min-h-screen bg-[#FAFAFA] dark:bg-black transition-colors duration-500" x-data="{ sidebarOpen: false }">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div x-show="sidebarOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false"
+         class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden">
+    </div>
+
     <!-- Sidebar -->
-    <aside class="w-72 bg-white dark:bg-zinc-950 border-r border-gray-100 dark:border-zinc-900 flex flex-col shrink-0 fixed h-full z-50 transition-all duration-500">
-        <div class="p-8 mb-6">
+    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+           class="w-72 bg-white dark:bg-zinc-950 border-r border-gray-100 dark:border-zinc-900 flex flex-col shrink-0 fixed h-full z-[70] transition-all duration-500 transform lg:translate-x-0 shadow-2xl lg:shadow-none">
+        <div class="p-8 mb-6 flex justify-between items-center">
             <a href="/" class="flex items-center gap-3 group">
                 <div class="w-10 h-10 bg-black dark:bg-orange-500 rounded-2xl flex items-center justify-center transition-transform group-hover:rotate-12">
                     <i class="fa-solid fa-rocket text-white text-base"></i>
@@ -54,6 +69,9 @@
                     <span class="text-[10px] font-black text-orange-500 uppercase tracking-[0.3em] mt-1">Business</span>
                 </div>
             </a>
+            <button @click="sidebarOpen = false" class="lg:hidden text-gray-400 hover:text-orange-500 transition-colors pt-2">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
         </div>
 
         <nav class="flex-grow flex flex-col px-4 space-y-1 overflow-y-auto no-scrollbar">
@@ -107,7 +125,7 @@
                 </div>
             </div>
             <a href="{{ route('partner.logout') }}"
-                class="flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-xs font-black text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all uppercase tracking-widest">
+                class="sidebar-item flex items-center justify-center gap-2 w-full py-4 rounded-2xl text-xs font-black text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all uppercase tracking-widest">
                 <i class="fa-solid fa-power-off"></i>
                 Logout
             </a>
@@ -115,33 +133,33 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-grow ml-72 flex flex-col min-w-0">
+    <main class="flex-grow lg:ml-72 flex flex-col min-w-0 min-h-screen">
         <!-- Top Header -->
-        <header class="h-24 bg-white/80 dark:bg-black/80 premium-blur flex items-center justify-between px-10 sticky top-0 z-40 transition-all duration-500 border-b border-gray-100 dark:border-zinc-900">
+        <header class="h-24 bg-white/80 dark:bg-black/80 premium-blur flex items-center justify-between px-6 lg:px-10 sticky top-0 z-40 transition-all duration-500 border-b border-gray-100 dark:border-zinc-900">
             <div class="flex items-center gap-4">
-                <button class="w-10 h-10 flex items-center justify-center text-gray-400 lg:hidden">
+                <button @click="sidebarOpen = true" class="w-12 h-12 flex items-center justify-center text-gray-900 dark:text-white bg-gray-50 dark:bg-zinc-900 rounded-2xl lg:hidden hover:text-orange-500 transition-all">
                     <i class="fa-solid fa-bars-staggered"></i>
                 </button>
                 <div class="hidden sm:flex flex-col">
-                    <h1 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">{{ request()->route()->getName() == 'partner.dashboard' ? 'Overview' : 'Manajemen' }}</h1>
+                    <h1 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest">{{ request()->routeIs('partner.dashboard') ? 'Overview' : 'Manajemen' }}</h1>
                     <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter mt-0.5">Voyago Business Network</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2 lg:gap-6">
                 <!-- System Alerts -->
-                <button class="w-12 h-12 flex items-center justify-center text-gray-400 hover:text-orange-500 bg-gray-50 dark:bg-zinc-900 rounded-2xl transition-all relative">
+                <button class="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center text-gray-400 hover:text-orange-500 bg-gray-50 dark:bg-zinc-900 rounded-2xl transition-all relative">
                     <i class="fa-solid fa-bell text-lg"></i>
                     <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-orange-500 border-2 border-white dark:border-black rounded-full"></span>
                 </button>
 
                 <!-- Profile -->
-                <div class="flex items-center gap-4 bg-gray-50 dark:bg-zinc-900 pr-2 pl-6 py-2 rounded-2xl border border-gray-100 dark:border-zinc-800">
-                    <div class="flex flex-col items-end">
+                <div class="flex items-center gap-3 lg:gap-4 bg-gray-50 dark:bg-zinc-900 pr-2 pl-4 lg:pl-6 py-2 rounded-2xl border border-gray-100 dark:border-zinc-800">
+                    <div class="hidden sm:flex flex-col items-end">
                         <span class="text-xs font-black text-gray-900 dark:text-white leading-none">{{ Auth::user()->name }}</span>
-                        <span class="text-[10px] text-orange-500 font-bold mt-1 uppercase">Partner ID #{{ Auth::id() }}</span>
+                        <span class="text-[10px] text-orange-500 font-bold mt-1 uppercase">Partner</span>
                     </div>
-                    <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center overflow-hidden border-2 border-white dark:border-zinc-800 shadow-sm">
+                    <div class="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-orange-500 flex items-center justify-center overflow-hidden border-2 border-white dark:border-zinc-800 shadow-sm relative group">
                         <img src="/images/Avatarprof.jpeg" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -149,7 +167,7 @@
         </header>
 
         <!-- Content Area -->
-        <div class="p-10 flex-grow max-w-[1600px] mx-auto w-full">
+        <div class="p-6 lg:p-10 flex-grow max-w-[1600px] mx-auto w-full">
             @if(session('success'))
                 <div class="bg-emerald-500 text-white px-8 py-5 rounded-[32px] mb-10 flex items-center justify-between shadow-xl shadow-emerald-500/20 animate-bounce">
                     <div class="flex items-center gap-4 font-black text-xs uppercase tracking-widest">
@@ -162,15 +180,31 @@
                 </div>
             @endif
 
+            @if ($errors->any())
+                <div class="bg-red-500 text-white px-8 py-6 rounded-[32px] mb-10 shadow-xl shadow-red-500/20">
+                    <div class="flex items-center gap-4 font-black text-xs uppercase tracking-widest mb-4">
+                        <i class="fa-solid fa-circle-exclamation text-xl text-white/80"></i>
+                        Notifikasi Sistem
+                    </div>
+                    <ul class="space-y-2">
+                        @foreach ($errors->all() as $error)
+                            <li class="text-sm font-bold opacity-90 flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+                                {{ $error }}
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @yield('content')
         </div>
 
-        <footer class="p-10 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 dark:border-zinc-900 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
-            <p>&copy; 2026 Voyago Tech Ecosystem. All rights reserved.</p>
+        <footer class="p-6 lg:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-gray-100 dark:border-zinc-900 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+            <p>&copy; 2026 Voyago Business. All rights reserved.</p>
             <div class="flex items-center gap-8">
                 <a href="#" class="hover:text-orange-500 transition-colors">Security</a>
                 <a href="#" class="hover:text-orange-500 transition-colors">Terms</a>
-                <a href="#" class="hover:text-orange-500 transition-colors">Privacy</a>
             </div>
         </footer>
     </main>

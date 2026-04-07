@@ -1,6 +1,6 @@
 <div class="grid grid-cols-12 gap-4">
   <div
-    class="col-span-4 bg-orange-50 border-2 border-orange-100 rounded-3xl p-4 flex flex-col justify-center cursor-pointer hover:bg-orange-100 transition-colors">
+    class="col-span-4 bg-orange-50 dark:bg-orange-500/10 border-2 border-orange-100 dark:border-orange-500/20 rounded-3xl p-4 flex flex-col justify-center cursor-pointer hover:bg-orange-100 dark:hover:bg-orange-500/20 transition-colors">
     <span class="text-orange-500 font-bold text-sm">Harga Terendah</span>
     <div class="flex flex-col">
       <span class="text-gray-800 dark:text-white font-bold text-lg leading-tight">Rp 350.000</span>
@@ -8,7 +8,7 @@
     </div>
   </div>
   <div
-    class="col-span-4 bg-orange-50 border-2 border-orange-100 rounded-3xl p-4 flex flex-col justify-center cursor-pointer hover:bg-orange-100 transition-colors">
+    class="col-span-4 bg-orange-50 dark:bg-orange-500/10 border-2 border-orange-100 dark:border-orange-500/20 rounded-3xl p-4 flex flex-col justify-center cursor-pointer hover:bg-orange-100 dark:hover:bg-orange-500/20 transition-colors">
     <span class="text-orange-500 font-bold text-sm">Durasi Tersingkat</span>
     <div class="flex flex-col">
       <span class="text-gray-800 dark:text-white font-bold text-lg leading-tight">1j 34m</span>

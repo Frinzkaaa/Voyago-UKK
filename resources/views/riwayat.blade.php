@@ -4,41 +4,63 @@
     <div class="flex flex-col md:flex-row gap-8 min-h-[600px]">
 
         <!-- Left Sidebar -->
-        <aside class="w-full md:w-64 shrink-0">
-            <div
-                class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border flex md:flex-col gap-2 overflow-x-auto md:overflow-x-visible transition-colors duration-300">
-                <button onclick="switchTab('pesanan')" id="btn-pesanan"
-                    class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group active-nav">
-                    <i class="fa-solid fa-receipt text-lg group-[.active-nav]:text-white text-gray-400"></i>
-                    <span class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Pesanan
-                        Saya</span>
-                </button>
-                <button onclick="switchTab('wishlist')" id="btn-wishlist"
-                    class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
-                    <i class="fa-solid fa-heart text-lg group-[.active-nav]:text-white text-gray-400"></i>
-                    <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Wishlist</span>
-                </button>
-                <button onclick="switchTab('komplain')" id="btn-komplain"
-                    class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
-                    <i class="fa-solid fa-headset text-lg group-[.active-nav]:text-white text-gray-400"></i>
-                    <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Komplain</span>
-                </button>
-                <button onclick="switchTab('pengaturan')" id="btn-pengaturan"
-                    class="flex items-center gap-3 px-5 py-3 rounded-full w-full transition-all group">
-                    <i class="fa-solid fa-user-gear text-lg group-[.active-nav]:text-white text-gray-400"></i>
-                    <span
-                        class="font-semibold whitespace-nowrap group-[.active-nav]:text-white text-gray-600 dark:text-[#A1A1AA]">Pengaturan</span>
+        <aside class="w-full md:w-80 shrink-0">
+            <!-- Mobile Sidebar Toggle -->
+            <button onclick="toggleSidebarMenu()" class="md:hidden w-full flex items-center justify-between bg-white dark:bg-dark-card rounded-[2rem] p-6 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border mb-6 text-gray-800 dark:text-white font-black transition-all hover:border-orange-500 group">
+                <span class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-orange-50 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bars-staggered"></i>
+                    </div>
+                    Menu Akun
+                </span>
+                <i class="fa-solid fa-chevron-down text-sm transition-transform duration-500" id="sidebar-chevron"></i>
+            </button>
+
+            <div id="sidebar-menu"
+                class="hidden md:flex bg-white dark:bg-dark-card rounded-[2.5rem] p-4 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex-col gap-3 transition-all duration-500 sticky top-24">
+                
+                <h3 class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">Pusat Navigasi</h3>
+
+                <button onclick="switchSection('pesanan')" id="btn-pesanan"
+                    class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group active-nav relative overflow-hidden">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                        <i class="fa-solid fa-receipt text-lg text-gray-400 group-[.active-nav]:text-white"></i>
+                    </div>
+                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pesanan Saya</span>
                 </button>
 
-                <div
-                    class="mt-6 p-6 bg-gradient-to-br from-[#FF7304] to-[#FFAC63] rounded-[24px] text-white hidden md:block">
-                    <h4 class="font-bold mb-2">Jadi Mitra Voyago</h4>
-                    <p class="text-[10px] opacity-90 mb-4">Punya bisni travel? Bergabunglah dengan kami!</p>
-                    <a href="{{ route('partner.auth.page') }}"
-                        class="block text-center py-2 bg-white dark:bg-dark-card text-[#FF7304] rounded-full text-xs font-bold shadow-md hover:scale-105 transition-al transition-colors duration-300l">Daftar
-                        Sekarang</a>
+                <button onclick="switchSection('wishlist')" id="btn-wishlist"
+                    class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                        <i class="fa-solid fa-heart text-lg text-gray-400 group-[.active-nav]:text-white"></i>
+                    </div>
+                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Wishlist</span>
+                </button>
+
+                <button onclick="switchSection('komplain')" id="btn-komplain"
+                    class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                        <i class="fa-solid fa-headset text-lg text-gray-400 group-[.active-nav]:text-white"></i>
+                    </div>
+                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Komplain</span>
+                </button>
+
+                <button onclick="switchSection('pengaturan')" id="btn-pengaturan"
+                    class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
+                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                        <i class="fa-solid fa-user-gear text-lg text-gray-400 group-[.active-nav]:text-white"></i>
+                    </div>
+                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pengaturan</span>
+                </button>
+
+                <div class="mt-8 mx-4 p-8 bg-gradient-to-br from-orange-500 to-orange-400 rounded-[2rem] text-white hidden md:block relative overflow-hidden shadow-lg shadow-orange-500/20 group hover:scale-[1.02] transition-all duration-500">
+                    <div class="relative z-10">
+                        <h4 class="font-black text-lg leading-tight mb-2">Jadi Mitra Voyago</h4>
+                        <p class="text-[10px] font-bold opacity-80 mb-6 leading-relaxed">Punya bisnis travel? Bergabunglah & kembangkan bersama kami!</p>
+                        <a href="{{ route('partner.auth.page') }}"
+                            class="block w-full text-center py-3 bg-white dark:bg-dark-card text-orange-500 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-orange-50 dark:hover:bg-[#2A2A2A] transition-all">Daftar Sekarang</a>
+                    </div>
+                    <i class="fa-solid fa-rocket absolute -right-6 -bottom-6 text-7xl opacity-10 -rotate-12 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-700"></i>
                 </div>
             </div>
         </aside>
@@ -47,43 +69,44 @@
         <div class="flex-grow">
 
             <!-- Pesanan Saya Content -->
-            <div id="section-pesanan" class="dashboard-section">
-                <div class="flex items-center justify-between mb-6">
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Pesanan Saya</h1>
-                </div>
-
-                <!-- Tabs -->
-                <div class="flex items-center gap-8 border-b border-gray-200 dark:border-dark-border mb-8 overflow-x-auto">
-                    <button onclick="filterStatus('semua')"
-                        class="status-tab active-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Semua</button>
-                    <button onclick="filterStatus('upcoming')"
-                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Upcoming</button>
-                    <button onclick="filterStatus('selesai')"
-                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Selesai</button>
-                    <button onclick="filterStatus('dibatalkan')"
-                        class="status-tab pb-3 font-semibold text-gray-500 dark:text-[#A1A1AA] hover:text-[#FF7304] transition-all relative">Dibatalkan</button>
+            <div id="section-pesanan" class="dashboard-section animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                    <div>
+                        <h1 class="text-4xl font-black text-gray-800 dark:text-white tracking-tighter mb-2">Pesanan Saya</h1>
+                        <p class="text-sm font-bold text-gray-400">Kelola tiket dan rincian perjalanan Anda</p>
+                    </div>
+                    <div class="flex items-center gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-fit">
+                        <button onclick="filterStatus('semua')" class="status-tab active-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Semua</button>
+                        <button onclick="filterStatus('upcoming')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Upcoming</button>
+                        <button onclick="filterStatus('selesai')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Selesai</button>
+                        <button onclick="filterStatus('dibatalkan')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Dibatalkan</button>
+                    </div>
                 </div>
 
                 <!-- Booking Lists -->
-                <div class="space-y-4" id="booking-list">
+                <div class="space-y-6" id="booking-list">
                     @forelse($bookings as $booking)
-                        <div class="booking-card bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col lg:flex-row items-center gap-6 transition-colors duration-300"
-                            data-status="{{ $booking->payment_status }}">
-                            <!-- Left Part -->
-                            <div class="flex items-center gap-4 w-full lg:w-1/4">
-                                <div class="w-14 h-14 rounded-[18px] bg-orange-50 flex items-center justify-center shrink-0">
+                        <div class="booking-card bg-white dark:bg-dark-card rounded-[3rem] p-8 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex flex-col xl:flex-row items-center gap-10 transition-all duration-500 hover:border-orange-200 group relative overflow-hidden"
+                            data-status="{{ $booking->status }}">
+                            
+                            <!-- Premium Background Accent -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/5 to-transparent -z-10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+
+                            <!-- Left Part: Icon & ID -->
+                            <div class="flex flex-row xl:flex-col items-center xl:items-start gap-6 w-full xl:w-56 shrink-0 border-b xl:border-b-0 xl:border-r border-gray-50 dark:border-dark-border pb-6 xl:pb-0 xl:pr-10">
+                                <div class="w-20 h-20 rounded-[2rem] bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
                                     @if($booking->category == 'kereta')
-                                        <i class="fa-solid fa-train text-[#FF7304] text-xl"></i>
+                                        <i class="fa-solid fa-train text-orange-500 text-3xl"></i>
                                     @elseif($booking->category == 'pesawat')
-                                        <i class="fa-solid fa-plane text-[#FF7304] text-xl"></i>
+                                        <i class="fa-solid fa-plane text-orange-500 text-3xl"></i>
                                     @elseif($booking->category == 'hotel')
-                                        <i class="fa-solid fa-hotel text-[#FF7304] text-xl"></i>
+                                        <i class="fa-solid fa-hotel text-orange-500 text-3xl"></i>
                                     @else
-                                        <i class="fa-solid fa-mountain-sun text-[#FF7304] text-xl"></i>
+                                        <i class="fa-solid fa-mountain-sun text-orange-500 text-3xl"></i>
                                     @endif
                                 </div>
-                                <div>
-                                    <p class="text-[12px] font-bold text-[#FF7304] uppercase tracking-wider mb-1">
+                                <div class="flex flex-col gap-2">
+                                    <p class="text-[12px] font-black text-orange-500 uppercase tracking-[0.2em]">
                                         {{ $booking->booking_code }}
                                     </p>
                                     @php
@@ -97,76 +120,103 @@
                                             $statusClass = 'bg-green-100 text-green-600';
                                             $statusLabel = 'Selesai';
                                         } elseif ($booking->status === \App\Enums\BookingStatus::CONFIRMED) {
-                                            $statusClass = 'bg-blue-100 text-blue-600';
+                                            $statusClass = 'bg-blue-50 text-blue-500';
                                             $statusLabel = 'Terkonfirmasi';
+                                        } elseif ($booking->status === \App\Enums\BookingStatus::REFUNDED) {
+                                            $statusClass = 'bg-purple-50 text-purple-400';
+                                            $statusLabel = 'Refunded';
                                         } elseif ($booking->payment_status === \App\Enums\PaymentStatus::PENDING) {
                                             $statusClass = 'bg-orange-100 text-orange-600';
                                             $statusLabel = 'Menunggu Bayar';
                                         }
                                     @endphp
-                                    <span
-                                        class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider {{ $statusClass }}">{{ $statusLabel }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <span class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
+                                    </div>
                                     @if($booking->payment_status === \App\Enums\PaymentStatus::PENDING && $booking->snap_token)
                                         <button onclick="continuePayment('{{ $booking->snap_token }}')" 
-                                            class="mt-2 flex items-center gap-2 text-[10px] font-black text-orange-500 hover:text-orange-600 transition-colors uppercase tracking-widest">
-                                            <i class="fas fa-credit-card"></i> Bayar Sekarang
+                                            class="mt-1 flex items-center gap-2 text-[10px] font-black text-orange-500 hover:text-orange-600 transition-all uppercase tracking-widest">
+                                            <div class="w-6 h-6 rounded-lg bg-orange-100 flex items-center justify-center">
+                                                <i class="fas fa-credit-card text-[10px]"></i>
+                                            </div>
+                                            Bayar Sekarang
                                         </button>
                                     @endif
                                 </div>
                             </div>
 
-                            <!-- Center Part -->
-                            <div class="flex-grow grid grid-cols-2 md:grid-cols-3 gap-4 w-full">
+                            <!-- Center Part: Main Details -->
+                            <div class="flex-grow grid grid-cols-2 md:grid-cols-4 xl:grid-cols-2 2xl:grid-cols-4 gap-8 w-full py-2">
                                 <div>
-                                    <p class="text-xs text-gray-400 mb-1">Tujuan / Nama</p>
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tujuan / Nama</p>
                                     @php
                                         $itemName = 'Produk Tidak Ditemukan';
                                         if ($booking->item) {
                                             $itemName = $booking->item->name ?? $booking->item->airline_name ?? $booking->item->operator ?? 'Tiket Perjalanan';
                                         }
                                     @endphp
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">{{ $itemName }}</p>
+                                    <p class="font-black text-gray-800 dark:text-white text-base leading-tight">{{ $itemName }}</p>
+                                </div>
+                                <div class="hidden md:block">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tanggal Pesan</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">{{ $booking->created_at->format('d M Y') }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-xs text-gray-400 mb-1">Tanggal Pemesanan</p>
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">{{ $booking->created_at->format('d M Y') }}</p>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-gray-400 mb-1">Penumpang & Kursi</p>
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Penumpang</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">
                                         {{ $booking->passenger_count }} Pax 
                                         @if($booking->seats)
-                                            <span class="text-orange-500">• {{ implode(', ', $booking->seats) }}</span>
+                                            <span class="text-orange-500 font-black ml-1">• {{ implode(', ', $booking->seats) }}</span>
                                         @endif
                                     </p>
                                 </div>
                                 @if($booking->item && ($booking->item->origin || $booking->item->location))
-                                <div>
-                                    <p class="text-xs text-gray-400 mb-1">Detail Rute/Lokasi</p>
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-sm">
+                                <div class="col-span-2 md:col-span-1">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Detail Rute</p>
+                                    <p class="font-bold text-gray-500 dark:text-[#A1A1AA] text-sm leading-relaxed italic">
                                         {{ $booking->item->origin ? $booking->item->origin . ' → ' . $booking->item->destination : $booking->item->location }}
                                     </p>
                                 </div>
                                 @endif
                             </div>
 
-                            <!-- Right Part -->
-                            <div class="flex flex-col items-end gap-3 w-full lg:w-auto">
-                                <p class="font-bold text-[#FF7304] text-lg">Rp
-                                    {{ number_format($booking->total_price, 0, ',', '.') }}
-                                </p>
-                                <div class="flex gap-2 w-full lg:w-auto">
+                            <!-- Right Part: Price & Actions -->
+                            <div class="flex flex-col sm:flex-row xl:flex-col items-center sm:justify-between xl:justify-center gap-6 w-full xl:w-64 shrink-0 border-t xl:border-t-0 xl:border-l border-gray-50 dark:border-dark-border pt-8 xl:pt-0 xl:pl-10">
+                                <div class="text-center sm:text-left xl:text-right w-full sm:w-auto xl:w-full">
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Bayar</p>
+                                    <p class="font-black text-orange-500 text-2xl tracking-tighter">
+                                        <span class="text-xs font-bold mr-0.5">Rp</span>{{ number_format($booking->total_price, 0, ',', '.') }}
+                                    </p>
+                                </div>
+                                <div class="flex items-center gap-2 w-full sm:w-auto xl:w-full justify-center xl:justify-end">
+                                    <!-- Detail Button -->
                                     <button onclick="showOrderDetail({{ json_encode($booking) }})"
-                                        class="flex-grow lg:flex-grow-0 px-4 py-2 border-2 border-[#FF7304] text-[#FF7304] rounded-full font-bold text-xs hover:bg-[#FF7304] hover:text-white transition-all">Lihat
-                                        Detail</button>
+                                        class="relative flex-grow sm:flex-grow-0 px-6 h-11 flex items-center justify-center bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-200 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-[#FF7304] hover:text-white border border-transparent shadow-sm transition-all active:scale-95 v-tooltip-btn">
+                                        Detail
+                                        <span class="v-tooltip">Lihat Detail</span>
+                                    </button>
+                                    
+                                    <!-- Action Icons -->
+                                    @if($booking->status !== \App\Enums\BookingStatus::CANCELLED && $booking->status !== \App\Enums\BookingStatus::COMPLETED && $booking->status !== \App\Enums\BookingStatus::REFUNDED)
+                                        <form action="{{ route('booking.cancel', $booking->id) }}" method="POST" class="flex items-center m-0" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
+                                            @csrf
+                                            <button type="submit" class="relative w-11 h-11 bg-red-50 dark:bg-red-500/20 text-red-500 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
+                                                <i class="fa-solid fa-xmark"></i>
+                                                <span class="v-tooltip">Batal</span>
+                                            </button>
+                                        </form>
+                                    @endif
+
                                     @if($booking->payment_status == \App\Enums\PaymentStatus::PAID)
                                         <button onclick="openComplaintModal({{ $booking->id }}, '{{ $booking->booking_code }}')"
-                                            class="flex-grow lg:flex-grow-0 px-4 py-2 bg-red-50 text-red-500 rounded-full font-bold text-xs hover:bg-red-500 hover:text-white transition-all flex items-center justify-center gap-2">
-                                            <i class="fa-solid fa-circle-exclamation"></i> Komplain
+                                            class="relative w-11 h-11 bg-amber-50 dark:bg-amber-500/20 text-amber-600 dark:text-amber-400 rounded-2xl flex items-center justify-center hover:bg-amber-600 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
+                                            <i class="fa-solid fa-circle-exclamation"></i>
+                                            <span class="v-tooltip">Komplain</span>
                                         </button>
                                         <button
-                                            class="p-2 border-2 border-[#FF7304] text-[#FF7304] rounded-full hover:bg-[#FF7304] hover:text-white transition-all">
-                                            <i class="fa-solid fa-download"></i>
+                                            class="relative w-11 h-11 bg-blue-50 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
+                                            <i class="fa-solid fa-cloud-arrow-down"></i>
+                                            <span class="v-tooltip">E-Ticket</span>
                                         </button>
                                     @endif
                                 </div>
@@ -485,7 +535,8 @@
 
     <style>
         .active-nav {
-            background-color: #FF7304 !important;
+            background: linear-gradient(135deg, #FF7304, #FFAC63) !important;
+            box-shadow: 0 10px 20px -5px rgba(255, 115, 4, 0.4);
         }
 
         .active-nav span {
@@ -496,23 +547,64 @@
             color: white !important;
         }
 
-        .active-tab {
+        .status-tab.active-tab {
+            background-color: #FF7304 !important;
+            color: white !important;
+            box-shadow: 0 8px 16px -4px rgba(255, 115, 4, 0.3);
+        }
+
+        .status-tab:not(.active-tab):hover {
+            background-color: rgba(255, 115, 4, 0.05);
             color: #FF7304 !important;
         }
 
-        .active-tab::after {
-            content: '';
+        /* Custom Scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #2d2d2d; }
+
+        /* Premium Tooltip */
+        .v-tooltip {
+            visibility: hidden;
+            opacity: 0;
             position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: #FF7304;
-            border-radius: 10px;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            padding: 8px 14px;
+            background: #18181b;
+            color: white;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 12px;
+            white-space: nowrap;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .hidden {
-            display: none !important;
+        .v-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #18181b;
+        }
+
+        .v-tooltip-btn:hover .v-tooltip {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
     </style>
 
@@ -588,7 +680,7 @@
 
         function switchSection(tabId) {
             // Update Sidebar
-            document.querySelectorAll('aside button').forEach(btn => {
+            document.querySelectorAll('aside button.group').forEach(btn => {
                 btn.classList.remove('active-nav');
             });
             document.getElementById('btn-' + tabId).classList.add('active-nav');
@@ -598,6 +690,29 @@
                 section.classList.add('hidden');
             });
             document.getElementById('section-' + tabId).classList.remove('hidden');
+            
+            // Close mobile sidebar menu if it's open
+            if(window.innerWidth < 768) {
+                const sidebarMenu = document.getElementById('sidebar-menu');
+                if(!sidebarMenu.classList.contains('hidden')) {
+                    toggleSidebarMenu();
+                }
+            }
+        }
+
+        function toggleSidebarMenu() {
+            const menu = document.getElementById('sidebar-menu');
+            const chevron = document.getElementById('sidebar-chevron');
+            
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('flex');
+                chevron.classList.add('rotate-180');
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('flex');
+                chevron.classList.remove('rotate-180');
+            }
         }
 
         function filterStatus(status) {
@@ -612,17 +727,17 @@
             let count = 0;
 
             cards.forEach(card => {
-                const cardStatus = card.getAttribute('data-status');
+                const cardStatus = card.getAttribute('data-status').toLowerCase();
                 if (status === 'semua') {
                     card.classList.remove('hidden');
                     count++;
-                } else if (status === 'upcoming' && (cardStatus === 'pending' || cardStatus === 'paid')) {
+                } else if (status === 'upcoming' && (cardStatus === 'pending' || cardStatus === 'confirmed')) {
                     card.classList.remove('hidden');
                     count++;
                 } else if (status === 'selesai' && cardStatus === 'completed') {
                     card.classList.remove('hidden');
                     count++;
-                } else if (status === 'dibatalkan' && cardStatus === 'cancelled') {
+                } else if (status === 'dibatalkan' && (cardStatus === 'cancelled' || cardStatus === 'refunded')) {
                     card.classList.remove('hidden');
                     count++;
                 } else {
@@ -685,14 +800,17 @@
         function continuePayment(snapToken) {
             window.snap.pay(snapToken, {
                 onSuccess: function(result) {
-                    alert('Pembayaran Berhasil!');
                     window.location.reload();
                 },
                 onPending: function(result) {
-                    alert('Pembayaran Menunggu Konfirmasi.');
+                    window.location.reload();
                 },
                 onError: function(result) {
-                    alert('Pembayaran Gagal!');
+                    alert("Pembayaran Gagal!");
+                    console.log(result);
+                },
+                onClose: function() {
+                    alert('Anda menutup popup pembayaran sebelum menyelesaikan pembayaran.');
                 }
             });
         }

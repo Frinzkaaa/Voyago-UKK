@@ -97,7 +97,8 @@
                             <i class="fa-solid {{ $icons[$booking->category] ?? 'fa-receipt' }} text-xl"></i>
                         </div>
                         <div>
-                            <h4 class="text-sm font-black text-gray-800 leading-none mb-1">{{ $booking->user->name }}</h4>
+                            <h4 class="text-sm font-black text-gray-800 leading-none">{{ $booking->user->name }}</h4>
+                            <p class="text-xs font-bold text-gray-400 mb-2">{{ $booking->user->email }}</p>
                             <p class="text-[10px] font-black text-[#FF7304] uppercase tracking-widest">{{ $booking->category }} - {{ $booking->booking_code }}</p>
                         </div>
                     </div>

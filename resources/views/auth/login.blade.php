@@ -75,8 +75,9 @@
                                 placeholder="••••••••">
                         </div>
                     </div>
-                    <button class="w-full bg-[#FF7304] text-white py-4.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e66700] transform active:scale-95 transition-all shadow-xl shadow-orange-500/20 mt-2">
+                    <button class="w-full bg-[#FF7304] text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-[#e66700] transform active:scale-95 transition-all shadow-2xl shadow-orange-500/30 mt-2 border-b-4 border-orange-700">
                         Masuk Sekarang
+                        <i class="fas fa-chevron-right ml-2 text-[10px] opacity-50"></i>
                     </button>
                 </div>
             </form>
@@ -112,8 +113,9 @@
                                 placeholder="Min. 6 karakter">
                         </div>
                     </div>
-                    <button class="w-full bg-[#FF7304] text-white py-4.5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-[#e66700] transform active:scale-95 transition-all shadow-xl shadow-orange-500/20 mt-2">
-                        Daftar Akun
+                    <button class="w-full bg-[#FF7304] text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-[#e66700] transform active:scale-95 transition-all shadow-2xl shadow-orange-500/30 mt-2 border-b-4 border-orange-700">
+                        Buat Akun Baru
+                        <i class="fas fa-plus ml-2 text-[10px] opacity-50"></i>
                     </button>
                 </div>
             </form>
@@ -124,13 +126,11 @@
                 <div class="h-px bg-gray-100 dark:bg-zinc-800 flex-1"></div>
             </div>
 
-            <div class="mt-8 flex gap-4">
-                <button class="flex-1 py-3.5 bg-gray-100/50 dark:bg-zinc-800 rounded-2xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all border border-gray-100 dark:border-zinc-700">
-                    <i class="fab fa-google text-gray-600 dark:text-white text-lg"></i>
-                </button>
-                <button class="flex-1 py-3.5 bg-gray-100/50 dark:bg-zinc-800 rounded-2xl flex items-center justify-center hover:bg-gray-100 dark:hover:bg-zinc-700 transition-all border border-gray-100 dark:border-zinc-700">
-                    <i class="fab fa-apple text-gray-600 dark:text-white text-lg"></i>
-                </button>
+            <div class="mt-8">
+                <a href="{{ route('auth.google') }}" class="w-full py-4.5 bg-white dark:bg-zinc-800 rounded-2xl flex items-center justify-center gap-4 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all border-2 border-gray-100 dark:border-zinc-800 shadow-md group">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" class="w-6 h-6 group-hover:scale-110 transition-transform" alt="Google">
+                    <span class="text-xs font-black text-gray-900 dark:text-white uppercase tracking-widest">Lanjutkan dengan Google</span>
+                </a>
             </div>
         </div>
 

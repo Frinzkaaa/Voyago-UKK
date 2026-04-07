@@ -122,18 +122,7 @@ class MitraController extends Controller
     public function products()
     {
         $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-
-        $type = 'wisata';
-        if (str_contains($serviceType, 'Hotel') || str_contains($serviceType, 'Akomodasi'))
-            $type = 'hotel';
-        elseif (str_contains($serviceType, 'Pesawat') || str_contains($serviceType, 'Maskapai'))
-            $type = 'pesawat';
-        elseif (str_contains($serviceType, 'Kereta'))
-            $type = 'kereta';
-        elseif (str_contains($serviceType, 'Bus'))
-            $type = 'bus';
-        elseif (str_contains($serviceType, 'Wisata') || str_contains($serviceType, 'Hiburan'))
-            $type = 'wisata';
+        $type = $this->resolveProductType($serviceType);
 
         $products = match ($type) {
             'hotel' => Hotel::where('user_id', Auth::id())->get(),
@@ -153,18 +142,7 @@ class MitraController extends Controller
         }
 
         $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-
-        $type = 'wisata';
-        if (str_contains($serviceType, 'Hotel') || str_contains($serviceType, 'Akomodasi'))
-            $type = 'hotel';
-        elseif (str_contains($serviceType, 'Pesawat') || str_contains($serviceType, 'Maskapai'))
-            $type = 'pesawat';
-        elseif (str_contains($serviceType, 'Kereta'))
-            $type = 'kereta';
-        elseif (str_contains($serviceType, 'Bus'))
-            $type = 'bus';
-        elseif (str_contains($serviceType, 'Wisata') || str_contains($serviceType, 'Hiburan'))
-            $type = 'wisata';
+        $type = $this->resolveProductType($serviceType);
 
         return view('mitra.products.create', compact('type'));
     }
@@ -177,36 +155,36 @@ class MitraController extends Controller
 
         // Determine Product Type
         $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-        $type = 'wisata';
-        if (str_contains($serviceType, 'Hotel') || str_contains($serviceType, 'Akomodasi'))
-            $type = 'hotel';
-        elseif (str_contains($serviceType, 'Pesawat') || str_contains($serviceType, 'Maskapai'))
-            $type = 'pesawat';
-        elseif (str_contains($serviceType, 'Kereta'))
-            $type = 'kereta';
-        elseif (str_contains($serviceType, 'Bus'))
-            $type = 'bus';
+        $type = $this->resolveProductType($serviceType);
 
-        // Validation
+        // Common Validation
         $rules = [
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'quota' => 'required|integer|min:0',
-            'image' => 'required|image|mimes:jpeg,png,webp|max:2048',
+            'image' => ($type == 'pesawat' || $type == 'kereta') ? 'nullable' : 'required|image|mimes:jpeg,png,webp|max:2048',
             'gallery.*' => 'nullable|image|mimes:jpeg,png,webp|max:2048',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
         ];
 
-        // Category-specific validation
         if ($type == 'pesawat') {
-            $rules['airline_logo'] = 'required|image|mimes:jpeg,png,webp|max:2048';
-            $rules['interior_images.*'] = 'nullable|image|mimes:jpeg,png,webp|max:2048';
+            $rules['airline_name'] = 'required|string|max:255';
+            $rules['flight_code'] = 'required|string|max:255';
+            $rules['origin'] = 'required|string';
+            $rules['destination'] = 'required|string';
+            $rules['baggage_info'] = 'required|string';
         } elseif ($type == 'hotel') {
+            $rules['name'] = 'required|string|max:255';
             $rules['front_image'] = 'required|image|mimes:jpeg,png,webp|max:2048';
             $rules['room_images'] = 'required|array|min:1';
             $rules['room_images.*'] = 'image|mimes:jpeg,png,webp|max:2048';
-        } elseif ($type == 'kereta') {
-            $rules['train_images'] = 'required|array|min:1';
-            $rules['train_images.*'] = 'image|mimes:jpeg,png,webp|max:2048';
+        } else {
+            if ($type == 'bus') {
+                $rules['operator'] = 'required|string|max:255';
+            } elseif ($type == 'kereta') {
+                $rules['name'] = 'required|string|max:255';
+                $rules['code'] = 'required|string|max:255';
+            } else {
+                $rules['name'] = 'required|string|max:255';
+            }
         }
 
         $request->validate($rules);
@@ -217,10 +195,10 @@ class MitraController extends Controller
 
         $commonData = [
             'user_id' => Auth::id(),
-            'status' => ProductStatus::PENDING_REVIEW,
+            'status' => ProductStatus::ACTIVE,
             'image' => $imagePath,
             'gallery' => $galleryPaths,
-            'is_active' => false,
+            'is_active' => true,
         ];
 
         switch ($type) {
@@ -231,7 +209,7 @@ class MitraController extends Controller
                     'rating' => 5.0,
                     'price_per_night' => $request->price,
                     'room_type' => $request->room_type ?? 'Standard',
-                    'availability' => $request->quota,
+                    'availability' => $request->stock,
                     'front_image' => $this->uploadMedia($request, 'front_image', "products/hotel/front"),
                     'room_images' => $this->uploadMedia($request, 'room_images', "products/hotel/rooms", true),
                     'facility_images' => $this->uploadMedia($request, 'facility_images', "products/hotel/facilities", true),
@@ -240,16 +218,16 @@ class MitraController extends Controller
 
             case 'pesawat':
                 FlightTicket::create(array_merge($commonData, [
-                    'airline_name' => $request->name,
-                    'flight_code' => $request->code,
+                    'airline_name' => $request->airline_name,
+                    'flight_code' => $request->flight_code,
                     'origin' => $request->origin,
                     'destination' => $request->destination,
                     'departure_time' => $request->departure_time,
                     'arrival_time' => $request->arrival_time ?? $request->departure_time,
                     'duration' => $request->duration ?? '0j',
-                    'baggage_info' => '20kg',
+                    'baggage_info' => $request->baggage_info,
                     'price' => $request->price,
-                    'seats_available' => $request->quota,
+                    'seats_available' => $request->stock,
                     'class' => $request->class ?? 'Economy',
                     'airline_logo' => $this->uploadMedia($request, 'airline_logo', "products/pesawat/logos"),
                     'interior_images' => $this->uploadMedia($request, 'interior_images', "products/pesawat/interior", true),
@@ -266,7 +244,7 @@ class MitraController extends Controller
                     'arrival_time' => $request->arrival_time ?? $request->departure_time,
                     'duration' => $request->duration ?? '0j',
                     'price' => $request->price,
-                    'seats_available' => $request->quota,
+                    'seats_available' => $request->stock,
                     'class' => $request->class ?? 'Economy',
                     'train_images' => $this->uploadMedia($request, 'train_images', "products/kereta/exterior", true),
                     'seat_images' => $this->uploadMedia($request, 'seat_images', "products/kereta/interior", true),
@@ -275,12 +253,14 @@ class MitraController extends Controller
 
             case 'bus':
                 BusTicket::create(array_merge($commonData, [
-                    'operator' => $request->name,
-                    'origin_terminal' => $request->origin,
-                    'destination_terminal' => $request->destination,
+                    'operator' => $request->operator,
+                    'origin_terminal' => $request->origin_terminal,
+                    'destination_terminal' => $request->destination_terminal,
                     'departure_time' => $request->departure_time,
+                    'arrival_time' => $request->arrival_time ?? $request->departure_time,
+                    'duration' => $request->duration ?? '0j',
                     'price' => $request->price,
-                    'seats_available' => $request->quota,
+                    'seats_available' => $request->stock,
                     'seat_type' => $request->class ?? 'Standard',
                 ]));
                 break;
@@ -293,7 +273,7 @@ class MitraController extends Controller
                     'location' => $request->location,
                     'description' => $request->description ?? '-',
                     'price' => $request->price,
-                    'availability' => $request->quota,
+                    'availability' => $request->stock,
                     'open_hours' => '08:00 - 17:00',
                     'main_image' => $this->uploadMedia($request, 'main_image', "products/wisata/main"),
                     'spot_images' => $this->uploadMedia($request, 'spot_images', "products/wisata/spots", true),
@@ -326,26 +306,136 @@ class MitraController extends Controller
 
     public function editProduct($id)
     {
-        $product = WisataSpot::findOrFail($id);
-        Gate::authorize('update', $product);
+        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
+        $type = $this->resolveProductType($serviceType);
 
-        return view('mitra.products.edit', compact('product'));
+        $product = match ($type) {
+            'hotel' => Hotel::findOrFail($id),
+            'pesawat' => FlightTicket::findOrFail($id),
+            'kereta' => TrainTicket::findOrFail($id),
+            'bus' => BusTicket::findOrFail($id),
+            default => WisataSpot::findOrFail($id),
+        };
+
+        if ($product->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('mitra.products.edit', compact('product', 'type'));
     }
 
     public function updateProduct(Request $request, $id)
     {
-        $product = WisataSpot::findOrFail($id);
-        Gate::authorize('update', $product);
+        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
+        $type = $this->resolveProductType($serviceType);
 
-        $product->update([
-            'name' => $request->name,
-            'category' => $request->category,
-            'location' => $request->location,
-            'description' => $request->description,
-            'price' => $request->price,
-            'availability' => $request->quota,
+        $product = match ($type) {
+            'hotel' => Hotel::findOrFail($id),
+            'pesawat' => FlightTicket::findOrFail($id),
+            'kereta' => TrainTicket::findOrFail($id),
+            'bus' => BusTicket::findOrFail($id),
+            default => WisataSpot::findOrFail($id),
+        };
+
+        if ($product->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $data = [
             'status' => ProductStatus::PENDING_REVIEW, // Re-verify on update
-        ]);
+        ];
+
+        if ($type == 'pesawat') {
+            $data = array_merge($data, [
+                'airline_name' => $request->airline_name,
+                'flight_code' => $request->flight_code,
+                'origin' => $request->origin,
+                'destination' => $request->destination,
+                'departure_time' => $request->departure_time,
+                'arrival_time' => $request->arrival_time ?? $request->departure_time,
+                'duration' => $request->duration,
+                'baggage_info' => $request->baggage_info ?? '20kg',
+                'price' => $request->price,
+                'seats_available' => $request->stock,
+                'class' => $request->class ?? 'Economy',
+            ]);
+        } elseif ($type == 'hotel') {
+            $data = array_merge($data, [
+                'name' => $request->name,
+                'location' => $request->location,
+                'price_per_night' => $request->price,
+                'room_type' => $request->room_type,
+                'availability' => $request->stock,
+                'description' => $request->description,
+            ]);
+        } elseif ($type == 'kereta') {
+            $data = array_merge($data, [
+                'name' => $request->name,
+                'code' => $request->code,
+                'origin' => $request->origin,
+                'destination' => $request->destination,
+                'departure_time' => $request->departure_time,
+                'arrival_time' => $request->arrival_time ?? $request->departure_time,
+                'duration' => $request->duration,
+                'price' => $request->price,
+                'seats_available' => $request->stock,
+                'class' => $request->class ?? 'Economy',
+            ]);
+        } elseif ($type == 'bus') {
+            $data = array_merge($data, [
+                'operator' => $request->operator,
+                'origin_terminal' => $request->origin_terminal,
+                'destination_terminal' => $request->destination_terminal,
+                'departure_time' => $request->departure_time,
+                'arrival_time' => $request->arrival_time ?? $request->departure_time,
+                'duration' => $request->duration,
+                'price' => $request->price,
+                'seats_available' => $request->stock,
+            ]);
+        } else {
+            $data = array_merge($data, [
+                'name' => $request->name,
+                'category' => $request->category,
+                'location' => $request->location,
+                'description' => $request->description,
+                'price' => $request->price,
+                'availability' => $request->stock,
+            ]);
+        }
+
+        // Handle Image Updates
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->uploadMedia($request, 'image', "products/{$type}/thumbnails");
+        }
+        if ($request->hasFile('gallery')) {
+            $data['gallery'] = $this->uploadMedia($request, 'gallery', "products/{$type}/gallery", true);
+        }
+
+        if ($type == 'pesawat') {
+            if ($request->hasFile('airline_logo')) {
+                $data['airline_logo'] = $this->uploadMedia($request, 'airline_logo', "products/pesawat/logos");
+            }
+            if ($request->hasFile('interior_images')) {
+                $data['interior_images'] = $this->uploadMedia($request, 'interior_images', "products/pesawat/interior", true);
+            }
+        } elseif ($type == 'hotel') {
+            if ($request->hasFile('front_image')) {
+                $data['front_image'] = $this->uploadMedia($request, 'front_image', "products/hotel/front");
+            }
+            if ($request->hasFile('room_images')) {
+                $data['room_images'] = $this->uploadMedia($request, 'room_images', "products/hotel/rooms", true);
+            }
+        } elseif ($type == 'kereta') {
+            if ($request->hasFile('train_images')) {
+                $data['train_images'] = $this->uploadMedia($request, 'train_images', "products/kereta/exterior", true);
+            }
+        } elseif ($type == 'wisata') {
+            if ($request->hasFile('main_image')) {
+                $data['main_image'] = $this->uploadMedia($request, 'main_image', "products/wisata/main");
+            }
+        }
+
+        $product->update($data);
 
         return redirect()->route('partner.products')->with('success', 'Produk berhasil diperbarui.');
     }
@@ -392,19 +482,6 @@ class MitraController extends Controller
 
         $product->delete();
         return redirect()->route('partner.products')->with('success', 'Produk berhasil dihapus dari katalog.');
-    }
-
-    private function resolveProductType($serviceType)
-    {
-        if (str_contains($serviceType, 'Hotel') || str_contains($serviceType, 'Akomodasi'))
-            return 'hotel';
-        elseif (str_contains($serviceType, 'Pesawat') || str_contains($serviceType, 'Maskapai'))
-            return 'pesawat';
-        elseif (str_contains($serviceType, 'Kereta'))
-            return 'kereta';
-        elseif (str_contains($serviceType, 'Bus'))
-            return 'bus';
-        return 'wisata';
     }
 
     public function orders()
@@ -485,5 +562,28 @@ class MitraController extends Controller
     {
         Auth::logout();
         return redirect()->route('partner.auth.page');
+    }
+
+    /**
+     * Resolve user's service type into internal product type slug
+     */
+    private function resolveProductType($serviceType)
+    {
+        $serviceType = strtolower(trim($serviceType));
+        
+        if (str_contains($serviceType, 'hotel') || str_contains($serviceType, 'akomodasi') || str_contains($serviceType, 'stay')) {
+            return 'hotel';
+        }
+        if (str_contains($serviceType, 'pesawat') || str_contains($serviceType, 'maskapai') || str_contains($serviceType, 'flight')) {
+            return 'pesawat';
+        }
+        if (str_contains($serviceType, 'kereta') || str_contains($serviceType, 'train')) {
+            return 'kereta';
+        }
+        if (str_contains($serviceType, 'bus')) {
+            return 'bus';
+        }
+        
+        return 'wisata';
     }
 }

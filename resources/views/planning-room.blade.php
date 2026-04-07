@@ -301,9 +301,6 @@
             border-radius: 10px;
         }
 
-        .hidden {
-            display: none !important;
-        }
     </style>
 
     <script>

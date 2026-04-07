@@ -27,55 +27,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
     <style>
-        /* Premium Circle Reveal Animation */
-        ::view-transition-old(root),
-        ::view-transition-new(root) {
-            animation: none;
-            mix-blend-mode: normal;
-        }
-
-        ::view-transition-old(root) {
-            z-index: 1;
-        }
-
-        ::view-transition-new(root) {
-            z-index: 9999;
-        }
-
-        .dark::view-transition-old(root) {
-            z-index: 9999;
-        }
-
-        .dark::view-transition-new(root) {
-            z-index: 1;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #F8F9FB;
-            color: #1F2937;
-            transition: background-color 0.3s ease;
-        }
-
-        .dark body {
-            background-color: #0F172A;
-            color: #F8FAFC;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .dark .glass {
-            background: rgba(30, 41, 59, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+/* ... (existing styles) ... */
         .sidebar-item.active {
             background-color: #FF7304;
             color: white !important;
@@ -163,10 +118,29 @@
     </script>
 </head>
 
-<body class="flex min-h-screen text-gray-800 dark:text-gray-100">
+<body class="flex min-h-screen text-gray-800 dark:text-gray-100 bg-[#F8F9FB] dark:bg-dark-bg transition-colors" x-data="{ sidebarOpen: false }">
+    <!-- Sidebar Overlay (Mobile) -->
+    <div x-show="sidebarOpen" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="sidebarOpen = false"
+         class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] lg:hidden">
+    </div>
+
     <!-- Sidebar -->
-    <aside
-        class="w-20 lg:w-24 bg-white dark:bg-dark-card border-r border-gray-100 dark:border-dark-border flex flex-col items-center py-8 shrink-0 fixed h-full z-50 transition-colors">
+    <aside :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+        class="w-24 bg-white dark:bg-dark-card border-r border-gray-100 dark:border-dark-border flex flex-col items-center py-8 shrink-0 fixed h-full z-[70] transition-all duration-300 transform lg:translate-x-0 shadow-2xl lg:shadow-none">
+        
+        <div class="lg:hidden absolute top-4 right-4">
+            <button @click="sidebarOpen = false" class="text-gray-400 hover:text-orange-500">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+        </div>
+
         <a href="/" class="mb-12">
             <img src="/images/Logo.png" alt="Voyago" class="w-10 brightness-100 dark:brightness-110">
         </a>
@@ -203,48 +177,46 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-grow ml-20 lg:ml-24 flex flex-col min-w-0 bg-[#F8F9FB] dark:bg-dark-bg transition-colors">
+    <main class="flex-grow lg:ml-24 flex flex-col min-w-0 bg-[#F8F9FB] dark:bg-dark-bg transition-colors min-h-screen">
         <!-- Header -->
         <header
-            class="px-8 py-6 flex items-center justify-between sticky top-0 z-40 bg-[#F8F9FB]/80 dark:bg-dark-bg/80 backdrop-blur-md">
-            <div class="flex items-center gap-10 flex-grow max-w-2xl">
-                <div class="relative w-full group">
+            class="px-4 lg:px-8 py-6 flex items-center justify-between sticky top-0 z-40 bg-[#F8F9FB]/80 dark:bg-dark-bg/80 backdrop-blur-md border-b border-gray-100 dark:border-dark-border lg:border-none">
+            
+            <div class="flex items-center gap-4 lg:gap-10 flex-grow max-w-4xl">
+                <button @click="sidebarOpen = true" class="lg:hidden w-11 h-11 flex items-center justify-center bg-white dark:bg-dark-card rounded-2xl border dark:border-dark-border shadow-sm text-gray-500">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+
+                <div class="relative w-full group hidden md:block">
                     <i
                         class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-orange-400 group-focus-within:scale-110 transition-transform"></i>
                     <input type="text" placeholder="Cari apapun..."
                         class="w-full bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-full py-3.5 pl-14 pr-6 shadow-sm focus:ring-4 focus:ring-orange-50 dark:focus:ring-orange-900/10 focus:border-orange-200 outline-none text-sm transition-all dark:text-gray-100">
                 </div>
-                <div
-                    class="flex items-center gap-2 bg-white dark:bg-dark-card px-5 py-3 rounded-full shadow-sm border border-gray-50 dark:border-dark-border hidden sm:flex">
-                    <i class="fa-solid fa-calendar-day text-orange-400 text-xs"></i>
-                    <span
-                        class="text-orange-950 dark:text-gray-300 font-bold text-[11px] whitespace-nowrap uppercase tracking-wider">Senin,
-                        10 Jan 2026</span>
-                </div>
             </div>
 
-            <div class="flex items-center gap-4 ml-6">
+            <div class="flex items-center gap-2 lg:gap-4 ml-6">
                 <!-- Dark Mode Toggle -->
                 <button onclick="toggleDarkMode(event)"
-                    class="w-12 h-12 bg-white dark:bg-dark-card rounded-2xl border dark:border-dark-border shadow-sm text-orange-400 hover:scale-105 transition-all flex items-center justify-center">
+                    class="w-11 h-11 lg:w-12 lg:h-12 bg-white dark:bg-dark-card rounded-2xl border dark:border-dark-border shadow-sm text-orange-400 hover:scale-105 transition-all flex items-center justify-center">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block text-yellow-400"></i>
                 </button>
 
                 <button
-                    class="w-12 h-12 bg-white dark:bg-dark-card rounded-2xl border dark:border-dark-border shadow-sm text-orange-400 hover:scale-105 transition-all flex items-center justify-center relative">
+                    class="w-11 h-11 lg:w-12 lg:h-12 bg-white dark:bg-dark-card rounded-2xl border dark:border-dark-border shadow-sm text-orange-400 hover:scale-105 transition-all flex items-center justify-center relative">
                     <i class="fa-solid fa-bell"></i>
                     <span
                         class="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-dark-card"></span>
                 </button>
                 <div class="relative">
                     <img src="/images/Avatarprof.jpeg" alt="Admin"
-                        class="w-12 h-12 rounded-2xl border-2 border-white dark:border-dark-border shadow-sm object-cover">
+                        class="w-10 h-10 lg:w-12 lg:h-12 rounded-2xl border-2 border-white dark:border-dark-border shadow-sm object-cover">
                 </div>
             </div>
         </header>
 
-        <div class="px-8 pb-12 flex-grow overflow-x-hidden">
+        <div class="px-6 lg:px-8 pb-12 flex-grow overflow-x-hidden">
             @if(session('success'))
                 <div
                     class="bg-green-50 dark:bg-green-900/10 border border-green-100 dark:border-green-800 text-green-700 dark:text-green-400 px-6 py-4 rounded-2xl mb-8 flex items-center gap-3 animate-bounce">

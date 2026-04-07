@@ -26,6 +26,7 @@ class User extends Authenticatable
         'phone',
         'address',
         'avatar',
+        'google_id',
         'password',
         'role',
         'status',

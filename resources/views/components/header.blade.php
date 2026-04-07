@@ -1,18 +1,17 @@
 <!-- Header/Navbar Component -->
-<header id="main-header" class="py-2 px-6 sticky top-0 z-50 transition-all duration-500 ease-in-out dark:bg-dark-bg/40">
-  <div class="flex items-center gap-3">
-
+<header id="main-header" class="py-2 px-6 sticky top-0 z-50 transition-all duration-500 ease-in-out bg-white/90 dark:bg-dark-bg/60 backdrop-blur-md shadow-sm">
+  <div class="flex items-center justify-between gap-3 w-full">
     <!-- Logo Section -->
     <div
-      class="bg-white dark:bg-dark-card rounded-[20px] flex items-center justify-center min-w-[60px] min-h-[60px] shadow-sm border dark:border-dark-border transition-colors duration-300">
+      class="shrink-0 bg-white dark:bg-dark-card rounded-[20px] flex items-center justify-center min-w-[70px] min-h-[42px] shadow-sm border dark:border-dark-border transition-colors duration-300">
       <div class="flex flex-col items-center">
-        <img src="/images/logo.png" alt="Logo" srcset="" class="h-14 brightness-100 dark:brightness-110">
+        <img src="/images/logo.png" alt="Logo" class="h-5 brightness-100 dark:brightness-110">
       </div>
     </div>
 
-    <!-- Navigation Section -->
+    <!-- Navigation Section (Desktop/Tablet) -->
     <nav
-      class="flex overflow-x-auto bg-white dark:bg-dark-card rounded-[20px] items-center justify-around py-3 px-6 shadow-sm flex-grow border dark:border-dark-border transition-colors duration-300 gap-4 no-scrollbar">
+      class="hidden sm:flex items-center justify-between bg-white dark:bg-dark-card rounded-[20px] py-3 px-6 shadow-sm border dark:border-dark-border transition-colors duration-300 gap-4">
       <a href="/"
         class="flex items-center gap-2 {{ request()->is('/') ? 'text-[#FF7304]' : 'text-[#000000] dark:text-[#A1A1AA]' }} font-semibold text-[14px] hover:text-[#EA580C] transition-colors whitespace-nowrap">
         <i class="fa-solid fa-house text-md"></i>
@@ -41,9 +40,16 @@
         </a>
     </nav>
 
+    <!-- Mobile Hamburger Button -->
+    <div class="sm:hidden flex items-center">
+        <button onclick="toggleMobileMenu()" class="w-12 h-12 flex items-center justify-center bg-white dark:bg-dark-card shadow-sm border dark:border-dark-border rounded-[20px] text-[#FF7304] hover:bg-orange-50 transition-colors">
+            <i class="fa-solid fa-bars text-xl" id="hamburger-icon"></i>
+        </button>
+    </div>
+
     <!-- Search & Profile Section -->
     <div
-      class="bg-white dark:bg-dark-card rounded-[20px] py-2 px-3 flex items-center gap-2 shadow-sm flex-none border dark:border-dark-border transition-colors duration-300">
+      class="shrink-0 md:ml-auto bg-white dark:bg-dark-card rounded-[20px] py-2 px-3 flex items-center gap-2 shadow-sm flex-none border dark:border-dark-border transition-colors duration-300">
       <div class="hidden xl:flex flex-grow bg-[#EAEAEA] dark:bg-dark-bg rounded-full items-center px-4 py-2 gap-2 w-48 border border-transparent dark:border-dark-border">
         <i class="fa-solid fa-magnifying-glass text-gray-400 text-sm shrink-0"></i>
         <input type="text" placeholder="Mau rencanain liburan kemana nih?"
@@ -75,8 +81,8 @@
           <div id="profile-dropdown" onclick="event.stopPropagation()"
             class="hidden absolute right-0 mt-3 w-56 max-w-[90vw] bg-white dark:bg-dark-card rounded-[20px] shadow-xl border border-gray-100 dark:border-dark-border overflow-hidden z-50 transition-colors duration-300">
             <div class="p-4 border-b border-gray-50 dark:border-dark-border bg-orange-50/30 dark:bg-orange-950/20 whitespace-nowrap">
-              <p class="font-bold text-gray-800 dark:text-white text-sm">User Voyago</p>
-              <p class="text-[10px] text-gray-500 dark:text-gray-400">Member since 2025</p>
+              <p class="font-bold text-gray-800 dark:text-white text-sm">{{ auth()->user()->name }}</p>
+              <p class="text-[10px] text-gray-500 dark:text-gray-400">Member since {{ auth()->user()->created_at->format('M Y') }}</p>
             </div>
             <div class="py-2">
               <a href="/profile"
@@ -116,10 +122,44 @@
       @endauth
     </div>
 
+  <!-- Mobile Navigation Dropdown -->
+  <div id="mobile-menu" class="hidden absolute top-[85px] left-6 right-6 bg-white dark:bg-dark-card rounded-[24px] shadow-2xl border border-gray-100 dark:border-dark-border z-[60] overflow-hidden">
+    <div class="flex flex-col p-4 w-full gap-2">
+      <a href="/" class="flex items-center gap-3 px-4 py-3 rounded-2xl {{ request()->is('/') ? 'bg-orange-50 text-[#FF7304]' : 'text-gray-700 dark:text-[#A1A1AA]' }} font-semibold text-[15px]">
+        <i class="fa-solid fa-house w-5"></i><span>Beranda</span>
+      </a>
+      <a href="/pemesanan" class="flex items-center gap-3 px-4 py-3 rounded-2xl {{ request()->is('pemesanan') ? 'bg-orange-50 text-[#FF7304]' : 'text-gray-700 dark:text-[#A1A1AA]' }} font-semibold text-[15px]">
+        <i class="fa-solid fa-briefcase w-5"></i><span>Pemesanan</span>
+      </a>
+      <a href="/planning" class="flex items-center gap-3 px-4 py-3 rounded-2xl {{ request()->is('planning') ? 'bg-orange-50 text-[#FF7304]' : 'text-gray-700 dark:text-[#A1A1AA]' }} font-semibold text-[15px]">
+        <i class="fa-solid fa-people-group w-5"></i><span>Planning Room</span>
+      </a>
+      <a href="/pesanan-saya" class="flex items-center gap-3 px-4 py-3 rounded-2xl {{ request()->is('pesanan-saya') ? 'bg-orange-50 text-[#FF7304]' : 'text-gray-700 dark:text-[#A1A1AA]' }} font-semibold text-[15px]">
+        <i class="fa-solid fa-receipt w-5"></i><span>Aktivitas Saya</span>
+      </a>
+      <a href="/settings" class="flex items-center gap-3 px-4 py-3 rounded-2xl {{ request()->is('settings') ? 'bg-orange-50 text-[#FF7304]' : 'text-gray-700 dark:text-[#A1A1AA]' }} font-semibold text-[15px]">
+        <i class="fa-solid fa-gear w-5"></i><span>Pengaturan</span>
+      </a>
+    </div>
   </div>
 </header>
 
 <script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const icon = document.getElementById('hamburger-icon');
+    
+    if (menu.classList.contains('hidden')) {
+      menu.classList.remove('hidden');
+      icon.classList.remove('fa-bars');
+      icon.classList.add('fa-xmark');
+    } else {
+      menu.classList.add('hidden');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-xmark');
+    }
+  }
+
   window.addEventListener('scroll', function () {
     const header = document.getElementById('main-header');
     if (window.scrollY > 20) {

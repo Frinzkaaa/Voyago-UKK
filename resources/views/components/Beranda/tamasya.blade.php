@@ -10,10 +10,10 @@
     @php
       $guides = [
         ['city' => 'Bali', 'country' => 'Indonesia', 'img' => 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Bangkok', 'country' => 'Thailand', 'img' => 'https://images.unsplash.com/photo-1504214208698-ea191f03f956?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Seoul', 'country' => 'Korea Selatan', 'img' => 'https://images.unsplash.com/photo-1538481199705-c710c479679a?auto=format&fit=crop&w=400&q=80'],
+        ['city' => 'Bangkok', 'country' => 'Thailand', 'img' => 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80'],
+        ['city' => 'Seoul', 'country' => 'Korea Selatan', 'img' => 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=400&q=80'],
         ['city' => 'Istanbul', 'country' => 'Turki', 'img' => 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Liverpool', 'country' => 'United Kingdom', 'img' => 'https://images.unsplash.com/photo-1543832491-32690940733a?auto=format&fit=crop&w=400&q=80'],
+        ['city' => 'Liverpool', 'country' => 'United Kingdom', 'img' => 'https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?auto=format&fit=crop&w=400&q=80'],
       ];
     @endphp
 

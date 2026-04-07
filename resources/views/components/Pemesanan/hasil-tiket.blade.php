@@ -64,7 +64,7 @@
         @endif
 
         <button onclick="selectTicket({{ $ticket->id }}, {{ $price }}, '{{ urlencode(json_encode($ticket)) }}')"
-          class="bg-orange-100 group-hover:bg-orange-50 dark:hover:bg-[#2A2A2A]0 group-hover:text-white text-orange-400 font-black px-12 py-3 rounded-2xl transition-all shadow-sm">
+          class="bg-orange-100 dark:bg-orange-500/10 text-orange-500 group-hover:bg-orange-500 group-hover:text-white font-black px-12 py-3 rounded-2xl transition-all shadow-sm">
           Pilih
         </button>
       </div>

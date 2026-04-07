@@ -3,16 +3,21 @@
   <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
     <div>
       <div class="flex items-center gap-2 mb-2">
-        <img src="/logo.svg" alt="Voyago Logo" class="h-8 w-auto">
-        <span class="font-bold text-xl">Voyago</span>
+        <img src="/images/logo-2.png" alt="Voyago Logo" class="h-10 w-auto">
       </div>
       <p class="text-xs">Platform pemesanan tiket & travel terpercaya untuk pesawat, kereta, hotel, dan destinasi
         wisata. Pesan cepat, aman, dan praktis dalam satu aplikasi.</p>
-      <div class="flex gap-2 mt-2">
-        <a href="#"><img src="/icon-fb.svg" class="h-5 w-5" alt="Facebook"></a>
-        <a href="#"><img src="/icon-ig.svg" class="h-5 w-5" alt="Instagram"></a>
-        <a href="#"><img src="/icon-tw.svg" class="h-5 w-5" alt="Twitter"></a>
-      </div>
+     <div class="flex gap-2 mt-2">
+        <a href="#" class="h-5 w-5 flex items-center justify-center hover:text-orange-500 transition">
+            <i class="fa-brands fa-facebook-f text-lg"></i>
+        </a>
+        <a href="#" class="h-5 w-5 flex items-center justify-center hover:text-orange-500 transition">
+            <i class="fa-brands fa-instagram text-lg"></i>
+        </a>
+        <a href="#" class="h-5 w-5 flex items-center justify-center hover:text-orange-500 transition">
+            <i class="fa-brands fa-x-twitter text-lg"></i>
+        </a>
+    </div>
     </div>
     <div>
       <div class="font-bold mb-2">Quick Links</div>
@@ -48,7 +53,7 @@
             <path d="M22 2L15 22L11 13L2 9L22 2Z" />
           </svg></button>
       </form>
-      <div class="text-xs">support@keliling.satotravel.com<br>+62 812-0000-0000</div>
+      <div class="text-xs">support@voyago.com<br>+62 812-0000-0000</div>
     </div>
   </div>
 </footer>

@@ -2,6 +2,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Voyago</title>
+  <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -77,7 +78,7 @@
       .grid > * { min-width: 0; }
       /* stronger clipping rules for containers and grid to avoid layout shift */
       html, body { overflow-x: hidden !important; }
-      main.max-w-7xl, .max-w-7xl { position: relative; overflow-x: hidden !important; }
+      main.max-w-7xl { position: relative; }
       /* ensure grid children won't force horizontal scroll (matches any grid-cols class) */
       [class*="grid-cols-"] > * { min-width: 0; }
       /* limit absolutely-positioned decorative elements */

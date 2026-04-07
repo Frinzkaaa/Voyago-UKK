@@ -118,9 +118,9 @@
                                 placeholder="••••••••">
                         </div>
                     </div>
-                    <button class="w-full bg-gray-900 dark:bg-white dark:text-gray-900 text-white py-4.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl hover:bg-black dark:hover:bg-gray-100 transition-all flex items-center justify-center gap-3 mt-4">
+                    <button class="w-full bg-gray-900 dark:bg-white dark:text-gray-900 text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-2xl hover:bg-black dark:hover:bg-gray-100 transition-all flex items-center justify-center gap-3 mt-4 border-b-4 border-gray-700 dark:border-gray-200">
                         Masuk Dashboard
-                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        <i class="fa-solid fa-chevron-right text-[10px] opacity-50"></i>
                     </button>
                 </div>
             </form>
@@ -159,12 +159,19 @@
                             class="w-full bg-gray-50 dark:bg-zinc-800/40 border border-gray-100 dark:border-zinc-800 p-3.5 rounded-2xl text-sm font-bold text-gray-800 dark:text-white outline-none focus:border-orange-500 transition-all"
                             placeholder="Min. 8 karakter">
                     </div>
-                    <button class="w-full bg-orange-500 text-white py-4.5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-xl hover:bg-orange-600 transition-all flex items-center justify-center gap-3 mt-4">
+                    <button class="w-full bg-orange-500 text-white py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.2em] shadow-2xl shadow-orange-500/30 hover:bg-orange-600 transition-all flex items-center justify-center gap-3 mt-4 border-b-4 border-orange-700">
                         Daftar Sebagai Partner
-                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <i class="fa-solid fa-plus text-[10px] opacity-50"></i>
                     </button>
                 </div>
             </form>
+            
+            <div class="mt-8 pt-8 border-t border-gray-50 dark:border-zinc-800 text-center">
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-zinc-500 uppercase tracking-widest hover:text-orange-500 transition-colors group">
+                    <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                    Kembali Ke Portal User
+                </a>
+            </div>
         </div>
     </div>
 

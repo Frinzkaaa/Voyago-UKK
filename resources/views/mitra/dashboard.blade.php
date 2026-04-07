@@ -97,8 +97,9 @@
                             @forelse($recentOrders as $order)
                                 <tr class="hover:bg-gray-50/80 dark:hover:bg-zinc-800/50 transition-colors">
                                     <td class="px-8 py-5">
-                                        <p class="text-xs font-black text-gray-900 dark:text-white">{{ $order->user_name ?? 'Premium Guest' }}</p>
-                                        <p class="text-[10px] text-gray-400 mt-1">{{ $order->created_at->format('d M, H:i') }}</p>
+                                        <p class="text-xs font-black text-gray-900 dark:text-white">{{ $order->user->name ?? 'Guest' }}</p>
+                                        <p class="text-[10px] font-bold text-gray-400 mt-0.5">{{ $order->user->email ?? '-' }}</p>
+                                        <p class="text-[10px] text-gray-300 dark:text-zinc-600 mt-1">{{ $order->created_at->format('d M, H:i') }}</p>
                                     </td>
                                     <td class="px-8 py-5">
                                         <div class="px-2.5 py-1 bg-zinc-100 dark:bg-zinc-800 rounded-lg text-[10px] font-bold text-gray-600 dark:text-zinc-400 inline-block uppercase whitespace-nowrap">

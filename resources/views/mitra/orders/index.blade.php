@@ -95,9 +95,19 @@
                                     @if($order->status === \App\Enums\BookingStatus::PENDING)
                                         <form action="{{ route('partner.orders.confirm', $order->id) }}" method="POST">
                                             @csrf
-                                            <button class="bg-gray-900 text-white px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-orange-600 hover:scale-105 active:scale-95 shadow-xl shadow-gray-900/10">Setujui</button>
+                                            <button class="bg-gray-900 text-white px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-emerald-600 hover:scale-105 active:scale-95 shadow-xl shadow-gray-900/10">Setujui</button>
                                         </form>
                                         <button class="bg-white dark:bg-zinc-800 text-red-500 border border-red-100 dark:border-red-900/30 px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-red-50 transition-all">Batal</button>
+                                    @elseif($order->status === \App\Enums\BookingStatus::CONFIRMED)
+                                        <form action="{{ route('partner.orders.update-status', $order->id) }}" method="POST" onsubmit="return confirm('Konfirmasi bahwa tiket ini telah digunakan oleh pelanggan?')">
+                                            @csrf
+                                            <input type="hidden" name="status" value="{{ \App\Enums\BookingStatus::COMPLETED }}">
+                                            <button class="bg-blue-600 text-white px-6 py-2.5 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all hover:bg-blue-700 hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/10">Konfirmasi Pemakaian</button>
+                                        </form>
+                                        <button onclick="showOrderDetail({{ json_encode($order->load('user')) }})"
+                                            class="bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-400 px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-900 hover:text-white transition-all transform flex items-center gap-2">
+                                            <i class="fa-solid fa-eye"></i> Details
+                                        </button>
                                     @else
                                         <button onclick="showOrderDetail({{ json_encode($order->load('user')) }})"
                                             class="bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-400 px-6 py-3 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-gray-900 hover:text-white transition-all transform flex items-center gap-2">
