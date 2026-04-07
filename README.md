@@ -1,59 +1,55 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Voyago - Premium Travel Booking Platform ✈️🚂🏨
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Voyago** adalah platform pemesanan tiket perjalanan modern yang dirancang untuk memberikan pengalaman "One-Stop Solution" bagi para penjelajah. Aplikasi ini mengintegrasikan layanan transportasi (Pesawat, Kereta, Bus), akomodasi (Hotel), hingga destinasi wisata dalam satu antarmuka yang elegan dan responsif.
 
-## About Laravel
+## ✨ Fitur Utama
+- **Multi-Category Booking:** Pesan tiket Pesawat, Kereta, Bus, Hotel, dan Wisata dalam satu aplikasi.
+- **Modern Dashboard:** Interface Dashboard khusus untuk Admin dan Mitra dengan statistik real-time.
+- **Secure Payment:** Integrasi simulator pembayaran yang aman.
+- **Google OAuth:** Fitur login satu klik menggunakan akun Google.
+- **Booking Management:** Sistem riwayat pesanan yang mendetail dengan status (Pending, Confirmed, Completed, Cancelled).
+- **Complaint System:** Fitur pengaduan untuk menjaga transparansi antara Pengguna, Mitra, dan Admin.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠️ Tech Stack
+- **Framework:** Laravel 12
+- **Styling:** Tailwind CSS & Vanilla CSS (Custom Design)
+- **Database:** MySQL
+- **Icons:** Font Awesome 6
+- **Integrations:** Laravel Socialite (Google Login), Midtrans API (Payment Gateway Support)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔑 Akun Demonstrasi (Testing)
 
-## Learning Laravel
+Silakan gunakan kredensial berikut untuk menguji berbagai role dalam aplikasi:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Akun User (Pelanggan)
+Akses: Portal Utama User
+- **Email:** `test@example.com`
+- **Password:** `password`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 2. Akun Admin (Super-Admin)
+Akses: `/admin/login`
+- **Email:** `admin@voyago.com`
+- **Password:** `admin123`
 
-## Laravel Sponsors
+### 3. Akun Mitra (Partner/Bisnis)
+Akses: `/partner/auth` (Voyago Business)
+- **Password:** `mitra123` (Berlaku untuk semua mitra di bawah ini)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Daftar Akun Mitra:**
+1.  **Transportasi Udara:** `garuda@voyago.com`
+2.  **Transportasi Darat (Kereta):** `kai@voyago.com`
+3.  **Transportasi Darat (Bus):** `damri@voyago.com`
+4.  **Akomodasi:** `mitra@voyago.com`
+5.  **Wisata & Rekreasi:** `bali_tours@voyago.com`
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🚀 Cara Menjalankan Project
+1.  Pastikan Server Lokal (Laragon/XAMPP) aktif.
+2.  Jalankan perintah `php artisan serve` di terminal.
+3.  Akses project melalui `http://localhost:8000` atau melalui link ngrok yang tersedia.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+**Tugas Akhir Sekolah - Dikembangkan oleh Frinzka Desfrilia**
