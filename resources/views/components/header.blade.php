@@ -11,7 +11,7 @@
 
     <!-- Navigation Section (Desktop/Tablet) -->
     <nav
-      class="hidden sm:flex items-center justify-between bg-white dark:bg-dark-card rounded-[20px] py-3 px-6 shadow-sm border dark:border-dark-border transition-colors duration-300 gap-4">
+      class="hidden xl:flex items-center justify-between bg-white dark:bg-dark-card rounded-[20px] py-3 px-6 shadow-sm border dark:border-dark-border transition-colors duration-300 gap-4">
       <a href="/"
         class="flex items-center gap-2 {{ request()->is('/') ? 'text-[#FF7304]' : 'text-[#000000] dark:text-[#A1A1AA]' }} font-semibold text-[14px] hover:text-[#EA580C] transition-colors whitespace-nowrap">
         <i class="fa-solid fa-house text-md"></i>
@@ -32,16 +32,10 @@
           <i class="fa-solid fa-receipt text-md"></i>
           <span>Aktivitas Saya</span>
         </a>
-
-        <a href="/settings"
-          class="flex items-center gap-2 {{ request()->is('settings') ? 'text-[#FF7304]' : 'text-[#000000] dark:text-[#A1A1AA]' }} font-semibold text-[14px] hover:text-[#EA580C] transition-colors whitespace-nowrap">
-          <i class="fa-solid fa-gear text-md"></i>
-          <span>Pengaturan</span>
-        </a>
     </nav>
 
     <!-- Mobile Hamburger Button -->
-    <div class="sm:hidden flex items-center">
+    <div class="xl:hidden flex items-center">
         <button onclick="toggleMobileMenu()" class="w-12 h-12 flex items-center justify-center bg-white dark:bg-dark-card shadow-sm border dark:border-dark-border rounded-[20px] text-[#FF7304] hover:bg-orange-50 transition-colors">
             <i class="fa-solid fa-bars text-xl" id="hamburger-icon"></i>
         </button>

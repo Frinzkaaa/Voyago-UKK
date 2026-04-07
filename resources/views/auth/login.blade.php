@@ -34,7 +34,7 @@
             <p class="text-gray-500 dark:text-zinc-400 mt-2 font-medium" x-text="isLogin ? 'Selamat datang kembali, Penjelajah!' : 'Mari mulai perjalanan baru bersamamu!'"></p>
         </div>
 
-        <div class="bg-white dark:bg-zinc-900 p-10 auth-card border border-gray-100 dark:border-zinc-800 relative overflow-hidden transition-all duration-300">
+        <div class="bg-white dark:bg-zinc-900 p-6 md:p-10 auth-card border border-gray-100 dark:border-zinc-800 relative overflow-hidden transition-all duration-300">
             <!-- Form Header/Toggle -->
             <div class="flex p-1.5 bg-gray-100/80 dark:bg-zinc-800/50 rounded-[18px] mb-8">
                 <button @click="isLogin = true" :class="isLogin ? 'bg-white dark:bg-zinc-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-zinc-400'"

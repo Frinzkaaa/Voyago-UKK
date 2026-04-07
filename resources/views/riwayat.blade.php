@@ -70,16 +70,16 @@
 
             <!-- Pesanan Saya Content -->
             <div id="section-pesanan" class="dashboard-section animate-in fade-in slide-in-from-bottom-4 duration-500">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
                     <div>
                         <h1 class="text-4xl font-black text-gray-800 dark:text-white tracking-tighter mb-2">Pesanan Saya</h1>
                         <p class="text-sm font-bold text-gray-400">Kelola tiket dan rincian perjalanan Anda</p>
                     </div>
-                    <div class="flex items-center gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-fit">
-                        <button onclick="filterStatus('semua')" class="status-tab active-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Semua</button>
-                        <button onclick="filterStatus('upcoming')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Upcoming</button>
-                        <button onclick="filterStatus('selesai')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Selesai</button>
-                        <button onclick="filterStatus('dibatalkan')" class="status-tab px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">Dibatalkan</button>
+                    <div class="flex items-center gap-2 md:gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-full lg:w-fit overflow-x-auto lg:overflow-visible custom-scrollbar">
+                        <button onclick="filterStatus('semua')" class="status-tab active-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Semua</button>
+                        <button onclick="filterStatus('upcoming')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Upcoming</button>
+                        <button onclick="filterStatus('selesai')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Selesai</button>
+                        <button onclick="filterStatus('dibatalkan')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Dibatalkan</button>
                     </div>
                 </div>
 

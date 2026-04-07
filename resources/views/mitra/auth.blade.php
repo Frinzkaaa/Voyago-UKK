@@ -74,7 +74,7 @@
         </div>
 
         <!-- Right Side: Form Content -->
-        <div class="p-10 md:p-16 bg-white dark:bg-zinc-900 flex flex-col justify-center" x-data="{ isLogin: true }">
+        <div class="p-6 md:p-16 bg-white dark:bg-zinc-900 flex flex-col justify-center" x-data="{ isLogin: true }">
             <div class="flex gap-10 mb-12">
                 <button @click="isLogin = true" class="pb-3 text-sm font-black transition-all relative uppercase tracking-widest"
                     :class="isLogin ? 'text-gray-900 dark:text-white border-b-4 border-orange-500' : 'text-gray-400 hover:text-gray-600 dark:text-zinc-500'">
