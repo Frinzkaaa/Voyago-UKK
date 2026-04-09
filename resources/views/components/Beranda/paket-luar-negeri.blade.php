@@ -9,7 +9,7 @@
     @php
       $intl = [
         ['title' => 'Japan Golden Trip 6D5N', 'sub' => 'Tokyo • Mt. Fuji • Kyoto • Osaka', 'price' => 'Rp 18.500.000 / orang', 'img' => 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=500&q=80'],
-        ['title' => 'Singapore Fun Holiday 3D2N', 'sub' => 'Marina Bay • Garden by the Bay • Universal Studios', 'price' => 'Rp 7.900.000 / orang', 'img' => 'https://images.unsplash.com/photo-1525625239114-98444a7036d7?auto=format&fit=crop&w=500&q=80'],
+        ['title' => 'Singapore Fun Holiday 3D2N', 'sub' => 'Marina Bay • Garden by the Bay • Universal Studios', 'price' => 'Rp 7.900.000 / orang', 'img' => 'https://plus.unsplash.com/premium_photo-1697730373939-3ebcaa9d295e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
         ['title' => 'Switzerland Alps Dream 7D6N', 'sub' => 'Zurich • Lucerne • Interlaken • Jungfrau', 'price' => 'Rp 39.900.000 / orang', 'img' => 'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=500&q=80'],
       ];
     @endphp

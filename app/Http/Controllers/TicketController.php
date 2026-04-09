@@ -12,18 +12,21 @@ use App\Models\Hotel;
 use App\Models\WisataSpot;
 use Midtrans\Snap;
 use Midtrans\Config;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TicketController extends Controller
 {
     private function getActiveProductQuery($model)
     {
+        $tableName = $model->getTable();
         return $model::query()
-            ->join('users', 'users.id', '=', $model->getTable() . '.user_id')
+            ->join('users', 'users.id', '=', $tableName . '.user_id')
             ->join('partners', 'partners.user_id', '=', 'users.id')
-            ->where($model->getTable() . '.status', 'active')
-            ->where($model->getTable() . '.is_active', true)
+            ->where($tableName . '.status', 'active')
+            ->where($tableName . '.is_active', true)
             ->where('partners.status', 'verified')
-            ->select($model->getTable() . '.*');
+            // Ambil semua kolom dari tabel produk, pastikan image terbawa
+            ->select($tableName . '.*');
     }
 
     public function index()
@@ -99,7 +102,10 @@ class TicketController extends Controller
                     $query->whereDate('departure_time', $date);
                 if ($class && $class !== 'All')
                     $query->where('class', 'LIKE', "%$class%");
-                $tickets = $query->get();
+                $tickets = $query->get()->map(function($t) {
+                    $t->image = $t->image ?? (json_decode($t->train_images)[0] ?? null);
+                    return $t;
+                });
                 break;
             case 'pesawat':
                 $query = $this->getActiveProductQuery(new FlightTicket);
@@ -109,8 +115,11 @@ class TicketController extends Controller
                     $query->where('destination', $destination);
                 if ($date)
                     $query->whereDate('departure_time', $date);
-                // FlightTicket does not use 'class' fields yet in schema.
-                $tickets = $query->get();
+                $tickets = $query->get()->map(function($t) {
+                    // Cek image utama, jika kosong ambil airline_logo
+                    $t->image = $t->image ?? $t->airline_logo;
+                    return $t;
+                });
                 break;
             case 'bus':
                 $query = $this->getActiveProductQuery(new BusTicket);
@@ -126,20 +135,55 @@ class TicketController extends Controller
                 $query = $this->getActiveProductQuery(new Hotel);
                 if ($destination)
                     $query->where('location', $destination);
-                $tickets = $query->get();
+                $tickets = $query->get()->map(function($t) {
+                    $t->image = $t->image ?? $t->front_image;
+                    return $t;
+                });
                 break;
             case 'wisata':
                 $query = $this->getActiveProductQuery(new WisataSpot);
                 if ($destination)
                     $query->where('name', $destination);
-                $tickets = $query->get();
+                $tickets = $query->get()->map(function($t) {
+                    $t->image = $t->image ?? $t->main_image;
+                    return $t;
+                });
                 break;
             default:
                 $tickets = [];
         }
 
         return response()->json([
-            'tickets' => $tickets,
+            'tickets' => $tickets->map(function($t) {
+                // Konversi model ke array agar kita bisa bebas menambah/mengubah data
+                $item = $t->toArray();
+                
+                // Cari gambar dari berbagai kemungkinan kolom, pastikan yang diambil bukan string kosong
+                $rawPath = '';
+                $possibleColumns = ['image', 'main_image', 'front_image', 'airline_logo', 'logo'];
+                
+                foreach ($possibleColumns as $col) {
+                    if (!empty($t->$col)) {
+                        $rawPath = $t->$col;
+                        break;
+                    }
+                }
+                
+                // Jika masih kosong, coba cek galeri atau train_images (untuk kereta)
+                if (!$rawPath) {
+                    if (!empty($t->train_images)) {
+                        $imgs = is_string($t->train_images) ? json_decode($t->train_images, true) : $t->train_images;
+                        $rawPath = $imgs[0] ?? '';
+                    } elseif (!empty($t->gallery)) {
+                        $imgs = is_string($t->gallery) ? json_decode($t->gallery, true) : $t->gallery;
+                        $rawPath = $imgs[0] ?? '';
+                    }
+                }
+
+                // Berikan link bersih ke property 'image' yang akan dibaca JavaScript
+                $item['image'] = $rawPath;
+                return $item;
+            }),
             'category' => $category
         ]);
     }
@@ -716,5 +760,18 @@ class TicketController extends Controller
             ->values();
 
         return response()->json($bookedSeats);
+    }
+
+    public function downloadTicket($id)
+    {
+        $booking = \App\Models\Booking::where('id', $id)
+            ->where('user_id', auth()->id())
+            ->where('payment_status', \App\Enums\PaymentStatus::PAID)
+            ->firstOrFail();
+
+        $booking->item = $this->getItem($booking->category, $booking->item_id);
+
+        $pdf = Pdf::loadView('ticket_pdf', compact('booking'));
+        return $pdf->download('E-Ticket-' . $booking->booking_code . '.pdf');
     }
 }

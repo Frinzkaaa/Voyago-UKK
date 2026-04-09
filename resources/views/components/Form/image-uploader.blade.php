@@ -4,14 +4,15 @@
     'multiple' => false,
     'required' => false,
     'helper' => 'PNG, JPG atau WebP (Maks. 2MB)',
-    'id' => null
+    'id' => null,
+    'value' => null
 ])
 
 @php
     $id = $id ?? $name;
 @endphp
 
-<div class="space-y-4" x-data="imageUploader('{{ $id }}', {{ $multiple ? 'true' : 'false' }})">
+<div class="space-y-4" x-data="imageUploader('{{ $id }}', {{ $multiple ? 'true' : 'false' }}, '{{ $value }}')">
     <div class="flex items-center justify-between">
         <label class="block text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ $label }} {!! $required ? '<span class="text-red-500">*</span>' : '' !!}</label>
         <span class="text-[10px] text-gray-300 font-bold uppercase tracking-wider" x-text="countText"></span>
@@ -78,12 +79,36 @@
 
 <script>
 document.addEventListener('alpine:init', () => {
-    Alpine.data('imageUploader', (inputId, isMultiple) => ({
+    Alpine.data('imageUploader', (inputId, isMultiple, initialValue) => ({
         isDragging: false,
         isUploading: false,
         progress: 0,
         previews: [],
         files: [],
+
+        init() {
+            if (initialValue && initialValue !== '') {
+                // Try to parse as JSON first (for gallery), fallback to comma split
+                let values = [];
+                try {
+                    // Check if it looks like a JSON array
+                    if (initialValue.startsWith('[') && initialValue.endsWith(']')) {
+                        values = JSON.parse(initialValue);
+                    } else {
+                        values = isMultiple ? initialValue.split(',') : [initialValue];
+                    }
+                } catch (e) {
+                    values = isMultiple ? initialValue.split(',') : [initialValue];
+                }
+
+                this.previews = values.map(val => {
+                    if (val.startsWith('http') || val.startsWith('data:')) return val;
+                    // Bersihkan path dari double storage
+                    const cleanPath = val.replace('storage/', '').replace('public/', '');
+                    return '/storage/' + cleanPath;
+                });
+            }
+        },
         
         get countText() {
             if (!this.previews.length) return '';

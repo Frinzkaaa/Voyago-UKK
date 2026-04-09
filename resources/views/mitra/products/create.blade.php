@@ -72,31 +72,24 @@
                     </div>
                 </div>
 
-                @if ($type != 'pesawat' && $type != 'kereta')
                 <div class="bg-white dark:bg-zinc-900 p-10 rounded-[40px] border border-gray-100 dark:border-zinc-800 shadow-sm">
                     <div class="flex items-center gap-3 mb-8">
-                        <div class="w-10 h-10 bg-zinc-100 dark:bg-zinc-800 text-zinc-500 rounded-xl flex items-center justify-center">
+                        <div class="w-10 h-10 bg-orange-100 dark:bg-orange-950/20 text-orange-500 rounded-xl flex items-center justify-center">
                             <i class="fa-solid fa-images"></i>
                         </div>
-                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Aset Visual</h3>
+                        <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Aset Visual Produk</h3>
                     </div>
 
                     <div class="space-y-10">
-                        <x-Form.image-uploader name="image" label="Foto Cover Profil" helper="Rasio 16:9 disarankan" />
+                        <!-- Primary Image -->
+                        <x-Form.image-uploader name="image" label="Foto Utama (Cover)" helper="Akan tampil di card pencarian utama. Rasio 16:9 direkomendasikan." :required="true" />
 
-                        @if($type == 'hotel')
-                                <x-Form.image-uploader name="front_image" label="Fasad Bangunan" />
-                                <x-Form.image-uploader name="room_images" label="Interior Kamar" :multiple="true" />
-                        @elseif($type == 'wisata' || $type == 'bus')
-                            <x-Form.image-uploader name="main_image" label="Foto Ikonik" />
-                        @endif
-
+                        <!-- Gallery Images -->
                         <div class="pt-8 border-t border-gray-50 dark:border-zinc-800">
-                             <x-Form.image-uploader name="gallery" label="Media Tambahan" :multiple="true" />
+                             <x-Form.image-uploader name="gallery" label="Galeri Foto Tambahan" helper="Bisa pilih banyak gambar sekaligus untuk detail produk." :multiple="true" />
                         </div>
                     </div>
                 </div>
-                @endif
 
                 <button type="submit"
                     class="w-full bg-black dark:bg-orange-500 text-white py-6 rounded-3xl text-sm font-black uppercase tracking-[0.3em] shadow-2xl hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-4 group">

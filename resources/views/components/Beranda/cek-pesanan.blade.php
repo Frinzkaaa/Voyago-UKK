@@ -28,18 +28,28 @@
             continue;
 
           $statusClasses = match ($booking->status->value ?? $booking->status) {
-            'confirmed', 'verified', 'success' => 'bg-green-200 text-green-800',
-            'pending' => 'bg-yellow-200 text-yellow-800',
-            'rejected', 'cancelled', 'failed' => 'bg-red-200 text-red-800',
-            default => 'bg-gray-200 dark:bg-dark-border text-gray-800 dark:text-white'
+            'confirmed' => 'bg-blue-50 text-blue-500',
+            'completed' => 'bg-green-100 text-green-600',
+            'cancelled' => 'bg-red-50 text-red-500',
+            'refunded' => 'bg-purple-50 text-purple-400',
+            default => 'bg-orange-100 text-orange-600'
           };
 
           $statusLabel = match ($booking->status->value ?? $booking->status) {
-            'confirmed', 'verified', 'success' => 'Berhasil',
-            'pending' => 'Proses',
-            'rejected', 'cancelled', 'failed' => 'Gagal',
-            default => 'Pending'
+            'confirmed' => 'Terkonfirmasi',
+            'completed' => 'Selesai',
+            'cancelled' => 'Dibatalkan',
+            'refunded' => 'Refunded',
+            default => 'Proses'
           };
+
+          if ($booking->payment_status === \App\Enums\PaymentStatus::PENDING) {
+            $statusLabel = 'Menunggu Bayar';
+            $statusClasses = 'bg-orange-100 text-orange-600';
+          } elseif ($booking->payment_status === \App\Enums\PaymentStatus::PAID) {
+            if ($statusLabel === 'Proses') $statusLabel = 'Dibayar';
+            $statusClasses = 'bg-green-100 text-green-600';
+          }
 
           $config = match ($booking->category) {
             'pesawat' => [
@@ -155,7 +165,7 @@
               <span class="text-xs font-black text-gray-800 dark:text-white mt-1 uppercase text-right">{{ $config['val4'] }}</span>
             </div>
           </div>
-          <button onclick="openTicketModal()"
+          <button onclick="showOrderDetail({{ json_encode($booking) }})"
             class="w-full bg-white dark:bg-dark-card/50 hover:bg-white dark:bg-dark-card text-gray-800 dark:text-white font-black py-3 rounded-2xl text-xs transition-all border border-{{ $config['color'] }}-200/50 shadow-sm active:scale-95 transition-colors duration-300">Lihat
             Detail</button>
         </div>
@@ -175,57 +185,170 @@
     @endguest
   </div>
 
-  <!-- E-Ticket Modal -->
-  <div id="ticketModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
-    <!-- Overlay -->
-    <div class="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="closeTicketModal()"></div>
+  <!-- Detail Order Modal -->
+  <div id="orderModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onclick="closeOrderModal()"></div>
 
     <!-- Modal Content -->
-    <div class="relative min-h-screen flex items-center justify-center p-4"
-      onclick="if(event.target === this) closeTicketModal()">
-      <div
-        class="bg-white dark:bg-dark-card rounded-[32px] shadow-2xl w-full max-w-[380px] overflow-hidden transform transition-all relative transition-colors duration-300">
-
-        <!-- Ticket Header -->
-        <div class="p-6 flex items-center justify-between">
-          <img src="/images/Logo.png" class="h-7 object-contain">
-          <span class="font-black text-gray-800 dark:text-white text-xs tracking-tighter">VOYAGO E-TICKET</span>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[340px] animate-in fade-in zoom-in duration-300">
+      <div class="bg-white dark:bg-dark-card rounded-[2.5rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-gray-100 dark:border-dark-border">
+        <!-- Header: Minimal & Clean -->
+        <div class="p-5 flex items-center justify-between border-b border-gray-50 dark:border-dark-border">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-orange-50 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 transition-colors">
+              <i class="fa-solid fa-plane text-base" id="modal-product-icon"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-black text-gray-800 dark:text-white leading-none" id="modal-order-code">#VYG-12345678</h2>
+              <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1" id="modal-product-name">Pesawat</p>
+            </div>
+          </div>
+          <button onclick="closeOrderModal()" class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-orange-500 transition-all">
+            <i class="fa-solid fa-xmark text-sm"></i>
+          </button>
         </div>
 
-        <div class="px-6 pb-6 text-center">
-          <div class="py-10">
-            <i class="fa-solid fa-qrcode text-6xl text-gray-300 mb-4"></i>
-            <h3 class="text-xl font-black text-gray-800 dark:text-white">Detail Tiket</h3>
-            <p class="text-sm text-gray-400 mt-2">Silakan cek menu "Pesanan Saya" untuk melihat e-ticket lengkap dan QR
-              Code.</p>
+        <!-- Body -->
+        <div class="p-5">
+          <div class="grid grid-cols-2 gap-4 mb-5">
+            <div class="p-3 bg-gray-50 dark:bg-white/5 rounded-2xl">
+              <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Payment</p>
+              <p class="text-[10px] font-black text-orange-500 uppercase" id="modal-payment-status">PAID</p>
+            </div>
+            <div class="p-3 bg-gray-50 dark:bg-white/5 rounded-2xl">
+              <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">Date</p>
+              <p class="text-[10px] font-black text-gray-800 dark:text-white" id="modal-order-date">08 Apr 2026</p>
+            </div>
           </div>
 
-          <!-- Action Button -->
-          <a href="{{ route('my.bookings') }}"
-            class="block w-full bg-[#FF7304] text-white py-4 rounded-[24px] font-black text-lg shadow-xl shadow-orange-100 active:scale-[0.98] transition-all">
-            Ke Pesanan Saya
-          </a>
+          <div class="px-1 mb-5 space-y-3">
+             <div class="flex justify-between items-center">
+                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Travel Status</span>
+                <span class="text-[10px] font-black text-gray-800 dark:text-white capitalize" id="modal-travel-status">Upcoming</span>
+             </div>
+             <div class="flex justify-between items-center">
+                <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Passenger</span>
+                <span class="text-[10px] font-black text-gray-800 dark:text-white" id="modal-passenger-count">1 Pax</span>
+             </div>
+             <div class="flex justify-between items-center border-t border-gray-100 dark:border-dark-border pt-3 mt-3">
+                <span class="text-[10px] font-black text-gray-800 dark:text-white uppercase">Total Price</span>
+                <span class="text-sm font-black text-orange-500" id="modal-total-price">Rp 0</span>
+             </div>
+          </div>
+
+          <!-- Compact QR Section -->
+          <div id="modal-qr-section" class="py-4 border-t border-dashed border-gray-100 dark:border-dark-border flex flex-col items-center">
+            <div class="relative bg-white p-2 rounded-2xl shadow-sm mb-3">
+              <img id="modal-qr-code" src="" alt="QR" class="w-24 h-24 grayscale">
+            </div>
+            <p class="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em]">Scan QR for Check-in</p>
+          </div>
+
+          <!-- Actions -->
+          <div class="mt-4 flex gap-3">
+            <a id="modal-ticket-download" href="#" class="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-orange-500 rounded-2xl transition-all border border-gray-100 dark:border-dark-border">
+              <i class="fas fa-file-pdf"></i>
+            </a>
+            <button onclick="closeOrderModal()" class="flex-1 bg-zinc-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 transition-all shadow-lg active:scale-95">Tutup</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <style>
+    @keyframes scan {
+      0% { top: 0; opacity: 0; }
+      50% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+
+    .animate-scan {
+      position: absolute;
+      animation: scan 2s linear infinite;
+    }
+  </style>
 </div>
 
 <script>
-  function openTicketModal() {
-    document.getElementById('ticketModal').classList.remove('hidden');
+  function showOrderDetail(booking) {
+    const modal = document.getElementById('orderModal');
+    if (!modal) return;
+
+    // Helper to set text if element exists
+    const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = text;
+    };
+
+    setText('modal-order-code', '#' + booking.booking_code);
+    setText('modal-payment-status', (booking.payment_status || 'pending').toUpperCase());
+
+    const dateObj = new Date(booking.created_at);
+    setText('modal-order-date', dateObj.toLocaleDateString('id-ID', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }));
+    
+    setText('modal-order-time', dateObj.toLocaleTimeString('id-ID', {
+      hour: '2-digit',
+      minute: '2-digit'
+    }));
+
+    setText('modal-product-name', booking.category);
+    setText('modal-passenger-count', (booking.passenger_count || 1) + ' Pax');
+
+    const total = parseFloat(booking.total_price || 0);
+    const unitPrice = total / (booking.passenger_count || 1);
+
+    setText('modal-unit-price', 'Rp ' + unitPrice.toLocaleString('id-ID'));
+    setText('modal-total-price', 'Rp ' + total.toLocaleString('id-ID'));
+    setText('modal-payment-method', booking.payment_method || 'BANK');
+
+    // Travel Status Logic
+    let travelStatus = 'Upcoming';
+    if (booking.status === 'completed') travelStatus = 'Selesai';
+    if (booking.status === 'cancelled') travelStatus = 'Dibatalkan';
+    setText('modal-travel-status', travelStatus);
+
+    // Icon mapping
+    const icons = {
+      'kereta': 'fa-train',
+      'pesawat': 'fa-plane',
+      'bus': 'fa-bus',
+      'hotel': 'fa-hotel',
+      'wisata': 'fa-mountain-sun'
+    };
+    const iconEl = document.getElementById('modal-product-icon');
+    if (iconEl) iconEl.className = 'fa-solid ' + (icons[booking.category] || 'fa-receipt') + ' text-base';
+
+    // QR Code
+    const qrImg = document.getElementById('modal-qr-code');
+    const qrSection = document.getElementById('modal-qr-section');
+    const downloadBtn = document.getElementById('modal-ticket-download');
+
+    if (booking.payment_status === 'paid') {
+      if (qrSection) qrSection.style.display = 'flex';
+      if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${booking.booking_code}&color=000&bgcolor=fff`;
+      if (downloadBtn) {
+          downloadBtn.style.display = 'flex';
+          downloadBtn.href = `/booking/${booking.id}/ticket`;
+      }
+    } else {
+      if (qrSection) qrSection.style.display = 'none';
+      if (downloadBtn) downloadBtn.style.display = 'none';
+    }
+
+    // Show modal
+    modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeTicketModal() {
-    document.getElementById('ticketModal').classList.add('hidden');
+  function closeOrderModal() {
+    const modal = document.getElementById('orderModal');
+    modal.classList.add('hidden');
     document.body.style.overflow = 'auto';
   }
-
-  // Close on ESC
-  document.addEventListener('keydown', function (event) {
-    if (event.key === "Escape") {
-      closeTicketModal();
-    }
-  });
 </script>

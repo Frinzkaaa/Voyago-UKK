@@ -65,7 +65,13 @@
                                 <div class="flex items-center gap-4">
                                     <div class="w-14 h-14 rounded-2xl bg-zinc-100 dark:bg-zinc-800 overflow-hidden shrink-0 border border-zinc-100 dark:border-zinc-700 shadow-sm relative group-hover:scale-105 transition-transform">
                                         @if($product->image)
-                                            <img src="{{ asset('storage/' . $product->image) }}" class="w-full h-full object-cover">
+                                            @php
+                                                $imagePath = $product->image;
+                                                $imageUrl = str_starts_with($imagePath, 'http') 
+                                                    ? $imagePath 
+                                                    : asset('storage/' . str_replace('storage/', '', $imagePath));
+                                            @endphp
+                                            <img src="{{ $imageUrl }}" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full flex items-center justify-center text-zinc-300">
                                                 <i class="fa-solid {{ $icon }} text-xl"></i>

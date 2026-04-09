@@ -185,10 +185,10 @@
             new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun'],
+                    labels: {!! json_encode($chartLabels) !!},
                     datasets: [{
                         label: 'Gross Profit',
-                        data: [5, 12, 10, 25, 18, 30],
+                        data: {!! json_encode($chartData) !!},
                         borderColor: '#f97316',
                         backgroundColor: gradient,
                         borderWidth: 4,

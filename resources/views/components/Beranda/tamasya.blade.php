@@ -9,11 +9,11 @@
   <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
     @php
       $guides = [
-        ['city' => 'Bali', 'country' => 'Indonesia', 'img' => 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Bangkok', 'country' => 'Thailand', 'img' => 'https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Seoul', 'country' => 'Korea Selatan', 'img' => 'https://images.unsplash.com/photo-1517154421773-0529f29ea451?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Istanbul', 'country' => 'Turki', 'img' => 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=400&q=80'],
-        ['city' => 'Liverpool', 'country' => 'United Kingdom', 'img' => 'https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?auto=format&fit=crop&w=400&q=80'],
+        ['city' => 'Bali', 'country' => 'Indonesia', 'img' => 'https://plus.unsplash.com/premium_photo-1661878915254-f3163e91d870?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+        ['city' => 'Bangkok', 'country' => 'Thailand', 'img' => 'https://images.unsplash.com/photo-1562602833-0f4ab2fc46e3?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+        ['city' => 'Seoul', 'country' => 'Korea Selatan', 'img' => 'https://images.unsplash.com/photo-1570191913384-7b4ff11716e7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+        ['city' => 'Istanbul', 'country' => 'Turki', 'img' => 'https://images.unsplash.com/photo-1527838832700-5059252407fa?q=80&w=698&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+        ['city' => 'Liverpool', 'country' => 'United Kingdom', 'img' => 'https://plus.unsplash.com/premium_photo-1694475284460-51ace2ec7cfd?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
       ];
     @endphp
 

@@ -108,15 +108,47 @@ class MitraController extends Controller
             WisataSpot::where('user_id', Auth::id())->count();
 
         $totalOrders = Booking::where('mitra_id', Auth::id())->count();
-        $totalRevenue = Booking::where('mitra_id', Auth::id())->where('status', BookingStatus::CONFIRMED)->sum('total_price');
-        $totalCommission = Booking::where('mitra_id', Auth::id())->where('status', BookingStatus::CONFIRMED)->sum('commission_amount');
+        
+        // Revenue should be based on PAID status or successful work statuses
+        $paidStatuses = [\App\Enums\PaymentStatus::PAID];
+        $workStatuses = [\App\Enums\BookingStatus::CONFIRMED, \App\Enums\BookingStatus::COMPLETED];
+
+        $totalRevenue = Booking::where('mitra_id', Auth::id())
+            ->whereIn('payment_status', $paidStatuses)
+            ->sum('total_price');
+
+        $totalCommission = Booking::where('mitra_id', Auth::id())
+            ->whereIn('payment_status', $paidStatuses)
+            ->sum('commission_amount');
 
         $recentOrders = Booking::where('mitra_id', Auth::id())
+            ->with('user')
             ->latest()
             ->take(5)
             ->get();
 
-        return view('mitra.dashboard', compact('totalProducts', 'totalOrders', 'totalRevenue', 'totalCommission', 'recentOrders'));
+        // Dynamic Chart Data (Last 6 Months)
+        $chartLabels = [];
+        $chartData = [];
+        for ($i = 5; $i >= 0; $i--) {
+            $month = now()->subMonths($i);
+            $chartLabels[] = $month->format('M');
+            $chartData[] = Booking::where('mitra_id', Auth::id())
+                ->whereIn('payment_status', $paidStatuses)
+                ->whereMonth('created_at', $month->month)
+                ->whereYear('created_at', $month->year)
+                ->sum('total_price');
+        }
+
+        return view('mitra.dashboard', compact(
+            'totalProducts', 
+            'totalOrders', 
+            'totalRevenue', 
+            'totalCommission', 
+            'recentOrders',
+            'chartLabels',
+            'chartData'
+        ));
     }
 
     public function products()
@@ -296,12 +328,15 @@ class MitraController extends Controller
         if ($isMultiple) {
             $paths = [];
             foreach ($request->file($field) as $file) {
-                $paths[] = $file->store($path, 'public');
+                // Simpan ke 'public' disk, bersihkan path agar konsisten
+                $storedPath = $file->store($path, 'public');
+                $paths[] = str_replace('public/', '', $storedPath);
             }
-            return $paths;
+            return json_encode($paths); // Simpan sebagai JSON string agar aman di DB
         }
 
-        return $request->file($field)->store($path, 'public');
+        $storedPath = $request->file($field)->store($path, 'public');
+        return str_replace('public/', '', $storedPath);
     }
 
     public function editProduct($id)
@@ -524,7 +559,10 @@ class MitraController extends Controller
 
     public function reports()
     {
-        $orders = Booking::where('mitra_id', Auth::id())->where('status', BookingStatus::CONFIRMED)->get();
+        $orders = Booking::where('mitra_id', Auth::id())
+            ->where('payment_status', \App\Enums\PaymentStatus::PAID)
+            ->latest()
+            ->get();
         return view('mitra.reports', compact('orders'));
     }
 

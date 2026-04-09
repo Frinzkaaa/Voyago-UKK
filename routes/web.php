@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/complaint', [TicketController::class, 'storeComplaint'])->name('complaint.store');
     Route::get('/complaints', [TicketController::class, 'myComplaints'])->name('complaints.my');
     Route::post('/booking/{id}/cancel', [TicketController::class, 'cancelBooking'])->name('booking.cancel');
+    Route::get('/booking/{id}/ticket', [TicketController::class, 'downloadTicket'])->name('booking.ticket');
 });
 
 // Admin Routes

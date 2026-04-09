@@ -6,9 +6,11 @@
         <!-- Left Sidebar -->
         <aside class="w-full md:w-80 shrink-0">
             <!-- Mobile Sidebar Toggle -->
-            <button onclick="toggleSidebarMenu()" class="md:hidden w-full flex items-center justify-between bg-white dark:bg-dark-card rounded-[2rem] p-6 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border mb-6 text-gray-800 dark:text-white font-black transition-all hover:border-orange-500 group">
+            <button onclick="toggleSidebarMenu()"
+                class="md:hidden w-full flex items-center justify-between bg-white dark:bg-dark-card rounded-[2rem] p-6 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border mb-6 text-gray-800 dark:text-white font-black transition-all hover:border-orange-500 group">
                 <span class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-orange-50 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform">
+                    <div
+                        class="w-10 h-10 bg-orange-50 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 group-hover:scale-110 transition-transform">
                         <i class="fa-solid fa-bars-staggered"></i>
                     </div>
                     Menu Akun
@@ -18,49 +20,63 @@
 
             <div id="sidebar-menu"
                 class="hidden md:flex bg-white dark:bg-dark-card rounded-[2.5rem] p-4 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex-col gap-3 transition-all duration-500 sticky top-24">
-                
-                <h3 class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">Pusat Navigasi</h3>
+
+                <h3 class="px-6 py-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">Pusat Navigasi
+                </h3>
 
                 <button onclick="switchSection('pesanan')" id="btn-pesanan"
                     class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group active-nav relative overflow-hidden">
-                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                    <div
+                        class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
                         <i class="fa-solid fa-receipt text-lg text-gray-400 group-[.active-nav]:text-white"></i>
                     </div>
-                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pesanan Saya</span>
+                    <span
+                        class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pesanan
+                        Saya</span>
                 </button>
 
                 <button onclick="switchSection('wishlist')" id="btn-wishlist"
                     class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
-                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                    <div
+                        class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
                         <i class="fa-solid fa-heart text-lg text-gray-400 group-[.active-nav]:text-white"></i>
                     </div>
-                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Wishlist</span>
+                    <span
+                        class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Wishlist</span>
                 </button>
 
                 <button onclick="switchSection('komplain')" id="btn-komplain"
                     class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
-                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                    <div
+                        class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
                         <i class="fa-solid fa-headset text-lg text-gray-400 group-[.active-nav]:text-white"></i>
                     </div>
-                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Komplain</span>
+                    <span
+                        class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Komplain</span>
                 </button>
 
                 <button onclick="switchSection('pengaturan')" id="btn-pengaturan"
                     class="flex items-center gap-4 px-6 py-4 rounded-3xl transition-all group relative overflow-hidden">
-                    <div class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
+                    <div
+                        class="w-10 h-10 rounded-2xl flex items-center justify-center bg-gray-50 dark:bg-[#121212] group-[.active-nav]:bg-white/20 transition-colors shadow-sm">
                         <i class="fa-solid fa-user-gear text-lg text-gray-400 group-[.active-nav]:text-white"></i>
                     </div>
-                    <span class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pengaturan</span>
+                    <span
+                        class="font-bold text-sm tracking-tight text-gray-600 dark:text-[#A1A1AA] group-[.active-nav]:text-white">Pengaturan</span>
                 </button>
 
-                <div class="mt-8 mx-4 p-8 bg-gradient-to-br from-orange-500 to-orange-400 rounded-[2rem] text-white hidden md:block relative overflow-hidden shadow-lg shadow-orange-500/20 group hover:scale-[1.02] transition-all duration-500">
+                <div
+                    class="mt-8 mx-4 p-8 bg-gradient-to-br from-orange-500 to-orange-400 rounded-[2rem] text-white hidden md:block relative overflow-hidden shadow-lg shadow-orange-500/20 group hover:scale-[1.02] transition-all duration-500">
                     <div class="relative z-10">
                         <h4 class="font-black text-lg leading-tight mb-2">Jadi Mitra Voyago</h4>
-                        <p class="text-[10px] font-bold opacity-80 mb-6 leading-relaxed">Punya bisnis travel? Bergabunglah & kembangkan bersama kami!</p>
+                        <p class="text-[10px] font-bold opacity-80 mb-6 leading-relaxed">Punya bisnis travel? Bergabunglah &
+                            kembangkan bersama kami!</p>
                         <a href="{{ route('partner.auth.page') }}"
-                            class="block w-full text-center py-3 bg-white dark:bg-dark-card text-orange-500 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-orange-50 dark:hover:bg-[#2A2A2A] transition-all">Daftar Sekarang</a>
+                            class="block w-full text-center py-3 bg-white dark:bg-dark-card text-orange-500 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl hover:bg-orange-50 dark:hover:bg-[#2A2A2A] transition-all">Daftar
+                            Sekarang</a>
                     </div>
-                    <i class="fa-solid fa-rocket absolute -right-6 -bottom-6 text-7xl opacity-10 -rotate-12 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-700"></i>
+                    <i
+                        class="fa-solid fa-rocket absolute -right-6 -bottom-6 text-7xl opacity-10 -rotate-12 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-700"></i>
                 </div>
             </div>
         </aside>
@@ -72,14 +88,20 @@
             <div id="section-pesanan" class="dashboard-section animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
                     <div>
-                        <h1 class="text-4xl font-black text-gray-800 dark:text-white tracking-tighter mb-2">Pesanan Saya</h1>
+                        <h1 class="text-4xl font-black text-gray-800 dark:text-white tracking-tighter mb-2">Pesanan Saya
+                        </h1>
                         <p class="text-sm font-bold text-gray-400">Kelola tiket dan rincian perjalanan Anda</p>
                     </div>
-                    <div class="flex items-center gap-2 md:gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-full lg:w-fit overflow-x-auto lg:overflow-visible custom-scrollbar">
-                        <button onclick="filterStatus('semua')" class="status-tab active-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Semua</button>
-                        <button onclick="filterStatus('upcoming')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Upcoming</button>
-                        <button onclick="filterStatus('selesai')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Selesai</button>
-                        <button onclick="filterStatus('dibatalkan')" class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Dibatalkan</button>
+                    <div
+                        class="flex items-center gap-2 md:gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-full lg:w-fit overflow-x-auto lg:overflow-visible custom-scrollbar">
+                        <button onclick="filterStatus('semua')"
+                            class="status-tab active-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Semua</button>
+                        <button onclick="filterStatus('upcoming')"
+                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Upcoming</button>
+                        <button onclick="filterStatus('selesai')"
+                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Selesai</button>
+                        <button onclick="filterStatus('dibatalkan')"
+                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Dibatalkan</button>
                     </div>
                 </div>
 
@@ -88,13 +110,17 @@
                     @forelse($bookings as $booking)
                         <div class="booking-card bg-white dark:bg-dark-card rounded-[3rem] p-8 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex flex-col xl:flex-row items-center gap-10 transition-all duration-500 hover:border-orange-200 group relative overflow-hidden"
                             data-status="{{ $booking->status }}">
-                            
+
                             <!-- Premium Background Accent -->
-                            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/5 to-transparent -z-10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+                            <div
+                                class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-500/5 to-transparent -z-10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000">
+                            </div>
 
                             <!-- Left Part: Icon & ID -->
-                            <div class="flex flex-row xl:flex-col items-center xl:items-start gap-6 w-full xl:w-56 shrink-0 border-b xl:border-b-0 xl:border-r border-gray-50 dark:border-dark-border pb-6 xl:pb-0 xl:pr-10">
-                                <div class="w-20 h-20 rounded-[2rem] bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                            <div
+                                class="flex flex-row xl:flex-col items-center xl:items-start gap-6 w-full xl:w-56 shrink-0 border-b xl:border-b-0 xl:border-r border-gray-50 dark:border-dark-border pb-6 xl:pb-0 xl:pr-10">
+                                <div
+                                    class="w-20 h-20 rounded-[2rem] bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
                                     @if($booking->category == 'kereta')
                                         <i class="fa-solid fa-train text-orange-500 text-3xl"></i>
                                     @elseif($booking->category == 'pesawat')
@@ -131,10 +157,11 @@
                                         }
                                     @endphp
                                     <div class="flex items-center gap-2">
-                                        <span class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
+                                        <span
+                                            class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
                                     </div>
                                     @if($booking->payment_status === \App\Enums\PaymentStatus::PENDING && $booking->snap_token)
-                                        <button onclick="continuePayment('{{ $booking->snap_token }}')" 
+                                        <button onclick="continuePayment('{{ $booking->snap_token }}')"
                                             class="mt-1 flex items-center gap-2 text-[10px] font-black text-orange-500 hover:text-orange-600 transition-all uppercase tracking-widest">
                                             <div class="w-6 h-6 rounded-lg bg-orange-100 flex items-center justify-center">
                                                 <i class="fas fa-credit-card text-[10px]"></i>
@@ -146,46 +173,56 @@
                             </div>
 
                             <!-- Center Part: Main Details -->
-                            <div class="flex-grow grid grid-cols-2 md:grid-cols-4 xl:grid-cols-2 2xl:grid-cols-4 gap-8 w-full py-2">
+                            <div
+                                class="flex-grow grid grid-cols-2 md:grid-cols-4 xl:grid-cols-2 2xl:grid-cols-4 gap-8 w-full py-2">
                                 <div>
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tujuan / Nama</p>
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tujuan / Nama
+                                    </p>
                                     @php
                                         $itemName = 'Produk Tidak Ditemukan';
                                         if ($booking->item) {
                                             $itemName = $booking->item->name ?? $booking->item->airline_name ?? $booking->item->operator ?? 'Tiket Perjalanan';
                                         }
                                     @endphp
-                                    <p class="font-black text-gray-800 dark:text-white text-base leading-tight">{{ $itemName }}</p>
+                                    <p class="font-black text-gray-800 dark:text-white text-base leading-tight">{{ $itemName }}
+                                    </p>
                                 </div>
                                 <div class="hidden md:block">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tanggal Pesan</p>
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">{{ $booking->created_at->format('d M Y') }}</p>
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tanggal Pesan
+                                    </p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">
+                                        {{ $booking->created_at->format('d M Y') }}</p>
                                 </div>
                                 <div>
                                     <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Penumpang</p>
                                     <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">
-                                        {{ $booking->passenger_count }} Pax 
+                                        {{ $booking->passenger_count }} Pax
                                         @if($booking->seats)
-                                            <span class="text-orange-500 font-black ml-1">• {{ implode(', ', $booking->seats) }}</span>
+                                            <span class="text-orange-500 font-black ml-1">•
+                                                {{ implode(', ', $booking->seats) }}</span>
                                         @endif
                                     </p>
                                 </div>
                                 @if($booking->item && ($booking->item->origin || $booking->item->location))
-                                <div class="col-span-2 md:col-span-1">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Detail Rute</p>
-                                    <p class="font-bold text-gray-500 dark:text-[#A1A1AA] text-sm leading-relaxed italic">
-                                        {{ $booking->item->origin ? $booking->item->origin . ' → ' . $booking->item->destination : $booking->item->location }}
-                                    </p>
-                                </div>
+                                    <div class="col-span-2 md:col-span-1">
+                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Detail Rute
+                                        </p>
+                                        <p class="font-bold text-gray-500 dark:text-[#A1A1AA] text-sm leading-relaxed italic">
+                                            {{ $booking->item->origin ? $booking->item->origin . ' → ' . $booking->item->destination : $booking->item->location }}
+                                        </p>
+                                    </div>
                                 @endif
                             </div>
 
                             <!-- Right Part: Price & Actions -->
-                            <div class="flex flex-col sm:flex-row xl:flex-col items-center sm:justify-between xl:justify-center gap-6 w-full xl:w-64 shrink-0 border-t xl:border-t-0 xl:border-l border-gray-50 dark:border-dark-border pt-8 xl:pt-0 xl:pl-10">
+                            <div
+                                class="flex flex-col sm:flex-row xl:flex-col items-center sm:justify-between xl:justify-center gap-6 w-full xl:w-64 shrink-0 border-t xl:border-t-0 xl:border-l border-gray-50 dark:border-dark-border pt-8 xl:pt-0 xl:pl-10">
                                 <div class="text-center sm:text-left xl:text-right w-full sm:w-auto xl:w-full">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Bayar</p>
+                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Total Bayar
+                                    </p>
                                     <p class="font-black text-orange-500 text-2xl tracking-tighter">
-                                        <span class="text-xs font-bold mr-0.5">Rp</span>{{ number_format($booking->total_price, 0, ',', '.') }}
+                                        <span
+                                            class="text-xs font-bold mr-0.5">Rp</span>{{ number_format($booking->total_price, 0, ',', '.') }}
                                     </p>
                                 </div>
                                 <div class="flex items-center gap-2 w-full sm:w-auto xl:w-full justify-center xl:justify-end">
@@ -195,12 +232,15 @@
                                         Detail
                                         <span class="v-tooltip">Lihat Detail</span>
                                     </button>
-                                    
+
                                     <!-- Action Icons -->
                                     @if($booking->status !== \App\Enums\BookingStatus::CANCELLED && $booking->status !== \App\Enums\BookingStatus::COMPLETED && $booking->status !== \App\Enums\BookingStatus::REFUNDED)
-                                        <form action="{{ route('booking.cancel', $booking->id) }}" method="POST" class="flex items-center m-0" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
+                                        <form action="{{ route('booking.cancel', $booking->id) }}" method="POST"
+                                            class="flex items-center m-0"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan ini?')">
                                             @csrf
-                                            <button type="submit" class="relative w-11 h-11 bg-red-50 dark:bg-red-500/20 text-red-500 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
+                                            <button type="submit"
+                                                class="relative w-11 h-11 bg-red-50 dark:bg-red-500/20 text-red-500 dark:text-red-400 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
                                                 <i class="fa-solid fa-xmark"></i>
                                                 <span class="v-tooltip">Batal</span>
                                             </button>
@@ -213,17 +253,18 @@
                                             <i class="fa-solid fa-circle-exclamation"></i>
                                             <span class="v-tooltip">Komplain</span>
                                         </button>
-                                        <button
+                                        <a href="{{ route('booking.ticket', $booking->id) }}"
                                             class="relative w-11 h-11 bg-blue-50 dark:bg-blue-500/20 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all shadow-sm active:scale-95 v-tooltip-btn">
                                             <i class="fa-solid fa-cloud-arrow-down"></i>
                                             <span class="v-tooltip">E-Ticket</span>
-                                        </button>
+                                        </a>
                                     @endif
                                 </div>
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                        <div
+                            class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                             <div class="w-32 h-32 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center">
                                 <i class="fa-solid fa-suitcase-rolling text-5xl text-orange-300"></i>
                             </div>
@@ -240,89 +281,118 @@
             <!-- Detail Order Modal -->
             <div id="orderModal" class="fixed inset-0 z-[100] hidden overflow-y-auto">
                 <!-- Backdrop -->
-                <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" onclick="closeOrderModal()"></div>
+                <div class="absolute inset-0 bg-gray-900/40 backdrop-blur-sm" onclick="closeOrderModal()"></div>
 
                 <!-- Modal Content -->
                 <div
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl animate-in fade-in zoom-in duration-300">
-                    <div class="bg-white dark:bg-dark-card rounded-[2rem] overflow-hidden shadow-2xl mx-4 md:mx-0 transition-colors duration-300">
-                        <!-- Header -->
-                        <div class="bg-gradient-to-r from-[#FF7304] to-[#FFAC63] p-8 text-white relative">
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[340px] animate-in fade-in zoom-in duration-300">
+                    <div
+                        class="bg-white dark:bg-dark-card rounded-[2.5rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-gray-100 dark:border-dark-border">
+                        <!-- Header: Minimal & Clean -->
+                        <div
+                            class="p-5 flex items-center justify-between border-b border-gray-50 dark:border-dark-border">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-10 h-10 bg-orange-50 dark:bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-500 transition-colors">
+                                    <i class="fa-solid fa-plane text-base" id="modal-product-icon"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-sm font-black text-gray-800 dark:text-white leading-none"
+                                        id="modal-order-code">#VYG-12345678</h2>
+                                    <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1"
+                                        id="modal-product-name">Pesawat</p>
+                                </div>
+                            </div>
                             <button onclick="closeOrderModal()"
-                                class="absolute top-6 right-6 text-white/50 hover:text-white transition-all">
-                                <i class="fa-solid fa-xmark text-xl"></i>
+                                class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-orange-500 transition-all">
+                                <i class="fa-solid fa-xmark text-sm"></i>
                             </button>
-                            <h3 class="text-xs font-black uppercase tracking-[0.2em] mb-2 text-white/70">Order Details</h3>
-                            <h2 class="text-3xl font-black" id="modal-order-code">#VYG-12345678</h2>
                         </div>
 
                         <!-- Body -->
-                        <div class="p-6 md:p-10">
-                            <div class="grid grid-cols-2 gap-8 mb-10">
-                                <div>
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Tipe
-                                        Pesanan</p>
-                                    <p class="font-bold text-gray-800 dark:text-white text-lg mb-1 capitalize" id="modal-product-name">
-                                        Pesawat</p>
-                                    <p class="text-xs text-[#FF7304] uppercase font-bold" id="modal-payment-status">Paid</p>
+                        <div class="p-5">
+                            <div class="grid grid-cols-2 gap-4 mb-5">
+                                <div class="p-3 bg-gray-50 dark:bg-white/5 rounded-2xl">
+                                    <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                                        Payment</p>
+                                    <p class="text-[10px] font-black text-orange-500 uppercase"
+                                        id="modal-payment-status">PAID</p>
                                 </div>
-                                <div class="text-right">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Waktu
-                                        Pemesanan</p>
-                                    <p class="font-bold text-gray-800 dark:text-white" id="modal-order-date">23 Feb 2026</p>
-                                    <p class="text-xs text-gray-400" id="modal-order-time">11:18</p>
-                                </div>
-                            </div>
-
-                            <div class="bg-gray-50 dark:bg-[#121212] rounded-3xl p-6 mb-10">
-                                <div class="flex items-center justify-between mb-6">
-                                    <div class="flex items-center gap-4">
-                                        <div
-                                            class="w-12 h-12 bg-white dark:bg-dark-card rounded-2xl flex items-center justify-center text-[#FF7304] shadow-sm transition-colors duration-300">
-                                            <i class="fa-solid fa-plane text-xl" id="modal-product-icon"></i>
-                                        </div>
-                                        <div>
-                                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                                                Status Perjalanan</p>
-                                            <h4 class="font-black text-gray-800 dark:text-white text-lg capitalize"
-                                                id="modal-travel-status">Upcoming</h4>
-                                        </div>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">
-                                            Jumlah</p>
-                                        <p class="font-black text-gray-800 dark:text-white text-xl" id="modal-passenger-count">2 Pax</p>
-                                    </div>
-                                </div>
-
-                                <div class="h-px bg-gray-200 dark:bg-dark-border/50 mb-6"></div>
-
-                                <div class="space-y-4">
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-[#A1A1AA] font-bold">Harga Satuan</span>
-                                        <span class="font-bold text-gray-800 dark:text-white" id="modal-unit-price">Rp 0</span>
-                                    </div>
-                                    <div class="flex justify-between items-center text-sm">
-                                        <span class="text-gray-500 dark:text-[#A1A1AA] font-bold">Metode Pembayaran</span>
-                                        <span class="font-bold text-[#FF7304] uppercase tracking-wider"
-                                            id="modal-payment-method">Transfer Bank</span>
-                                    </div>
-                                    <div class="flex justify-between items-center pt-2">
-                                        <span class="text-gray-800 dark:text-white font-black uppercase text-xs tracking-widest">Total
-                                            Bayar</span>
-                                        <span class="text-2xl font-black text-[#FF7304]" id="modal-total-price">Rp 0</span>
-                                    </div>
+                                <div class="p-3 bg-gray-50 dark:bg-white/5 rounded-2xl">
+                                    <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest mb-1">
+                                        Date</p>
+                                    <p class="text-[10px] font-black text-gray-800 dark:text-white"
+                                        id="modal-order-date">08 Apr 2026</p>
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-end gap-4">
+                            <div class="px-1 mb-5 space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Travel
+                                        Status</span>
+                                    <span class="text-[10px] font-black text-gray-800 dark:text-white capitalize"
+                                        id="modal-travel-status">Upcoming</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Passenger</span>
+                                    <span class="text-[10px] font-black text-gray-800 dark:text-white"
+                                        id="modal-passenger-count">1 Pax</span>
+                                </div>
+                                <div
+                                    class="flex justify-between items-center border-t border-gray-100 dark:border-dark-border pt-3 mt-3">
+                                    <span
+                                        class="text-[10px] font-black text-gray-800 dark:text-white uppercase">Total
+                                        Price</span>
+                                    <span class="text-sm font-black text-orange-500" id="modal-total-price">Rp 0</span>
+                                </div>
+                            </div>
+
+                            <!-- Compact QR Section -->
+                            <div id="modal-qr-section"
+                                class="py-4 border-t border-dashed border-gray-100 dark:border-dark-border flex flex-col items-center">
+                                <div class="relative bg-white p-2 rounded-2xl shadow-sm mb-3">
+                                    <img id="modal-qr-code" src="" alt="QR" class="w-24 h-24 grayscale">
+                                </div>
+                                <p class="text-[8px] font-black text-gray-400 uppercase tracking-[0.2em]">Scan QR
+                                    for Check-in</p>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="mt-4 flex gap-3">
+                                <a id="modal-ticket-download" href="#"
+                                    class="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-white/5 text-gray-400 hover:text-orange-500 rounded-2xl transition-all border border-gray-100 dark:border-dark-border">
+                                    <i class="fas fa-file-pdf"></i>
+                                </a>
                                 <button onclick="closeOrderModal()"
-                                    class="bg-gray-900 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-800 transition-all shadow-xl">Tutup</button>
+                                    class="flex-1 bg-zinc-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 transition-all shadow-lg active:scale-95">Tutup</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style>
+                @keyframes scan {
+                    0% {
+                        top: 0;
+                        opacity: 0;
+                    }
+
+                    50% {
+                        opacity: 1;
+                    }
+
+                    100% {
+                        top: 100%;
+                        opacity: 0;
+                    }
+                }
+
+                .animate-scan {
+                    position: absolute;
+                    animation: scan 2s linear infinite;
+                }
+            </style>
 
             <!-- Wishlist Content -->
             <div id="section-wishlist" class="dashboard-section hidden">
@@ -421,7 +491,8 @@
                     @endphp
 
                     @forelse($userComplaints as $complaint)
-                        <div class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                        <div
+                            class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="flex items-center gap-3">
                                     <span
@@ -445,10 +516,20 @@
                             <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-4">{{ $complaint->description }}</p>
 
                             @if($complaint->admin_response)
-                                <div class="bg-gray-50 dark:bg-[#121212] rounded-2xl p-4 border-l-4 border-orange-400">
+                                <div class="bg-orange-50 dark:bg-orange-950/20 rounded-2xl p-4 border-l-4 border-orange-400 mb-3">
                                     <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Respon Admin
                                     </p>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->admin_response }}"</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->admin_response }}"
+                                    </p>
+                                </div>
+                            @endif
+
+                            @if($complaint->mitra_response)
+                                <div class="bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl p-4 border-l-4 border-emerald-400">
+                                    <p class="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Respon Mitra
+                                    </p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->mitra_response }}"
+                                    </p>
                                 </div>
                             @endif
                             <div class="mt-4 text-[10px] text-gray-300 font-bold uppercase tracking-widest">
@@ -456,8 +537,10 @@
                             </div>
                         </div>
                     @empty
-                        <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
-                            <div class="w-24 h-24 mx-auto mb-6 bg-gray-50 dark:bg-[#121212] rounded-full flex items-center justify-center">
+                        <div
+                            class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                            <div
+                                class="w-24 h-24 mx-auto mb-6 bg-gray-50 dark:bg-[#121212] rounded-full flex items-center justify-center">
                                 <i class="fa-solid fa-comments text-3xl text-gray-200"></i>
                             </div>
                             <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-1">Belum ada komplain</h3>
@@ -559,10 +642,22 @@
         }
 
         /* Custom Scrollbar */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #2d2d2d; }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2d2d2d;
+        }
 
         /* Premium Tooltip */
         .v-tooltip {
@@ -646,8 +741,7 @@
                     </div>
 
                     <div>
-                        <label
-                            class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deskripsi
+                        <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Deskripsi
                             Keluhan</label>
                         <textarea name="description" rows="4" placeholder="Jelaskan detail keluhan Anda..." required
                             class="w-full bg-gray-50 dark:bg-[#121212] border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-red-500 outline-none text-sm font-medium resize-none"></textarea>
@@ -690,11 +784,11 @@
                 section.classList.add('hidden');
             });
             document.getElementById('section-' + tabId).classList.remove('hidden');
-            
+
             // Close mobile sidebar menu if it's open
-            if(window.innerWidth < 768) {
+            if (window.innerWidth < 768) {
                 const sidebarMenu = document.getElementById('sidebar-menu');
-                if(!sidebarMenu.classList.contains('hidden')) {
+                if (!sidebarMenu.classList.contains('hidden')) {
                     toggleSidebarMenu();
                 }
             }
@@ -703,7 +797,7 @@
         function toggleSidebarMenu() {
             const menu = document.getElementById('sidebar-menu');
             const chevron = document.getElementById('sidebar-chevron');
-            
+
             if (menu.classList.contains('hidden')) {
                 menu.classList.remove('hidden');
                 menu.classList.add('flex');
@@ -751,30 +845,44 @@
 
         function showOrderDetail(booking) {
             const modal = document.getElementById('orderModal');
+            if (!modal) return;
 
-            // Populate fields
-            document.getElementById('modal-order-code').innerText = '#' + booking.booking_code;
-            document.getElementById('modal-payment-status').innerText = booking.payment_status.toUpperCase();
+            // Helper to set text if element exists
+            const setText = (id, text) => {
+                const el = document.getElementById(id);
+                if (el) el.innerText = text;
+            };
+
+            setText('modal-order-code', '#' + booking.booking_code);
+            setText('modal-payment-status', (booking.payment_status || 'pending').toUpperCase());
 
             const dateObj = new Date(booking.created_at);
-            document.getElementById('modal-order-date').innerText = dateObj.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
-            document.getElementById('modal-order-time').innerText = dateObj.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            setText('modal-order-date', dateObj.toLocaleDateString('id-ID', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            }));
 
-            document.getElementById('modal-product-name').innerText = booking.category;
-            document.getElementById('modal-passenger-count').innerText = booking.passenger_count + ' Pax';
+            setText('modal-order-time', dateObj.toLocaleTimeString('id-ID', {
+                hour: '2-digit',
+                minute: '2-digit'
+            }));
 
-            const total = parseFloat(booking.total_price);
-            const unitPrice = total / booking.passenger_count;
+            setText('modal-product-name', booking.category);
+            setText('modal-passenger-count', (booking.passenger_count || 1) + ' Pax');
 
-            document.getElementById('modal-unit-price').innerText = 'Rp ' + unitPrice.toLocaleString('id-ID');
-            document.getElementById('modal-total-price').innerText = 'Rp ' + total.toLocaleString('id-ID');
-            document.getElementById('modal-payment-method').innerText = booking.payment_method || 'TRANSFER BANK';
+            const total = parseFloat(booking.total_price || 0);
+            const unitPrice = total / (booking.passenger_count || 1);
+
+            setText('modal-unit-price', 'Rp ' + unitPrice.toLocaleString('id-ID'));
+            setText('modal-total-price', 'Rp ' + total.toLocaleString('id-ID'));
+            setText('modal-payment-method', booking.payment_method || 'BANK');
 
             // Travel Status Logic
             let travelStatus = 'Upcoming';
-            if (booking.payment_status === 'completed') travelStatus = 'Selesai';
-            if (booking.payment_status === 'cancelled') travelStatus = 'Dibatalkan';
-            document.getElementById('modal-travel-status').innerText = travelStatus;
+            if (booking.status === 'completed') travelStatus = 'Selesai';
+            if (booking.status === 'cancelled') travelStatus = 'Dibatalkan';
+            setText('modal-travel-status', travelStatus);
 
             // Icon mapping
             const icons = {
@@ -784,7 +892,25 @@
                 'hotel': 'fa-hotel',
                 'wisata': 'fa-mountain-sun'
             };
-            document.getElementById('modal-product-icon').className = 'fa-solid ' + (icons[booking.category] || 'fa-receipt');
+            const iconEl = document.getElementById('modal-product-icon');
+            if (iconEl) iconEl.className = 'fa-solid ' + (icons[booking.category] || 'fa-receipt') + ' text-base';
+
+            // QR Code Generation
+            const qrImg = document.getElementById('modal-qr-code');
+            const qrSection = document.getElementById('modal-qr-section');
+            const downloadBtn = document.getElementById('modal-ticket-download');
+
+            if (booking.payment_status === 'paid' || booking.status === 'confirmed') {
+                if (qrSection) qrSection.style.display = 'flex';
+                if (qrImg) qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${booking.booking_code}&color=000&bgcolor=fff`;
+                if (downloadBtn) {
+                    downloadBtn.style.display = 'flex';
+                    downloadBtn.href = `/booking/${booking.id}/ticket`;
+                }
+            } else {
+                if (qrSection) qrSection.style.display = 'none';
+                if (downloadBtn) downloadBtn.style.display = 'none';
+            }
 
             // Show modal
             modal.classList.remove('hidden');
@@ -799,17 +925,17 @@
 
         function continuePayment(snapToken) {
             window.snap.pay(snapToken, {
-                onSuccess: function(result) {
+                onSuccess: function (result) {
                     window.location.reload();
                 },
-                onPending: function(result) {
+                onPending: function (result) {
                     window.location.reload();
                 },
-                onError: function(result) {
+                onError: function (result) {
                     alert("Pembayaran Gagal!");
                     console.log(result);
                 },
-                onClose: function() {
+                onClose: function () {
                     alert('Anda menutup popup pembayaran sebelum menyelesaikan pembayaran.');
                 }
             });
