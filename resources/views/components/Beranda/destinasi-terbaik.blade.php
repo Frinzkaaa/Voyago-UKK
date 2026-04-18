@@ -13,15 +13,20 @@
 
         <!-- Float Map Card -->
         <div
-            class="absolute bottom-4 left-4 right-4 md:right-auto bg-white dark:bg-dark-card/20 backdrop-blur-md border border-white/30 rounded-2xl p-2 flex gap-3 items-center shadow-xl transition-colors duration-300">
-            <div class="w-12 h-10 md:w-16 md:h-12 bg-gray-200 dark:bg-dark-border rounded-lg overflow-hidden border border-white/20">
+            class="absolute bottom-6 left-6 right-6 md:right-auto bg-white/70 dark:bg-black/40 backdrop-blur-xl border border-white/40 dark:border-white/10 rounded-[20px] p-3 md:p-4 flex gap-4 items-center shadow-2xl transition-all duration-500 hover:scale-105 group">
+            <div class="w-14 h-11 md:w-20 md:h-14 bg-gray-200 dark:bg-white/10 rounded-xl overflow-hidden border border-white/20 shadow-inner">
                 <img src="https://www.google.com/maps/vt/pb=!1m4!1m3!1i13!2i6642!3i4152!2m3!1e0!2sm!3i634211105!3m8!2sid!3sUS!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0!5m1!1e0!23i4111425!24i1000000"
-                    class="w-full h-full object-cover grayscale brightness-110">
+                    class="w-full h-full object-cover grayscale brightness-110 opacity-80 group-hover:opacity-100 transition-opacity">
             </div>
-            <div class="flex flex-col text-white">
-                <span class="font-black text-semibold uppercase tracking-widest leading-none">Padar Island</span>
-                <span class="text-[7px] opacity-80 mt-0.5">Labuan Bajo</span>
-                <div class="flex items-center gap-0.5 mt-1 text-yellow-400 text-[6px]">
+            <div class="flex flex-col">
+                <div class="flex items-center gap-2 mb-0.5">
+                    <span class="font-black text-gray-800 dark:text-white uppercase tracking-wider text-[10px] md:text-xs">Padar Island</span>
+                    <span class="px-1.5 py-0.5 bg-orange-500 text-white text-[6px] font-black rounded-md uppercase">Top</span>
+                </div>
+                <span class="text-[8px] md:text-[10px] text-gray-500 dark:text-gray-300 font-bold mb-1.5 flex items-center gap-1">
+                    <i class="fas fa-location-dot text-orange-500"></i> Labuan Bajo
+                </span>
+                <div class="flex items-center gap-0.5 text-yellow-400 text-[6px] md:text-[8px]">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>

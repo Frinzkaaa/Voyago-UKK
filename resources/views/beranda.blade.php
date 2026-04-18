@@ -41,22 +41,22 @@
 
     <!-- Join Mitra Section -->
     <section
-      class="mt-10 mb-20 bg-gradient-to-br from-[#FF7304] to-[#FFAC63] rounded-[32px] md:rounded-[40px] p-8 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden shadow-2xl shadow-orange-100">
-      <div class="relative z-10 max-w-xl text-center md:text-left">
-        <h2 class="text-2xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Punya Bisnis Properti atau Transportasi?</h2>
-        <p class="text-sm md:text-lg opacity-90 mb-8 md:mb-10 leading-relaxed">Dapatkan keuntungan lebih dengan bergabung sebagai Mitra
-          Voyago. Kelola bisnismu lebih cerdas dan jangkau jutaan penjelajah.</p>
-        <div class="flex flex-wrap justify-center md:justify-start gap-4">
+      class="mt-10 mb-20 bg-gradient-to-br from-[#FF7304] to-[#FFAC63] rounded-[24px] md:rounded-[32px] p-6 md:p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden shadow-2xl shadow-orange-100/20 transition-all duration-300">
+      <div class="relative z-10 max-w-lg text-center md:text-left">
+        <h2 class="text-xl md:text-3xl font-black mb-3 md:mb-4 leading-tight tracking-tight">Punya Bisnis Properti atau Transportasi?</h2>
+        <p class="text-[11px] md:text-sm opacity-90 mb-6 md:mb-8 leading-relaxed font-medium">Dapatkan keuntungan lebih dengan bergabung sebagai Mitra
+          Voyago. Kelola bisnismu lebih cerdas dan jangkau jutaan penjelajah dunia.</p>
+        <div class="flex flex-wrap justify-center md:justify-start gap-3">
           <a href="{{ route('partner.auth.page') }}"
-            class="bg-white dark:bg-dark-card text-[#FF7304] px-6 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center transition-colors duration-300 text-sm md:text-base">Daftar
+            class="bg-zinc-900 text-white px-6 md:px-8 py-2.5 md:py-3.5 rounded-xl font-black shadow-lg hover:scale-105 transition-all text-center text-[10px] md:text-xs uppercase tracking-widest">Daftar
             Mitra</a>
           <a href="#"
-            class="border-2 border-white/30 backdrop-blur-sm text-white px-6 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl font-black hover:bg-white dark:bg-dark-card/10 transition-all text-center transition-colors duration-300 text-sm md:text-base">Pelajari
+            class="border-2 border-white/20 backdrop-blur-sm text-white px-6 md:px-8 py-2.5 md:py-3.5 rounded-xl font-black hover:bg-white/10 transition-all text-center text-[10px] md:text-xs uppercase tracking-widest">Pelajari
             Selengkapnya</a>
         </div>
       </div>
-      <div class="relative z-10 hidden lg:block opacity-20">
-        <i class="fa-solid fa-handshake-angle text-[200px]"></i>
+      <div class="relative z-10 hidden lg:block opacity-20 transform translate-x-4">
+        <i class="fa-solid fa-handshake-angle text-[120px]"></i>
       </div>
       <!-- Decorative blobs -->
       <div class="absolute -top-10 -right-10 w-64 h-64 bg-white dark:bg-dark-card/10 rounded-full blur-3xl transition-colors duration-300"></div>

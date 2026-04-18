@@ -56,4 +56,10 @@
       <div class="text-xs">support@voyago.com<br>+62 812-0000-0000</div>
     </div>
   </div>
-</footer>
+  <div class="max-w-7xl mx-auto px-6 mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="text-[10px] md:text-xs font-bold opacity-60">© 2026 Voyago. All rights reserved.</p>
+    <p class="text-[10px] md:text-xs font-black tracking-widest uppercase opacity-80">
+      Made with <i class="fa-solid fa-heart text-white animate-pulse mx-1"></i> by <span class="text-white underline decoration-white/30 underline-offset-4">Frinzka</span>
+    </p>
+  </div>
+</footer>
