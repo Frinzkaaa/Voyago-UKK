@@ -18,15 +18,18 @@
                 <option value="usd">USD - US Dollar</option>
             </select>
         </div>
-        <div>
+        <div x-data="{ currentTheme: localStorage.getItem('voyago-theme') || 'light' }" 
+             @theme-changed.window="currentTheme = $event.detail.theme">
             <label class="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Tema</label>
             <div class="grid grid-cols-2 gap-4">
-                <button
-                    class="p-4 border-2 border-[#FF7304] bg-white dark:bg-dark-card rounded-2xl font-bold text-[#FF7304] flex items-center justify-center gap-2 transition-colors duration-300">
+                <button @click="window.themeLogic.setTheme('light')"
+                    :class="currentTheme === 'light' ? 'border-[#FF7304] text-[#FF7304] bg-white dark:bg-dark-card shadow-lg shadow-orange-500/10 scale-[1.02]' : 'border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-[#121212] text-gray-400'"
+                    class="p-4 border-2 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all duration-300">
                     <i class="fa-solid fa-sun text-sm"></i> Light Mode
                 </button>
-                <button
-                    class="p-4 border-2 border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-[#121212] rounded-2xl font-bold text-gray-400 flex items-center justify-center gap-2 hover:border-gray-200 dark:border-dark-border transition-all">
+                <button @click="window.themeLogic.setTheme('dark')"
+                    :class="currentTheme === 'dark' ? 'border-[#FF7304] text-[#FF7304] bg-white dark:bg-dark-card shadow-lg shadow-orange-500/10 scale-[1.02]' : 'border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-[#121212] text-gray-400'"
+                    class="p-4 border-2 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all duration-300">
                     <i class="fa-solid fa-moon text-sm"></i> Dark Mode
                 </button>
             </div>

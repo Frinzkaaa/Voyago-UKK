@@ -17,10 +17,10 @@
 
     @foreach($vouchers as $v)
       <div
-        class="relative {{ $v['bg'] }} rounded-3xl p-6 text-white overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform shadow-lg">
+        class="relative {{ $v['bg'] }} rounded-2xl md:rounded-3xl p-4 md:p-6 text-white overflow-hidden group cursor-pointer hover:scale-[1.02] transition-transform shadow-lg">
         <div class="flex flex-col gap-1 relative z-10">
           <span class="text-[8px] font-black uppercase tracking-[0.2em] opacity-80">Diskon</span>
-          <h4 class="text-2xl font-black leading-tight">{{ $v['title'] }}</h4>
+          <h4 class="text-xl md:text-2xl font-black leading-tight">{{ $v['title'] }}</h4>
           <div class="mt-4 flex flex-col gap-1">
             <span class="text-[9px] font-bold opacity-70">{{ $v['price'] }}</span>
             <div class="flex items-center gap-2 mt-1">

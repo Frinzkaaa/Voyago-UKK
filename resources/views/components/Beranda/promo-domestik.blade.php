@@ -82,9 +82,9 @@
           x-transition:enter="transition ease-out duration-300"
           x-transition:enter-start="opacity-0 transform scale-95"
           x-transition:enter-end="opacity-100 transform scale-100"
-          class="flex-none w-[320px] bg-white dark:bg-dark-card rounded-[2rem] p-5 shadow-sm border border-gray-50 dark:border-dark-border group cursor-pointer hover:border-orange-200 transition-all flex flex-col gap-4 snap-start">
+          class="flex-none w-[280px] md:w-[320px] bg-white dark:bg-dark-card rounded-3xl p-4 md:p-5 shadow-sm border border-gray-50 dark:border-dark-border group cursor-pointer hover:border-orange-200 transition-all flex flex-col gap-4 snap-start">
           
-          <div class="relative h-44 rounded-3xl overflow-hidden shadow-lg shadow-orange-100/20">
+          <div class="relative h-40 md:h-44 rounded-2xl md:rounded-3xl overflow-hidden shadow-lg shadow-orange-100/20">
             <img src="{{ $p['img'] }}"
               class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
             <div
@@ -124,8 +124,8 @@
     </div>
 
     <button
-      @click="$el.parentElement.querySelector('.flex').scrollBy({left: 320, behavior: 'smooth'})"
-      class="absolute -right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white dark:bg-dark-card shadow-lg border border-gray-100 dark:border-dark-border rounded-full flex items-center justify-center text-gray-400 hover:text-orange-500 transition-all duration-300">
+      @click="$el.parentElement.querySelector('.flex').scrollBy({left: 280, behavior: 'smooth'})"
+      class="absolute -right-2 md:-right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white dark:bg-dark-card shadow-lg border border-gray-100 dark:border-dark-border rounded-full hidden md:flex items-center justify-center text-gray-400 hover:text-orange-500 transition-all duration-300">
       <i class="fas fa-chevron-right text-xs"></i>
     </button>
   </div>

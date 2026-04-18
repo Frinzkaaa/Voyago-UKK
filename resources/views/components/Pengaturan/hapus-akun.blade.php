@@ -15,9 +15,12 @@
             saldo voucher, dan data perencanaan kolaboratif Anda. Pastikan Anda telah mengunduh semua data
             penting sebelum melanjutkan.
         </p>
-        <button
-            class="w-full md:w-auto px-8 py-4 bg-red-600 text-white rounded-2xl font-bold shadow-lg shadow-red-100 hover:bg-red-700 hover:scale-105 transition-all">
-            Hapus Akun Permanen
-        </button>
+        <form action="{{ route('account.delete') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus akun secara permanen? Seluruh data Anda tidak akan bisa dikembalikan.')">
+            @csrf
+            <button type="submit"
+                class="w-full md:w-auto px-8 py-4 bg-red-600 text-white rounded-2xl font-bold shadow-lg shadow-red-100 hover:bg-red-700 hover:scale-105 transition-all uppercase tracking-widest text-sm">
+                Hapus Akun Permanen
+            </button>
+        </form>
     </div>
 </div>

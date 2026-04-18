@@ -10,7 +10,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     @guest
       <div
-        class="col-span-1 md:col-span-3 bg-white dark:bg-dark-card/50 border border-dashed border-gray-200 dark:border-dark-border rounded-[32px] p-12 text-center transition-colors duration-300">
+        class="col-span-1 md:col-span-3 bg-white dark:bg-dark-card/50 border border-dashed border-gray-200 dark:border-dark-border rounded-3xl md:rounded-[32px] p-8 md:p-12 text-center transition-colors duration-300">
         <div class="w-16 h-16 bg-gray-100 dark:bg-dark-border rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-400">
           <i class="fa-solid fa-user-lock text-2xl"></i>
         </div>
@@ -120,7 +120,7 @@
         @endphp
 
         <div
-          class="bg-{{ $config['color'] }}-100/50 rounded-3xl p-6 border border-{{ $config['color'] }}-200/50 flex flex-col gap-6 relative group hover:shadow-xl hover:shadow-{{ $config['color'] }}-100/20 transition-all">
+          class="bg-{{ $config['color'] }}-100/50 rounded-2xl md:rounded-3xl p-4 md:p-6 border border-{{ $config['color'] }}-200/50 flex flex-col gap-4 md:gap-6 relative group hover:shadow-xl hover:shadow-{{ $config['color'] }}-100/20 transition-all">
           <div class="flex items-center justify-between">
             <span class="font-black text-gray-800 dark:text-white text-sm truncate max-w-[140px]">{{ $config['title'] }}</span>
             <span
@@ -131,7 +131,7 @@
             <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ $config['route'] }}</span>
             <div class="flex items-center justify-between text-gray-800 dark:text-white font-black">
               <div class="flex flex-col">
-                <span class="text-2xl leading-none">{{ $config['code_o'] }}</span>
+                <span class="text-xl md:text-2xl leading-none">{{ $config['code_o'] }}</span>
               </div>
               <div class="flex-grow flex flex-col items-center px-4">
                 <span
@@ -142,7 +142,7 @@
                 </div>
               </div>
               <div class="flex flex-col items-end">
-                <span class="text-2xl leading-none">{{ $config['code_d'] }}</span>
+                <span class="text-xl md:text-2xl leading-none">{{ $config['code_d'] }}</span>
               </div>
             </div>
           </div>
@@ -171,8 +171,8 @@
         </div>
       @empty
         <div
-          class="col-span-1 md:col-span-3 bg-white dark:bg-dark-card/50 border border-dashed border-gray-200 dark:border-dark-border rounded-[32px] p-12 text-center transition-colors duration-300">
-          <div class="w-16 h-16 bg-gray-100 dark:bg-dark-border rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-400">
+          class="col-span-1 md:col-span-3 bg-white dark:bg-dark-card/50 border border-dashed border-gray-200 dark:border-dark-border rounded-3xl md:rounded-[32px] p-8 md:p-12 text-center transition-colors duration-300">
+          <div class="w-16 h-16 bg-gray-100 dark:bg-dark-border rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-4 text-gray-400">
             <i class="fa-solid fa-calendar-xmark text-2xl"></i>
           </div>
           <h4 class="font-black text-gray-800 dark:text-white mb-1">Belum ada pesanan aktif</h4>
@@ -192,7 +192,7 @@
 
     <!-- Modal Content -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[340px] animate-in fade-in zoom-in duration-300">
-      <div class="bg-white dark:bg-dark-card rounded-[2.5rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-gray-100 dark:border-dark-border">
+      <div class="bg-white dark:bg-dark-card rounded-3xl md:rounded-[2.5rem] overflow-hidden shadow-2xl transition-colors duration-300 border border-gray-100 dark:border-dark-border">
         <!-- Header: Minimal & Clean -->
         <div class="p-5 flex items-center justify-between border-b border-gray-50 dark:border-dark-border">
           <div class="flex items-center gap-3">

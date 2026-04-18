@@ -47,7 +47,13 @@ class TicketController extends Controller
             }
         }
 
-        return view('beranda', compact('categories', 'tickets', 'recentBookings'));
+        $bestDestinations = WisataSpot::where('status', 'active')
+            ->where('is_active', true)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        return view('beranda', compact('categories', 'tickets', 'recentBookings', 'bestDestinations'));
     }
 
     public function getLocations(Request $request)
@@ -729,6 +735,31 @@ class TicketController extends Controller
         $user->update($data);
 
         return back()->with('success', 'Profil berhasil diperbarui!');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $user = auth()->user();
+        if (!$user) {
+            return redirect('/')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $userId = $user->id;
+
+        try {
+            // Delete related potentially unconstrained data manually
+            \App\Models\Booking::where('user_id', $userId)->delete();
+            \App\Models\User::where('id', $userId)->delete();
+
+            // Clear authentication and session
+            auth()->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect('/')->with('success', 'Selamat tinggal! Akun Anda telah dihapus secara permanen.');
+        } catch (\Exception $e) {
+            return redirect('/settings')->with('error', 'Gagal: ' . $e->getMessage());
+        }
     }
 
     private function getItem($category, $id)

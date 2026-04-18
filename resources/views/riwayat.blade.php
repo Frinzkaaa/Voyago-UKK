@@ -93,22 +93,22 @@
                         <p class="text-sm font-bold text-gray-400">Kelola tiket dan rincian perjalanan Anda</p>
                     </div>
                     <div
-                        class="flex items-center gap-2 md:gap-4 bg-white dark:bg-dark-card px-2 py-2 rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-full lg:w-fit overflow-x-auto lg:overflow-visible custom-scrollbar">
+                        class="flex items-center gap-2 md:gap-3 bg-white dark:bg-dark-card p-1.5 md:p-2 rounded-2xl md:rounded-3xl border border-gray-100 dark:border-dark-border shadow-sm w-full lg:w-fit overflow-x-auto lg:overflow-visible no-scrollbar">
                         <button onclick="filterStatus('semua')"
-                            class="status-tab active-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Semua</button>
+                            class="status-tab active-tab px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Semua</button>
                         <button onclick="filterStatus('upcoming')"
-                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Upcoming</button>
+                            class="status-tab px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Upcoming</button>
                         <button onclick="filterStatus('selesai')"
-                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Selesai</button>
+                            class="status-tab px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Selesai</button>
                         <button onclick="filterStatus('dibatalkan')"
-                            class="status-tab px-5 md:px-6 py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Dibatalkan</button>
+                            class="status-tab px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-black text-[9px] md:text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shrink-0">Dibatalkan</button>
                     </div>
                 </div>
 
                 <!-- Booking Lists -->
-                <div class="space-y-6" id="booking-list">
+                <div class="space-y-4 md:space-y-6" id="booking-list">
                     @forelse($bookings as $booking)
-                        <div class="booking-card bg-white dark:bg-dark-card rounded-[3rem] p-8 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex flex-col xl:flex-row items-center gap-10 transition-all duration-500 hover:border-orange-200 group relative overflow-hidden"
+                        <div class="booking-card bg-white dark:bg-dark-card rounded-3xl md:rounded-[3rem] p-5 md:p-8 shadow-xl shadow-orange-500/5 border border-gray-100 dark:border-dark-border flex flex-col xl:flex-row items-center gap-6 md:gap-10 transition-all duration-500 hover:border-orange-200 group relative overflow-hidden"
                             data-status="{{ $booking->status }}">
 
                             <!-- Premium Background Accent -->
@@ -118,21 +118,21 @@
 
                             <!-- Left Part: Icon & ID -->
                             <div
-                                class="flex flex-row xl:flex-col items-center xl:items-start gap-6 w-full xl:w-56 shrink-0 border-b xl:border-b-0 xl:border-r border-gray-50 dark:border-dark-border pb-6 xl:pb-0 xl:pr-10">
+                                class="flex flex-row xl:flex-col items-center xl:items-start gap-4 md:gap-6 w-full xl:w-56 shrink-0 border-b xl:border-b-0 xl:border-r border-gray-50 dark:border-dark-border pb-4 md:pb-6 xl:pb-0 xl:pr-10">
                                 <div
-                                    class="w-20 h-20 rounded-[2rem] bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                                    class="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-[2rem] bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-500">
                                     @if($booking->category == 'kereta')
-                                        <i class="fa-solid fa-train text-orange-500 text-3xl"></i>
+                                        <i class="fa-solid fa-train text-orange-500 text-2xl md:text-3xl"></i>
                                     @elseif($booking->category == 'pesawat')
-                                        <i class="fa-solid fa-plane text-orange-500 text-3xl"></i>
+                                        <i class="fa-solid fa-plane text-orange-500 text-2xl md:text-3xl"></i>
                                     @elseif($booking->category == 'hotel')
-                                        <i class="fa-solid fa-hotel text-orange-500 text-3xl"></i>
+                                        <i class="fa-solid fa-hotel text-orange-500 text-2xl md:text-3xl"></i>
                                     @else
-                                        <i class="fa-solid fa-mountain-sun text-orange-500 text-3xl"></i>
+                                        <i class="fa-solid fa-mountain-sun text-orange-500 text-2xl md:text-3xl"></i>
                                     @endif
                                 </div>
-                                <div class="flex flex-col gap-2">
-                                    <p class="text-[12px] font-black text-orange-500 uppercase tracking-[0.2em]">
+                                <div class="flex flex-col gap-1 md:gap-2">
+                                    <p class="text-[10px] md:text-[12px] font-black text-orange-500 uppercase tracking-[0.1em] md:tracking-[0.2em]">
                                         {{ $booking->booking_code }}
                                     </p>
                                     @php
@@ -158,15 +158,15 @@
                                     @endphp
                                     <div class="flex items-center gap-2">
                                         <span
-                                            class="px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
+                                            class="px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
                                     </div>
                                     @if($booking->payment_status === \App\Enums\PaymentStatus::PENDING && $booking->snap_token)
                                         <button onclick="continuePayment('{{ $booking->snap_token }}')"
-                                            class="mt-1 flex items-center gap-2 text-[10px] font-black text-orange-500 hover:text-orange-600 transition-all uppercase tracking-widest">
-                                            <div class="w-6 h-6 rounded-lg bg-orange-100 flex items-center justify-center">
-                                                <i class="fas fa-credit-card text-[10px]"></i>
+                                            class="mt-1 flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-black text-orange-500 hover:text-orange-600 transition-all uppercase tracking-widest leading-none">
+                                            <div class="w-5 h-5 md:w-6 md:h-6 rounded-lg bg-orange-100 flex items-center justify-center">
+                                                <i class="fas fa-credit-card text-[8px] md:text-[10px]"></i>
                                             </div>
-                                            Bayar Sekarang
+                                            Bayar
                                         </button>
                                     @endif
                                 </div>
@@ -174,9 +174,9 @@
 
                             <!-- Center Part: Main Details -->
                             <div
-                                class="flex-grow grid grid-cols-2 md:grid-cols-4 xl:grid-cols-2 2xl:grid-cols-4 gap-8 w-full py-2">
+                                class="flex-grow grid grid-cols-2 md:grid-cols-4 xl:grid-cols-2 2xl:grid-cols-4 gap-4 md:gap-8 w-full py-1 md:py-2">
                                 <div>
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Tujuan / Nama
+                                    <p class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 md:mb-2">Tujuan / Nama
                                     </p>
                                     @php
                                         $itemName = 'Produk Tidak Ditemukan';
@@ -184,7 +184,7 @@
                                             $itemName = $booking->item->name ?? $booking->item->airline_name ?? $booking->item->operator ?? 'Tiket Perjalanan';
                                         }
                                     @endphp
-                                    <p class="font-black text-gray-800 dark:text-white text-base leading-tight">{{ $itemName }}
+                                    <p class="font-black text-gray-800 dark:text-white text-xs md:text-base leading-tight">{{ $itemName }}
                                     </p>
                                 </div>
                                 <div class="hidden md:block">
@@ -194,8 +194,8 @@
                                         {{ $booking->created_at->format('d M Y') }}</p>
                                 </div>
                                 <div>
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Penumpang</p>
-                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-base leading-tight">
+                                    <p class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 md:mb-2">Penumpang</p>
+                                    <p class="font-bold text-gray-700 dark:text-gray-300 text-xs md:text-base leading-tight">
                                         {{ $booking->passenger_count }} Pax
                                         @if($booking->seats)
                                             <span class="text-orange-500 font-black ml-1">•
@@ -205,9 +205,9 @@
                                 </div>
                                 @if($booking->item && ($booking->item->origin || $booking->item->location))
                                     <div class="col-span-2 md:col-span-1">
-                                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">Detail Rute
+                                        <p class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1 md:mb-2">Detail Rute
                                         </p>
-                                        <p class="font-bold text-gray-500 dark:text-[#A1A1AA] text-sm leading-relaxed italic">
+                                        <p class="font-bold text-gray-500 dark:text-[#A1A1AA] text-[10px] md:text-sm leading-relaxed italic">
                                             {{ $booking->item->origin ? $booking->item->origin . ' → ' . $booking->item->destination : $booking->item->location }}
                                         </p>
                                     </div>
@@ -480,9 +480,9 @@
 
             <!-- Komplain Content -->
             <div id="section-komplain" class="dashboard-section hidden">
-                <div class="flex items-center justify-between mb-8">
-                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Komplain Saya</h1>
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Pusat Bantuan & Resolusi</p>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                    <h1 class="text-3xl md:text-4xl font-black text-gray-800 dark:text-white tracking-tighter">Komplain Saya</h1>
+                    <p class="text-[9px] md:text-xs font-black text-gray-400 uppercase tracking-widest bg-gray-50 dark:bg-white/5 px-4 py-2 rounded-full border border-gray-100 dark:border-dark-border w-fit">Pusat Bantuan & Resolusi</p>
                 </div>
 
                 <div class="space-y-6">
@@ -492,46 +492,48 @@
 
                     @forelse($userComplaints as $complaint)
                         <div
-                            class="bg-white dark:bg-dark-card rounded-[24px] p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center gap-3">
+                            class="bg-white dark:bg-dark-card rounded-3xl md:rounded-[24px] p-5 md:p-6 shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+                                <div class="flex flex-wrap items-center gap-2 md:gap-3">
                                     <span
-                                        class="px-3 py-1 bg-orange-50 text-[#FF7304] rounded-full text-[10px] font-black uppercase tracking-widest">
+                                        class="px-3 py-1 bg-orange-50 dark:bg-orange-500/10 text-[#FF7304] rounded-full text-[9px] font-black uppercase tracking-widest border border-orange-100 dark:border-orange-500/20">
                                         {{ $complaint->booking->booking_code }}
                                     </span>
-                                    <h4 class="font-bold text-gray-800 dark:text-white text-sm">{{ $complaint->subject }}</h4>
+                                    <h4 class="font-black text-gray-800 dark:text-white text-xs md:text-sm tracking-tight">{{ $complaint->subject }}</h4>
                                 </div>
                                 @php
                                     $statusColors = [
-                                        'pending' => 'bg-gray-100 dark:bg-dark-border text-gray-500 dark:text-[#A1A1AA]',
-                                        'in_progress' => 'bg-blue-50 text-blue-500',
-                                        'resolved' => 'bg-green-50 text-green-500',
+                                        'pending' => 'bg-gray-100 dark:bg-dark-border text-gray-500 dark:text-[#A1A1AA] border-gray-200',
+                                        'in_progress' => 'bg-blue-50 text-blue-500 border-blue-100',
+                                        'resolved' => 'bg-green-50 text-green-500 border-green-100',
                                     ];
                                 @endphp
                                 <span
-                                    class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusColors[$complaint->status] ?? 'bg-gray-100 dark:bg-dark-border' }}">
+                                    class="px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest w-fit border {{ $statusColors[$complaint->status] ?? 'bg-gray-100 dark:bg-dark-border' }}">
                                     {{ str_replace('_', ' ', $complaint->status) }}
                                 </span>
                             </div>
-                            <p class="text-sm text-gray-500 dark:text-[#A1A1AA] mb-4">{{ $complaint->description }}</p>
-
+                            <p class="text-xs md:text-sm font-medium text-gray-500 dark:text-[#A1A1AA] mb-5 leading-relaxed bg-gray-50 dark:bg-white/5 p-4 rounded-2xl">{{ $complaint->description }}</p>
                             @if($complaint->admin_response)
-                                <div class="bg-orange-50 dark:bg-orange-950/20 rounded-2xl p-4 border-l-4 border-orange-400 mb-3">
-                                    <p class="text-[10px] font-black text-orange-400 uppercase tracking-widest mb-1">Respon Admin
+                                <div class="bg-orange-50 dark:bg-orange-500/10 rounded-2xl p-4 border-l-4 border-orange-400 mb-3 shadow-sm">
+                                    <p class="text-[9px] font-black text-orange-400 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                        <i class="fa-solid fa-user-shield"></i> Respon Admin
                                     </p>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->admin_response }}"
+                                    <p class="text-xs md:text-sm text-gray-700 dark:text-gray-300 italic font-medium">"{{ $complaint->admin_response }}"
+                                    </p>
+                                </div>
+                            @endif
+ 
+                            @if($complaint->mitra_response)
+                                <div class="bg-emerald-50 dark:bg-emerald-500/10 rounded-2xl p-4 border-l-4 border-emerald-400 shadow-sm">
+                                    <p class="text-[9px] font-black text-emerald-500 uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                                        <i class="fa-solid fa-shop"></i> Respon Mitra
+                                    </p>
+                                    <p class="text-xs md:text-sm text-gray-700 dark:text-gray-300 italic font-medium">"{{ $complaint->mitra_response }}"
                                     </p>
                                 </div>
                             @endif
 
-                            @if($complaint->mitra_response)
-                                <div class="bg-emerald-50 dark:bg-emerald-950/20 rounded-2xl p-4 border-l-4 border-emerald-400">
-                                    <p class="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Respon Mitra
-                                    </p>
-                                    <p class="text-sm text-gray-700 dark:text-gray-300 italic">"{{ $complaint->mitra_response }}"
-                                    </p>
-                                </div>
-                            @endif
                             <div class="mt-4 text-[10px] text-gray-300 font-bold uppercase tracking-widest">
                                 Dikirim pada {{ $complaint->created_at->format('d M Y, H:i') }}
                             </div>

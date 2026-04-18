@@ -39,8 +39,8 @@
           x-transition:enter-start="opacity-0 transform scale-95"
           x-transition:enter-end="opacity-100 transform scale-100"
           onclick="window.location.href = '{{ route('booking.page') }}?category=wisata'"
-          class="flex-none w-[280px] bg-white dark:bg-dark-card rounded-3xl p-4 shadow-sm border border-gray-50 dark:border-dark-border group cursor-pointer hover:border-orange-200 transition-all flex flex-col h-full snap-start">
-          <div class="relative h-40 rounded-2xl overflow-hidden">
+          class="flex-none w-[240px] md:w-[280px] bg-white dark:bg-dark-card rounded-2xl md:rounded-3xl p-4 shadow-sm border border-gray-50 dark:border-dark-border group cursor-pointer hover:border-orange-200 transition-all flex flex-col h-full snap-start">
+          <div class="relative h-36 md:h-40 rounded-xl md:rounded-2xl overflow-hidden">
             <img src="{{ $a['img'] }}"
               class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
             <div
@@ -75,8 +75,8 @@
     </div>
 
     <button
-      @click="$el.parentElement.querySelector('.flex').scrollBy({left: 300, behavior: 'smooth'})"
-      class="absolute -right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white dark:bg-dark-card shadow-lg border border-gray-100 dark:border-dark-border rounded-full flex items-center justify-center text-gray-400 hover:text-orange-500 transition-all duration-300">
+      @click="$el.parentElement.querySelector('.flex').scrollBy({left: 240, behavior: 'smooth'})"
+      class="absolute -right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white dark:bg-dark-card shadow-lg border border-gray-100 dark:border-dark-border rounded-full hidden md:flex items-center justify-center text-gray-400 hover:text-orange-500 transition-all duration-300">
       <i class="fas fa-chevron-right text-xs"></i>
     </button>
   </div>

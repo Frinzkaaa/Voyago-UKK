@@ -22,9 +22,6 @@
             <!-- Section 2: Notifikasi -->
             <x-pengaturan.notifikasi />
 
-            <!-- Section 3: Pembayaran -->
-            <x-pengaturan.pembayaran :methods="$paymentMethods" />
-
             <!-- Section 4: Privasi -->
             <x-pengaturan.privasi />
 

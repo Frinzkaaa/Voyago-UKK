@@ -6,7 +6,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <!-- Left: Destinasi Terbaik (Merged with Padar Island) -->
       <div class="lg:col-span-5">
-        <x-Beranda.destinasi-terbaik />
+        <x-Beranda.destinasi-terbaik :destinations="$bestDestinations" />
       </div>
 
       <!-- Right: Hero (Top) + Hotel & Chat (Bottom) -->
@@ -41,17 +41,17 @@
 
     <!-- Join Mitra Section -->
     <section
-      class="mt-10 mb-20 bg-gradient-to-br from-[#FF7304] to-[#FFAC63] rounded-[40px] p-10 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden shadow-2xl shadow-orange-100">
-      <div class="relative z-10 max-w-xl">
-        <h2 class="text-3xl md:text-5xl font-black mb-6 leading-tight">Punya Bisnis Properti atau Transportasi?</h2>
-        <p class="text-lg opacity-90 mb-10 leading-relaxed">Dapatkan keuntungan lebih dengan bergabung sebagai Mitra
+      class="mt-10 mb-20 bg-gradient-to-br from-[#FF7304] to-[#FFAC63] rounded-[32px] md:rounded-[40px] p-8 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10 relative overflow-hidden shadow-2xl shadow-orange-100">
+      <div class="relative z-10 max-w-xl text-center md:text-left">
+        <h2 class="text-2xl md:text-5xl font-black mb-4 md:mb-6 leading-tight">Punya Bisnis Properti atau Transportasi?</h2>
+        <p class="text-sm md:text-lg opacity-90 mb-8 md:mb-10 leading-relaxed">Dapatkan keuntungan lebih dengan bergabung sebagai Mitra
           Voyago. Kelola bisnismu lebih cerdas dan jangkau jutaan penjelajah.</p>
-        <div class="flex flex-wrap gap-4">
+        <div class="flex flex-wrap justify-center md:justify-start gap-4">
           <a href="{{ route('partner.auth.page') }}"
-            class="bg-white dark:bg-dark-card text-[#FF7304] px-10 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center transition-colors duration-300">Daftar
+            class="bg-white dark:bg-dark-card text-[#FF7304] px-6 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center transition-colors duration-300 text-sm md:text-base">Daftar
             Mitra</a>
           <a href="#"
-            class="border-2 border-white/30 backdrop-blur-sm text-white px-10 py-4 rounded-2xl font-black hover:bg-white dark:bg-dark-card/10 transition-all text-center transition-colors duration-300">Pelajari
+            class="border-2 border-white/30 backdrop-blur-sm text-white px-6 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl font-black hover:bg-white dark:bg-dark-card/10 transition-all text-center transition-colors duration-300 text-sm md:text-base">Pelajari
             Selengkapnya</a>
         </div>
       </div>

@@ -16,7 +16,7 @@
 
     @foreach($intl as $i)
       <div
-        class="group relative h-48 rounded-[2rem] overflow-hidden cursor-pointer shadow-md transform hover:scale-[1.02] transition-all">
+        class="group relative h-44 md:h-48 rounded-2xl md:rounded-[2rem] overflow-hidden cursor-pointer shadow-md transform hover:scale-[1.02] transition-all">
         <img src="{{ $i['img'] }}" class="absolute inset-0 w-full h-full object-cover">
         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
         <div class="absolute bottom-4 left-6 right-6 flex flex-col">
@@ -24,7 +24,7 @@
             {{ $i['title'] }}
           </h4>
           <p class="text-[9px] text-white/70 font-bold mt-0.5">{{ $i['sub'] }}</p>
-          <div class="mt-2 text-white font-black text-base">{{ $i['price'] }}</div>
+          <div class="mt-2 text-white font-black text-sm md:text-base">{{ $i['price'] }}</div>
         </div>
       </div>
     @endforeach

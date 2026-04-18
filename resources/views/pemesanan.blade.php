@@ -223,20 +223,20 @@
             const aTime = arr.getHours().toString().padStart(2, '0') + '.' + arr.getMinutes().toString().padStart(2, '0');
             
             timeInfo = `
-              <div class="flex items-center gap-6 md:gap-12 w-full">
-                <div class="flex flex-col">
-                  <span class="text-gray-900 dark:text-white font-black text-2xl md:text-[1.8rem] leading-none">${dTime}</span>
-                  <span class="text-[10px] md:text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest truncate max-w-[80px]">${ticket.origin || ''}</span>
+              <div class="flex items-center gap-4 md:gap-12 w-full">
+                <div class="flex flex-col shrink-0">
+                   <span class="text-gray-900 dark:text-white font-black text-xl md:text-[1.8rem] leading-none">${dTime}</span>
+                   <span class="text-[9px] md:text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest truncate max-w-[60px] md:max-w-[80px]">${ticket.origin || ''}</span>
                 </div>
                 <div class="flex flex-col items-center flex-grow">
-                  <span class="text-[9px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">${ticket.duration || '1j 30m'}</span>
-                  <div class="w-full h-[2px] bg-gray-100 dark:bg-zinc-800 rounded-full relative">
-                    <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
-                  </div>
+                   <span class="text-[8px] md:text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">${ticket.duration || '1j 30m'}</span>
+                   <div class="w-full h-[1.5px] bg-gray-100 dark:bg-zinc-800 rounded-full relative">
+                      <div class="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
+                   </div>
                 </div>
-                <div class="flex flex-col items-end text-right">
-                  <span class="text-gray-900 dark:text-white font-black text-2xl md:text-[1.8rem] leading-none">${aTime}</span>
-                  <span class="text-[10px] md:text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest truncate max-w-[80px]">${ticket.destination || ''}</span>
+                <div class="flex flex-col items-end text-right shrink-0">
+                   <span class="text-gray-900 dark:text-white font-black text-xl md:text-[1.8rem] leading-none">${aTime}</span>
+                   <span class="text-[9px] md:text-xs font-bold text-gray-400 mt-1 uppercase tracking-widest truncate max-w-[60px] md:max-w-[80px]">${ticket.destination || ''}</span>
                 </div>
               </div>
             `;
@@ -278,49 +278,49 @@
               </div>
             `;
           } else {
-            // Transport Layout (Thumbnail Style)
+          // Transport Layout (Thumbnail Style)
             innerHtml = `
-              <div class="flex items-center justify-between mb-4 border-b border-gray-50 dark:border-dark-border pb-6">
-                <div class="flex items-center gap-4">
-                  <div class="w-16 h-16 rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-zinc-800 shrink-0 flex items-center justify-center">
+              <div class="flex items-center justify-between mb-2 md:mb-4 border-b border-gray-50 dark:border-dark-border pb-4 md:pb-6">
+                <div class="flex items-center gap-3 md:gap-4">
+                  <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl overflow-hidden shadow-sm border border-gray-100 dark:border-dark-border bg-gray-50 dark:bg-zinc-800 shrink-0 flex items-center justify-center">
                     ${mainImage ? `
                         <img src="${mainImage}" class="w-full h-full object-cover">
                     ` : `
-                        <i class="fa-solid ${icon} text-xl text-zinc-300 dark:text-zinc-600"></i>
+                        <i class="fa-solid ${icon} text-lg md:text-xl text-zinc-300 dark:text-zinc-600"></i>
                     `}
                   </div>
-                  <div>
-                    <h3 class="text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight leading-none mb-2">${name}</h3>
+                  <div class="min-w-0">
+                    <h3 class="text-sm md:text-xl font-black text-gray-900 dark:text-white uppercase tracking-tight leading-tight mb-1 md:mb-2 truncate max-w-[120px] md:max-w-none">${name}</h3>
                     <div class="flex items-center gap-2">
-                      <span class="text-[10px] font-black text-orange-500 uppercase tracking-widest bg-orange-50 dark:bg-orange-900/20 px-2 py-0.5 rounded-md">${code}</span>
-                      <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">${className}</span>
+                       <span class="text-[8px] md:text-[10px] font-black text-orange-500 uppercase tracking-widest bg-orange-50 dark:bg-orange-900/20 px-1.5 md:px-2 py-0.5 rounded-md">${code}</span>
+                       <span class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest truncate max-w-[60px] md:max-w-none">${className}</span>
                     </div>
                   </div>
                 </div>
-                <div class="text-right">
-                  <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-1">Harga Tiket</span>
-                  <span class="text-orange-500 font-black text-2xl tracking-tighter">Rp ${price.toLocaleString('id-ID')}</span>
+                <div class="text-right shrink-0">
+                  <span class="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest block mb-0.5 md:mb-1">Harga Tiket</span>
+                  <span class="text-orange-500 font-black text-sm md:text-2xl tracking-tighter">Rp ${Math.floor(price).toLocaleString('id-ID')}</span>
                 </div>
               </div>
 
               ${timeInfo}
 
-              <div class="flex items-center justify-between mt-6 pt-6 border-t border-gray-50 dark:border-dark-border">
-                <button onclick="showDetail('${encodeURIComponent(JSON.stringify(ticket))}')" class="flex items-center gap-2 text-[10px] font-black text-gray-400 hover:text-orange-500 uppercase tracking-widest transition-all">
-                  <i class="fas fa-info-circle text-orange-500"></i> Detail Perjalanan
+              <div class="flex items-center justify-between mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-50 dark:border-dark-border">
+                <button onclick="showDetail('${encodeURIComponent(JSON.stringify(ticket))}')" class="flex items-center gap-1.5 md:gap-2 text-[8px] md:text-[10px] font-black text-gray-400 hover:text-orange-500 uppercase tracking-widest transition-all">
+                  <i class="fas fa-info-circle text-orange-500"></i> <span class="hidden md:inline">Detail Perjalanan</span><span class="md:hidden">Detail</span>
                 </button>
                 <div class="flex gap-2">
-                  <button onclick="addToPlan('${encodeURIComponent(JSON.stringify(ticket))}')" class="w-12 h-12 bg-gray-50 dark:bg-zinc-800 text-gray-400 hover:text-orange-500 rounded-2xl flex items-center justify-center transition-all">
-                    <i class="fas fa-folder-plus text-xl"></i>
+                  <button onclick="addToPlan('${encodeURIComponent(JSON.stringify(ticket))}')" class="w-10 h-10 md:w-12 md:h-12 bg-gray-50 dark:bg-zinc-800 text-gray-400 hover:text-orange-500 rounded-xl md:rounded-2xl flex items-center justify-center transition-all shrink-0">
+                    <i class="fas fa-folder-plus text-lg md:text-xl"></i>
                   </button>
-                  <button onclick="selectTicket(${ticket.id}, ${price}, '${encodeURIComponent(JSON.stringify(ticket))}')" class="px-10 py-3 bg-orange-500 text-white rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-lg shadow-orange-500/20 hover:bg-orange-600 transition-all font-bold">Pilih Sekarang</button>
+                  <button onclick="selectTicket(${ticket.id}, ${price}, '${encodeURIComponent(JSON.stringify(ticket))}')" class="px-5 md:px-10 py-2.5 md:py-3 bg-orange-500 text-white rounded-xl md:rounded-2xl text-[10px] md:text-[11px] font-black uppercase tracking-widest shadow-lg shadow-orange-500/20 hover:bg-orange-600 transition-all font-bold">Pilih Sekarang</button>
                 </div>
               </div>
             `;
           }
 
           const card = document.createElement('div');
-          card.className = 'bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2.5rem] p-8 hover:border-orange-300 transition-all flex flex-col group';
+          card.className = 'bg-white dark:bg-dark-card border border-gray-100 dark:border-dark-border rounded-[2.5rem] p-5 md:p-8 hover:border-orange-300 transition-all flex flex-col group';
           card.innerHTML = innerHtml;
           container.appendChild(card);
         });

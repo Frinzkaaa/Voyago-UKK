@@ -1,5 +1,5 @@
 <!-- Header/Navbar Component -->
-<header id="main-header" class="py-2 px-6 sticky top-0 z-50 transition-all duration-500 ease-in-out bg-white/90 dark:bg-dark-bg/60 backdrop-blur-md shadow-sm">
+<header id="main-header" class="py-2 px-4 md:px-6 sticky top-0 z-50 transition-all duration-500 ease-in-out bg-white/90 dark:bg-dark-bg/60 backdrop-blur-md shadow-sm">
   <div class="flex items-center justify-between gap-3 w-full">
     <!-- Logo Section -->
     <div

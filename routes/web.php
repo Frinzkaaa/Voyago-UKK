@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [TicketController::class, 'settings'])->name('settings');
     Route::get('/profile', [TicketController::class, 'profile'])->name('profile');
     Route::post('/profile/update', [TicketController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/account/delete', [TicketController::class, 'deleteAccount'])->name('account.delete');
     Route::post('/payment-methods', [TicketController::class, 'storePaymentMethod'])->name('payment-methods.store');
     Route::post('/payment-methods/{id}/delete', [TicketController::class, 'deletePaymentMethod'])->name('payment-methods.delete');
     Route::post('/payment-methods/{id}/set-default', [TicketController::class, 'setDefaultPaymentMethod'])->name('payment-methods.set-default');
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/complaints', [TicketController::class, 'myComplaints'])->name('complaints.my');
     Route::post('/booking/{id}/cancel', [TicketController::class, 'cancelBooking'])->name('booking.cancel');
     Route::get('/booking/{id}/ticket', [TicketController::class, 'downloadTicket'])->name('booking.ticket');
+    Route::post('/wishlist/toggle', [\App\Http\Controllers\WishlistController::class, 'toggle'])->name('wishlist.toggle');
 });
 
 // Admin Routes

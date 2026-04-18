@@ -4,44 +4,46 @@
     <div class="max-w-[1280px] mx-auto">
         <!-- Top Section -->
         <div
-            class="bg-white dark:bg-dark-card rounded-[24px] p-6 mb-8 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-300">
+            class="bg-white dark:bg-dark-card rounded-2xl md:rounded-[24px] p-5 md:p-8 mb-6 md:mb-8 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col md:flex-row md:items-center justify-between gap-6 transition-colors duration-300">
             <div>
-                <div class="flex items-center gap-3 mb-2">
+                <div class="flex flex-wrap items-center gap-2 md:gap-3 mb-3 md:mb-2">
                     <div class="flex items-center gap-2 group cursor-pointer" onclick="editTitle()">
-                        <h1 class="text-2xl font-bold text-gray-800 dark:text-white" id="room-title">{{ $room['title'] }}</h1>
-                        <i
-                            class="fa-solid fa-pen-to-square text-xs text-gray-300 group-hover:text-[#FF7304] transition-all"></i>
+                        <h1 class="text-xl md:text-3xl font-black text-gray-800 dark:text-white tracking-tighter" id="room-title">{{ $room['title'] }}</h1>
+                        <i class="fa-solid fa-pen-to-square text-[10px] text-gray-300 group-hover:text-[#FF7304] transition-all"></i>
                     </div>
-                    <span
-                        class="px-3 py-1 bg-orange-50 text-[#FF7304] text-[10px] font-bold rounded-full uppercase tracking-wider">{{ $room['destination'] }}</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="px-3 py-1 bg-orange-50 dark:bg-orange-500/10 text-[#FF7304] text-[9px] md:text-[10px] font-black rounded-full uppercase tracking-wider border border-orange-100 dark:border-orange-500/20">
+                        <i class="fas fa-location-dot mr-1"></i>{{ $room['destination'] }}
+                    </span>
                     <span id="room-status-badge"
-                        class="px-3 py-1 {{ $room['status'] === 'finalized' ? 'bg-green-50 text-green-600' : 'bg-blue-50 text-blue-600' }} text-[10px] font-bold rounded-full uppercase tracking-wider">
+                        class="px-3 py-1 {{ $room['status'] === 'finalized' ? 'bg-green-50 text-green-600 border-green-100' : 'bg-blue-50 text-blue-600 border-blue-100' }} dark:bg-opacity-10 text-[9px] md:text-[10px] font-black rounded-full uppercase tracking-wider border">
                         {{ $room['status'] === 'finalized' ? 'Finalized' : 'Planning' }}
                     </span>
                 </div>
-                <p class="text-sm text-gray-500 dark:text-[#A1A1AA] flex items-center gap-2">
-                    <i class="fa-regular fa-calendar"></i> {{ $room['date'] }}
+                <p class="text-xs md:text-sm text-gray-400 dark:text-[#A1A1AA] font-bold flex items-center gap-2">
+                    <i class="fa-regular fa-calendar text-[#FF7304]"></i> {{ $room['date'] }}
                 </p>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div class="flex -space-x-3 overflow-hidden">
+            <div class="flex items-center justify-between md:justify-end gap-3 md:gap-4 border-t md:border-t-0 pt-4 md:pt-0">
+                <div class="flex -space-x-2 md:-space-x-3 overflow-hidden">
                     @foreach($room['members'] as $member)
-                        <img class="inline-block h-10 w-10 rounded-full ring-2 ring-white object-cover"
+                        <img class="inline-block h-8 w-8 md:h-10 md:w-10 rounded-full ring-2 ring-white dark:ring-dark-card object-cover"
                             src="/images/{{ $member['image'] }}" alt="{{ $member['name'] }}"
                             title="{{ $member['name'] }} ({{ $member['role'] }})">
                     @endforeach
                 </div>
 
-                <div class="h-10 w-px bg-gray-200 dark:bg-dark-border mx-2"></div>
+                <div class="h-8 md:h-10 w-px bg-gray-100 dark:bg-dark-border mx-1 md:mx-2"></div>
 
                 <div class="flex items-center gap-2">
                     <button onclick="inviteUser()"
-                        class="bg-[#FF7304] text-white px-5 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-orange-100 hover:scale-105 transition-all flex items-center gap-2">
-                        <i class="fa-solid fa-user-plus text-xs"></i> Invite
+                        class="bg-[#FF7304] text-white px-4 md:px-6 py-2.5 rounded-xl md:rounded-full font-black text-xs md:text-sm shadow-lg shadow-orange-500/20 hover:scale-105 transition-all flex items-center gap-2 uppercase tracking-widest">
+                        <i class="fa-solid fa-user-plus text-[10px]"></i> Invite
                     </button>
                     <button
-                        class="w-10 h-10 border-2 border-gray-100 dark:border-dark-border rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:border-orange-100 transition-all">
+                        class="w-10 h-10 border-2 border-gray-100 dark:border-dark-border rounded-xl md:rounded-full flex items-center justify-center text-gray-400 hover:text-[#FF7304] hover:border-orange-100 transition-all">
                         <i class="fa-solid fa-share-nodes"></i>
                     </button>
                 </div>
@@ -57,18 +59,18 @@
         @endphp
 
         <!-- Main Content Layout -->
-        <div class="flex flex-col lg:flex-row gap-8">
+        <div class="flex flex-col lg:flex-row gap-6 md:gap-8">
 
             <!-- Left: Saved Trip Items -->
             <div class="lg:w-[65%] shrink-0">
                 <!-- Tabs -->
-                <div class="flex items-center gap-8 border-b border-gray-200 dark:border-dark-border mb-6 overflow-x-auto">
+                <div class="flex items-center gap-6 md:gap-8 border-b border-gray-100 dark:border-dark-border mb-6 overflow-x-auto no-scrollbar">
                     <button onclick="switchCategory('transport')"
-                        class="cat-tab active-tab pb-3 font-semibold text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Transport</button>
+                        class="cat-tab active-tab pb-3 font-black text-[10px] md:text-sm uppercase tracking-widest text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Transport</button>
                     <button onclick="switchCategory('hotel')"
-                        class="cat-tab pb-3 font-semibold text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Hotel</button>
+                        class="cat-tab pb-3 font-black text-[10px] md:text-sm uppercase tracking-widest text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Hotel</button>
                     <button onclick="switchCategory('wisata')"
-                        class="cat-tab pb-3 font-semibold text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Wisata</button>
+                        class="cat-tab pb-3 font-black text-[10px] md:text-sm uppercase tracking-widest text-gray-400 hover:text-[#FF7304] transition-all relative whitespace-nowrap">Wisata</button>
                 </div>
 
                 <!-- Items Lists -->
@@ -145,15 +147,14 @@
                                     </div>
                                 </div>
                             @empty
-                                <div class="text-center py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
-                                    <div class="w-24 h-24 mx-auto mb-6 bg-orange-50 rounded-full flex items-center justify-center">
-                                        <i class="fa-solid fa-folder-open text-4xl text-orange-200"></i>
+                                <div class="text-center py-12 md:py-20 bg-white dark:bg-dark-card rounded-[24px] shadow-sm border border-gray-100 dark:border-dark-border transition-colors duration-300">
+                                    <div class="w-16 h-16 md:w-24 md:h-24 mx-auto mb-6 bg-orange-50 dark:bg-orange-500/10 rounded-full flex items-center justify-center">
+                                        <i class="fa-solid fa-folder-open text-2xl md:text-4xl text-orange-200"></i>
                                     </div>
-                                    <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-2">Belum ada rencana yang ditambahkan</h3>
-                                    <p class="text-gray-400 text-sm mb-6 px-10">Yuk tambahkan tiket atau destinasi ke room ini!</p>
+                                    <h3 class="text-base md:text-lg font-black text-gray-800 dark:text-white mb-2 uppercase tracking-tighter px-4">Belum ada rencana ditambahkan</h3>
+                                    <p class="text-gray-400 font-bold text-[10px] md:text-sm mb-6 px-10 leading-relaxed">Yuk tambahkan tiket atau destinasi favoritmu ke room ini sekarang!</p>
                                     <a href="/pemesanan"
-                                        class="inline-block bg-[#FF7304] text-white px-6 py-2.5 rounded-full font-bold text-sm shadow-lg shadow-orange-100">Cari
-                                        Tiket Sekarang</a>
+                                        class="inline-block bg-[#FF7304] text-white px-8 py-3 rounded-xl md:rounded-full font-black text-xs md:text-sm shadow-lg shadow-orange-500/20 active:scale-95 transition-all uppercase tracking-widest">Cari Tiket</a>
                                 </div>
                             @endforelse
                         </div>

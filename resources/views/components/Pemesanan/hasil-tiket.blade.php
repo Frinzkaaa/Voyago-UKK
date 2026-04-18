@@ -14,7 +14,7 @@
     @endphp
 
     <div
-      class="bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-[2.5rem] p-6 hover:border-orange-300 transition-all flex flex-col gap-6 group transition-colors duration-300">
+      class="bg-white dark:bg-dark-card border-2 border-gray-100 dark:border-dark-border rounded-3xl p-4 md:p-6 hover:border-orange-300 transition-all flex flex-col gap-4 md:gap-6 group transition-colors duration-300">
       
       @php
         $category = strtolower($ticket->category ?? $category ?? '');
@@ -36,7 +36,7 @@
       @endphp
 
       @if($showImage)
-      <div class="relative w-full h-48 rounded-[2rem] overflow-hidden">
+      <div class="relative w-full h-40 md:h-48 rounded-2xl md:rounded-[2rem] overflow-hidden">
         <img src="{{ $mainImage }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
         <div class="absolute bottom-4 left-6">
@@ -53,33 +53,33 @@
                 <img src="{{ $mainImage }}" class="w-full h-full object-cover">
              </div>
              @endif
-             <div>
-                <h3 class="text-xl font-black text-gray-900 dark:text-white">{{ $name }}</h3>
-                <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-[9px] font-black uppercase tracking-widest">{{ $class }}</span>
-             </div>
+              <div>
+                 <h3 class="text-lg md:text-xl font-black text-gray-900 dark:text-white">{{ $name }}</h3>
+                 <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-[9px] font-black uppercase tracking-widest">{{ $class }}</span>
+              </div>
           </div>
       </div>
 
       <div class="flex items-start justify-between {{ $showImage ? 'hidden' : '' }}">
         <div class="flex flex-col">
-          <h3 class="text-orange-500 font-black text-2xl leading-tight">{{ $name }} {{ $code ? "($code)" : '' }}</h3>
+          <h3 class="text-orange-500 font-black text-lg md:text-2xl leading-tight">{{ $name }} {{ $code ? "($code)" : '' }}</h3>
           <span class="text-xs font-bold text-orange-400 italic">{{ $class }}</span>
         </div>
         <div class="flex flex-col items-end">
           <div class="flex items-baseline gap-1">
-            <span class="text-orange-500 font-black text-2xl tracking-tighter">Rp
+            <span class="text-orange-500 font-black text-xl md:text-2xl tracking-tighter">Rp
               {{ number_format($price, 0, ',', '.') }}</span>
-            <span class="text-gray-400 font-bold text-sm">/ {{ isset($ticket->price_per_night) ? 'malam' : 'pax' }}</span>
+            <span class="text-gray-400 font-bold text-xs md:text-sm">/ {{ isset($ticket->price_per_night) ? 'malam' : 'pax' }}</span>
           </div>
         </div>
       </div>
 
       <div class="flex items-center justify-between">
         @if(isset($ticket->departure_time))
-          <div class="flex items-center gap-12 flex-grow">
+          <div class="flex items-center gap-4 md:gap-12 flex-grow">
             <div class="flex flex-col">
-              <span class="text-gray-800 dark:text-white font-black text-[2rem] leading-none">{{ $departureTime }}</span>
-              @if($showImage) <span class="text-xs font-bold text-gray-400 mt-1 uppercase">{{ $ticket->origin ?? '' }}</span> @endif
+              <span class="text-gray-800 dark:text-white font-black text-2xl md:text-[2rem] leading-none">{{ $departureTime }}</span>
+              @if($showImage) <span class="text-[10px] md:text-xs font-bold text-gray-400 mt-1 uppercase">{{ $ticket->origin ?? '' }}</span> @endif
             </div>
 
             <div class="flex flex-col items-center flex-grow max-w-[120px]">
@@ -92,8 +92,8 @@
             </div>
 
             <div class="flex flex-col">
-              <span class="text-gray-800 dark:text-white font-black text-[2rem] leading-none">{{ $arrivalTime }}</span>
-              @if($showImage) <span class="text-xs font-bold text-gray-400 mt-1 uppercase text-right">{{ $ticket->destination ?? '' }}</span> @endif
+              <span class="text-gray-800 dark:text-white font-black text-2xl md:text-[2rem] leading-none">{{ $arrivalTime }}</span>
+              @if($showImage) <span class="text-[10px] md:text-xs font-bold text-gray-400 mt-1 uppercase text-right">{{ $ticket->destination ?? '' }}</span> @endif
             </div>
           </div>
         @else
@@ -110,15 +110,15 @@
           </div>
         @endif
 
-        <div class="flex flex-col items-end gap-2">
+        <div class="flex flex-col items-end gap-2 shrink-0">
            @if($showImage)
            <div class="flex items-baseline gap-1 mb-1">
-              <span class="text-orange-500 font-black text-2xl tracking-tighter">Rp {{ number_format($price, 0, ',', '.') }}</span>
-              <span class="text-gray-400 font-bold text-sm">/ {{ isset($ticket->price_per_night) ? 'malam' : 'pax' }}</span>
+              <span class="text-orange-500 font-black text-xl md:text-2xl tracking-tighter">Rp {{ number_format($price, 0, ',', '.') }}</span>
+              <span class="text-gray-400 font-bold text-xs md:text-sm">/ {{ isset($ticket->price_per_night) ? 'malam' : 'pax' }}</span>
            </div>
            @endif
            <button onclick="selectTicket({{ $ticket->id }}, {{ $price }}, '{{ urlencode(json_encode($ticket)) }}')"
-             class="bg-orange-100 dark:bg-orange-500/10 text-orange-500 group-hover:bg-orange-500 group-hover:text-white font-black px-12 py-3 rounded-2xl transition-all shadow-sm">
+             class="bg-orange-100 dark:bg-orange-500/10 text-orange-500 group-hover:bg-orange-500 group-hover:text-white font-black px-6 md:px-12 py-2 md:py-3 rounded-xl md:rounded-2xl transition-all shadow-sm text-xs md:text-base">
              Pilih
            </button>
         </div>

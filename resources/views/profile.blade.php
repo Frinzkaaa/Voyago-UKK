@@ -7,8 +7,8 @@
         <div
             class="bg-white dark:bg-dark-card rounded-[24px] p-8 shadow-sm border border-gray-100 dark:border-dark-border flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden transition-colors duration-300">
             <!-- Background decoration -->
-            <div class="absolute top-0 right-0 w-64 h-64 bg-orange-50 rounded-full -mr-32 -mt-32 opacity-40"></div>
-            <div class="absolute bottom-0 left-0 w-32 h-32 bg-orange-50 rounded-full -ml-16 -mb-16 opacity-30"></div>
+            <div class="absolute top-0 right-0 w-48 md:w-64 h-48 md:h-64 bg-orange-50 dark:bg-orange-500/5 rounded-full -mr-24 md:-mr-32 -mt-24 md:-mt-32 opacity-40"></div>
+            <div class="absolute bottom-0 left-0 w-24 md:w-32 h-24 md:h-32 bg-orange-50 dark:bg-orange-500/5 rounded-full -ml-12 md:-ml-16 -mb-12 md:-mb-16 opacity-30"></div>
 
             <div class="flex flex-col md:flex-row items-center gap-6 relative">
                 <div class="relative group">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="text-center md:text-left">
                     <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
-                        <h1 class="text-3xl font-bold text-gray-800 dark:text-white">{{ auth()->user()->name }}</h1>
+                        <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">{{ auth()->user()->name }}</h1>
                         <span
                             class="px-3 py-1 bg-orange-500 text-white text-[10px] font-bold rounded-full uppercase tracking-widest shadow-sm">{{ auth()->user()->badge }}</span>
                     </div>
@@ -48,13 +48,12 @@
                 </div>
             </div>
 
-            <div class="flex gap-4 relative">
+            <div class="flex flex-col md:flex-row gap-3 md:gap-4 relative w-full md:w-auto">
                 <button
-                    class="px-8 py-3 bg-[#FF7304] text-white rounded-full font-bold shadow-lg shadow-orange-100 hover:scale-105 transition-all">Edit
+                    class="w-full md:w-auto px-6 md:px-8 py-3 bg-[#FF7304] text-white rounded-full font-bold shadow-lg shadow-orange-100 hover:scale-105 transition-all text-sm uppercase tracking-widest">Edit
                     Profil</button>
                 <a href="/pesanan-saya"
-                    class="px-8 py-3 border-2 border-[#FF7304] text-[#FF7304] rounded-full font-bold hover:bg-[#FF7304] hover:text-white transition-all">Lihat
-                    Aktivitas</a>
+                    class="w-full md:w-auto text-center px-6 md:px-8 py-3 border-2 border-[#FF7304] text-[#FF7304] rounded-full font-bold hover:bg-[#FF7304] hover:text-white transition-all text-sm uppercase tracking-widest">Aktivitas</a>
             </div>
         </div>
 
