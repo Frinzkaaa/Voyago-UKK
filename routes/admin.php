@@ -11,6 +11,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/tickets/{category}/{id}/edit', [AdminController::class, 'edit'])->name('tickets.edit');
     Route::post('/tickets/{category}/{id}/update', [AdminController::class, 'update'])->name('tickets.update');
     Route::delete('/tickets/{category}/{id}/delete', [AdminController::class, 'destroy'])->name('tickets.delete');
+    Route::post('/approve-product/{category}/{id}', [AdminController::class, 'approveProduct'])->name('tickets.approve');
 
     // Partner verification
     Route::get('/verifikasi-mitra', [AdminController::class, 'verifikasiMitra'])->name('verifikasi.mitra');

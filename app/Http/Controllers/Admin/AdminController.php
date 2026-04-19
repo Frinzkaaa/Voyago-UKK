@@ -232,17 +232,38 @@ class AdminController extends Controller
             if ($category === 'transaksi') {
                 fputcsv($file, ['ID', 'Booking Code', 'User', 'Mitra', 'Price', 'Status', 'Tanggal']);
                 foreach ($data as $row) {
-                    fputcsv($file, [$row->id, $row->booking_code, $row->user->name, $row->partner->name ?? '-', $row->total_price, $row->status, $row->created_at]);
+                    fputcsv($file, [
+                        $row->id, 
+                        $row->booking_code, 
+                        $row->user->name, 
+                        $row->partner->name ?? '-', 
+                        $row->total_price, 
+                        $row->status->value ?? $row->status, 
+                        $row->created_at->toDateTimeString()
+                    ]);
                 }
             } elseif ($category === 'mitra') {
                 fputcsv($file, ['ID', 'Nama Mitra', 'Tipe Layanan', 'Status', 'Tanggal Bergabung']);
                 foreach ($data as $row) {
-                    fputcsv($file, [$row->id, $row->user->name, $row->service_type, $row->status, $row->created_at]);
+                    fputcsv($file, [
+                        $row->id, 
+                        $row->user->name, 
+                        $row->service_type, 
+                        $row->status->value ?? $row->status, 
+                        $row->created_at->toDateString()
+                    ]);
                 }
             } elseif ($category === 'komplain') {
                 fputcsv($file, ['ID', 'User', 'Kategori', 'Subyek', 'Status', 'Tanggal']);
                 foreach ($data as $row) {
-                    fputcsv($file, [$row->id, $row->user->name, $row->category, $row->subject, $row->status, $row->created_at]);
+                    fputcsv($file, [
+                        $row->id, 
+                        $row->user->name, 
+                        $row->category, 
+                        $row->subject, 
+                        $row->status->value ?? $row->status, 
+                        $row->created_at->toDateTimeString()
+                    ]);
                 }
             }
 

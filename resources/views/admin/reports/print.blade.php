@@ -132,7 +132,7 @@
                         <td>{{ $row->user->name }}</td>
                         <td>{{ $row->partner->name ?? '-' }}</td>
                         <td>Rp {{ number_format($row->total_price, 0, ',', '.') }}</td>
-                        <td>{{ strtoupper($row->status) }}</td>
+                        <td>{{ strtoupper($row->status->value ?? $row->status) }}</td>
                         <td>{{ $row->created_at->format('d/m/Y H:i') }}</td>
                     </tr>
                 @elseif($category === 'mitra')
@@ -140,7 +140,7 @@
                         <td>{{ $row->id }}</td>
                         <td>{{ $row->user->name }}</td>
                         <td>{{ $row->service_type }}</td>
-                        <td>{{ strtoupper($row->status) }}</td>
+                        <td>{{ strtoupper($row->status->value ?? $row->status) }}</td>
                         <td>{{ $row->created_at->format('d/m/Y') }}</td>
                     </tr>
                 @elseif($category === 'komplain')
@@ -149,7 +149,7 @@
                         <td>{{ $row->user->name }}</td>
                         <td>{{ ucfirst($row->category) }}</td>
                         <td>{{ $row->subject }}</td>
-                        <td>{{ strtoupper($row->status) }}</td>
+                        <td>{{ strtoupper($row->status->value ?? $row->status) }}</td>
                         <td>{{ $row->created_at->format('d/m/Y') }}</td>
                     </tr>
                 @endif

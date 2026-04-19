@@ -122,12 +122,12 @@
 
             <div class="mt-10 flex items-center justify-between gap-4">
                 <div class="h-px bg-gray-100 dark:bg-zinc-800 flex-1"></div>
-                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest whitespace-nowrap">Atau Media Sosial</span>
+                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest whitespace-nowrap">Atau</span>
                 <div class="h-px bg-gray-100 dark:bg-zinc-800 flex-1"></div>
             </div>
 
             <div class="mt-8">
-                <a href="{{ route('auth.google') }}" class="w-full py-4.5 bg-white dark:bg-zinc-800 rounded-2xl flex items-center justify-center gap-4 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all border-2 border-gray-100 dark:border-zinc-800 shadow-md group">
+                <a href="{{ route('auth.google') }}" class="w-full py-2 bg-white dark:bg-zinc-800 rounded-2xl flex items-center justify-center gap-4 hover:bg-gray-50 dark:hover:bg-zinc-700 transition-all border-2 border-gray-100 dark:border-zinc-800 shadow-md group">
                     <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" class="w-6 h-6 group-hover:scale-110 transition-transform" alt="Google">
                     <span class="text-xs font-black text-gray-900 dark:text-white uppercase tracking-widest">Lanjutkan dengan Google</span>
                 </a>
