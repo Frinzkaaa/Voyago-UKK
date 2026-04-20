@@ -6,15 +6,15 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <!-- Left: Destinasi Terbaik (Merged with Padar Island) -->
       <div class="lg:col-span-5">
-        <x-Beranda.destinasi-terbaik :destinations="$bestDestinations" />
+        <x-beranda.destinasi-terbaik :destinations="$bestDestinations" />
       </div>
 
       <!-- Right: Hero (Top) + Hotel & Chat (Bottom) -->
       <div class="lg:col-span-7 flex flex-col gap-6">
-        <x-Beranda.hero />
+        <x-beranda.hero />
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow">
-          <x-Beranda.hotel-hero />
-          <x-Beranda.chat />
+          <x-beranda.hotel-hero />
+          <x-beranda.chat />
         </div>
       </div>
     </div>
@@ -22,22 +22,22 @@
     <!-- Voucher & Cek Pesanan -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
       <div class="lg:col-span-3">
-        <x-Beranda.voucher />
+        <x-beranda.voucher />
       </div>
       <div class="lg:col-span-9 flex flex-col gap-6">
-        <x-Beranda.cek-pesanan :bookings="$recentBookings" />
-        <x-Beranda.paket-luar-negeri />
+        <x-beranda.cek-pesanan :bookings="$recentBookings" />
+        <x-beranda.paket-luar-negeri />
       </div>
     </div>
 
     <!-- Promo Tiket Pesawat Domestik -->
-    <x-Beranda.promo-domestik />
+    <x-beranda.promo-domestik />
 
     <!-- Aktivitas Trending -->
-    <x-Beranda.aktivitas-trending />
+    <x-beranda.aktivitas-trending />
 
     <!-- Tamasya Keliling Dunia -->
-    <x-Beranda.tamasya />
+    <x-beranda.tamasya />
 
     <!-- Join Mitra Section -->
     <section

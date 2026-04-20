@@ -84,11 +84,11 @@
 
                     <div class="space-y-10">
                         <!-- Primary Image -->
-                        <x-Form.image-uploader name="image" label="Foto Utama (Cover)" helper="Akan tampil di card pencarian utama. Rasio 16:9 direkomendasikan." :value="$product->image" />
+                        <x-form.image-uploader name="image" label="Foto Utama (Cover)" helper="Akan tampil di card pencarian utama. Rasio 16:9 direkomendasikan." :value="$product->image" />
 
                         <!-- Gallery Images -->
                         <div class="pt-8 border-t border-gray-50 dark:border-zinc-800">
-                             <x-Form.image-uploader name="gallery" label="Galeri Foto Tambahan" helper="Bisa pilih banyak gambar sekaligus untuk detail produk." :multiple="true" :value="$product->gallery" />
+                             <x-form.image-uploader name="gallery" label="Galeri Foto Tambahan" helper="Bisa pilih banyak gambar sekaligus untuk detail produk." :multiple="true" :value="$product->gallery" />
                         </div>
                     </div>
                 </div>
