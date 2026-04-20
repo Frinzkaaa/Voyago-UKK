@@ -207,6 +207,8 @@
             'bus': 'fa-bus',
             'wisata': 'fa-mountain-sun',
             'attraction': 'fa-mountain-sun',
+            'culture': 'fa-mountain-sun',
+            'nature': 'fa-mountain-sun',
             'tour': 'fa-route'
           }[ticketCategory] || 'fa-box-open';
           
@@ -214,6 +216,21 @@
           let mainImage = rawImage 
               ? (rawImage.startsWith('http') ? rawImage : `/storage/${rawImage.replace('storage/', '')}`)
               : '';
+
+          // Hard fallback for production where DB might be seeded without images
+          if (!mainImage) {
+               if (category.toLowerCase() === 'wisata' || ['culture', 'nature', 'attraction', 'tour'].includes((ticket.category || '').toLowerCase())) {
+                   mainImage = "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=800";
+               } else if (category.toLowerCase() === 'hotel') {
+                   mainImage = "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800";
+               } else if (category.toLowerCase() === 'pesawat') {
+                   mainImage = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800";
+               } else if (category.toLowerCase() === 'kereta') {
+                   mainImage = "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=800";
+               } else if (category.toLowerCase() === 'bus') {
+                   mainImage = "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800";
+               }
+          }
 
           let timeInfo = '';
           if (ticket.departure_time) {
@@ -731,7 +748,19 @@
           if (data.success) {
             // Midtrans Snap Pay
             window.snap.pay(data.snap_token, {
-              onSuccess: function(result) {
+              onSuccess: async function(result) {
+                try {
+                   await fetch('{{ route('simulate.payment') }}', {
+                       method: 'POST',
+                       headers: {
+                           'Content-Type': 'application/json',
+                           'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                       },
+                       body: JSON.stringify({ booking_code: data.booking_code })
+                   });
+                } catch(e) {
+                   console.error('Failed to sync payment status with server', e);
+                }
                 window.location.href = "{{ route('my.bookings') }}";
               },
               onPending: function(result) {

@@ -161,7 +161,7 @@
                                             class="px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[8px] md:text-[9px] font-black uppercase tracking-widest text-center whitespace-nowrap {{ $statusClass }} shadow-sm ring-1 ring-inset ring-orange-500/20">{{ $statusLabel }}</span>
                                     </div>
                                     @if($booking->payment_status === \App\Enums\PaymentStatus::PENDING && $booking->snap_token)
-                                        <button onclick="continuePayment('{{ $booking->snap_token }}')"
+                                        <button onclick="continuePayment('{{ $booking->snap_token }}', '{{ $booking->booking_code }}')"
                                             class="mt-1 flex items-center gap-1 md:gap-2 text-[9px] md:text-[10px] font-black text-orange-500 hover:text-orange-600 transition-all uppercase tracking-widest leading-none">
                                             <div class="w-5 h-5 md:w-6 md:h-6 rounded-lg bg-orange-100 flex items-center justify-center">
                                                 <i class="fas fa-credit-card text-[8px] md:text-[10px]"></i>
@@ -925,9 +925,21 @@
             document.body.style.overflow = 'auto';
         }
 
-        function continuePayment(snapToken) {
+        function continuePayment(snapToken, bookingCode) {
             window.snap.pay(snapToken, {
-                onSuccess: function (result) {
+                onSuccess: async function (result) {
+                    try {
+                        await fetch('{{ route('simulate.payment') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            },
+                            body: JSON.stringify({ booking_code: bookingCode })
+                        });
+                    } catch (e) {
+                        console.error('Failed to sync payment status with server', e);
+                    }
                     window.location.reload();
                 },
                 onPending: function (result) {
