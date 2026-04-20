@@ -51,10 +51,14 @@
 
                 $isWishlisted = false;
                 if (auth()->check() && $isWisata) {
-                    $isWishlisted = \App\Models\Wishlist::where('user_id', auth()->id())
-                        ->where('wishlistable_id', $d->id)
-                        ->where('wishlistable_type', get_class($d))
-                        ->exists();
+                    try {
+                        $isWishlisted = \App\Models\Wishlist::where('user_id', auth()->id())
+                            ->where('wishlistable_id', $d->id)
+                            ->where('wishlistable_type', get_class($d))
+                            ->exists();
+                    } catch (\Exception $e) {
+                        $isWishlisted = false;
+                    }
                 }
             @endphp
             <div class="flex items-center gap-3 md:gap-4 bg-white dark:bg-dark-card hover:bg-orange-50 dark:hover:bg-[#2A2A2A] p-2 rounded-2xl transition-all group transition-colors duration-300">
