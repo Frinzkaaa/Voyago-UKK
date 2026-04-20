@@ -1,4 +1,3 @@
-
 @php
     // Data Statis Destinasi
     $staticDestinations = [
