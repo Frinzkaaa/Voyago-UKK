@@ -4,9 +4,9 @@
   <div class="flex flex-col gap-10">
     <!-- Top Section: Categories & Points -->
     <div class="flex flex-col md:flex-row gap-6 items-stretch">
-      <x-Pemesanan.tab-menu active="kereta" />
+      <x-pemesanan.tab-menu active="kereta" />
       <div class="md:w-1/3 flex">
-        <x-Pemesanan.point-card />
+        <x-pemesanan.point-card />
       </div>
     </div>
 
@@ -14,19 +14,19 @@
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
       <!-- Sidebar Form -->
       <div class="md:col-span-4">
-        <x-Pemesanan.form-pemesanan />
+        <x-pemesanan.form-pemesanan />
       </div>
 
       <!-- Main Content -->
       <div class="md:col-span-8 flex flex-col gap-6">
         <!-- Filter Cards -->
-        <x-Pemesanan.filter />
+        <x-pemesanan.filter />
 
         <!-- Ticket Search Results -->
-        <x-Pemesanan.hasil-tiket :tickets="$tickets" />
+        <x-pemesanan.hasil-tiket :tickets="$tickets" />
 
         <!-- Payment Details & Method -->
-        <x-Pemesanan.pembayaran />
+        <x-pemesanan.pembayaran />
       </div>
     </div>
   </div>

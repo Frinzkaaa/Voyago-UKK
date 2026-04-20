@@ -62,23 +62,4 @@ Route::prefix('admin')->name('admin.')->group(base_path('routes/admin.php'));
 // Partner Routes
 Route::prefix('partner')->name('partner.')->group(base_path('routes/partner.php'));
 
-use Midtrans\Config;
-use Midtrans\Snap;
-
-Route::get('/test-midtrans', function () {
-    Config::$serverKey = config('services.midtrans.server_key');
-    Config::$isProduction = false;
-    Config::$isSanitized = true;
-    Config::$is3ds = true;
-
-    $params = [
-        'transaction_details' => [
-            'order_id' => 'TEST-' . time(),
-            'gross_amount' => 10000,
-        ],
-    ];
-
-    $token = Snap::getSnapToken($params);
-
-    return $token;
-});
+// Test routes removed for production deployment
