@@ -96,71 +96,27 @@ class TicketController extends Controller
         $destination = $request->query('destination');
         $date = $request->query('date');
         $class = $request->query('class');
+        $isFlexible = false;
 
-        switch ($category) {
-            case 'kereta':
-                $query = $this->getActiveProductQuery(new TrainTicket);
-                if ($origin)
-                    $query->where('origin', $origin);
-                if ($destination)
-                    $query->where('destination', $destination);
-                if ($date)
-                    $query->whereDate('departure_time', $date);
-                if ($class && $class !== 'All')
-                    $query->where('class', 'LIKE', "%$class%");
-                $tickets = $query->get()->map(function($t) {
-                    $t->image = $t->image ?? (json_decode($t->train_images)[0] ?? null);
-                    return $t;
-                });
-                break;
-            case 'pesawat':
-                $query = $this->getActiveProductQuery(new FlightTicket);
-                if ($origin)
-                    $query->where('origin', $origin);
-                if ($destination)
-                    $query->where('destination', $destination);
-                if ($date)
-                    $query->whereDate('departure_time', $date);
-                $tickets = $query->get()->map(function($t) {
-                    // Cek image utama, jika kosong ambil airline_logo
-                    $t->image = $t->image ?? $t->airline_logo;
-                    return $t;
-                });
-                break;
-            case 'bus':
-                $query = $this->getActiveProductQuery(new BusTicket);
-                if ($origin)
-                    $query->where('origin_terminal', $origin);
-                if ($destination)
-                    $query->where('destination_terminal', $destination);
-                if ($date)
-                    $query->whereDate('departure_time', $date);
-                $tickets = $query->get();
-                break;
-            case 'hotel':
-                $query = $this->getActiveProductQuery(new Hotel);
-                if ($destination)
-                    $query->where('location', $destination);
-                $tickets = $query->get()->map(function($t) {
-                    $t->image = $t->image ?? $t->front_image;
-                    return $t;
-                });
-                break;
-            case 'wisata':
-                $query = $this->getActiveProductQuery(new WisataSpot);
-                if ($destination)
-                    $query->where('name', $destination);
-                $tickets = $query->get()->map(function($t) {
-                    $t->image = $t->image ?? $t->main_image;
-                    return $t;
-                });
-                break;
-            default:
-                $tickets = [];
+        $tickets = $this->performCategorySearch($category, $origin, $destination, $date, $class);
+
+        // Jika tidak ada hasil, coba pencarian fleksibel (abaikan tanggal)
+        if ($tickets->isEmpty() && ($date || $origin || $destination || ($class && $class !== 'All'))) {
+            $tickets = $this->performCategorySearch($category, $origin, $destination, null, $class);
+            if (!$tickets->isEmpty()) {
+                $isFlexible = true;
+            } else {
+                // Jika masih kosong, abaikan rute juga (hanya kategori)
+                $tickets = $this->performCategorySearch($category, null, null, null, 'All');
+                if (!$tickets->isEmpty()) {
+                    $isFlexible = true;
+                }
+            }
         }
 
         return response()->json([
-            'tickets' => $tickets->map(function($t) {
+            'is_flexible' => $isFlexible,
+            'tickets' => $tickets->map(function ($t) use ($category) {
                 // Konversi model ke array agar kita bisa bebas menambah/mengubah data
                 $item = $t->toArray();
                 
@@ -192,6 +148,53 @@ class TicketController extends Controller
             }),
             'category' => $category
         ]);
+    }
+
+    private function performCategorySearch($category, $origin, $destination, $date, $class)
+    {
+        switch ($category) {
+            case 'kereta':
+                $query = $this->getActiveProductQuery(new TrainTicket);
+                if ($origin)
+                    $query->where('origin', $origin);
+                if ($destination)
+                    $query->where('destination', $destination);
+                if ($date)
+                    $query->whereDate('departure_time', $date);
+                if ($class && $class !== 'All')
+                    $query->where('class', 'LIKE', "%$class%");
+                return $query->get();
+            case 'pesawat':
+                $query = $this->getActiveProductQuery(new FlightTicket);
+                if ($origin)
+                    $query->where('origin', $origin);
+                if ($destination)
+                    $query->where('destination', $destination);
+                if ($date)
+                    $query->whereDate('departure_time', $date);
+                return $query->get();
+            case 'bus':
+                $query = $this->getActiveProductQuery(new BusTicket);
+                if ($origin)
+                    $query->where('origin_terminal', $origin);
+                if ($destination)
+                    $query->where('destination_terminal', $destination);
+                if ($date)
+                    $query->whereDate('departure_time', $date);
+                return $query->get();
+            case 'hotel':
+                $query = $this->getActiveProductQuery(new Hotel);
+                if ($destination)
+                    $query->where('location', $destination);
+                return $query->get();
+            case 'wisata':
+                $query = $this->getActiveProductQuery(new WisataSpot);
+                if ($destination)
+                    $query->where('name', $destination);
+                return $query->get();
+            default:
+                return collect();
+        }
     }
 
     public function checkout(Request $request)

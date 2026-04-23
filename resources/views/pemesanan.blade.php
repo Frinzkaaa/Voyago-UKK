@@ -117,6 +117,11 @@
 
         const paxHelper = passengerInput.nextElementSibling;
         if (paxHelper) paxHelper.innerText = `*Maksimal ${passengerInput.max} tiket`;
+        
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('departure_date').setAttribute('min', today);
+        document.getElementById('return_date').setAttribute('min', today);
 
         performSearch();
       }
@@ -178,16 +183,31 @@
         try {
           const response = await fetch(`/search?category=${currentCategory}&origin=${origin}&destination=${dest}&date=${date}&return_date=${returnDate}&is_round_trip=${isRoundTrip}&class=${className}`);
           const data = await response.json();
-          renderTickets(data.tickets, currentCategory);
+          renderTickets(data.tickets, currentCategory, data.is_flexible);
         } catch (error) {
           console.error('Search failed', error);
           list.innerHTML = '<div class="text-center py-20 bg-white dark:bg-dark-card rounded-[2rem] border-2 border-dashed border-red-100 text-red-500 font-bold transition-colors duration-300">Terjadi kesalahan saat memuat data.</div>';
         }
       }
 
-      function renderTickets(tickets, category) {
+      function renderTickets(tickets, category, isFlexible = false) {
         const container = document.getElementById('ticketList');
         container.innerHTML = '';
+
+        if (isFlexible && tickets.length > 0) {
+            const notice = document.createElement('div');
+            notice.className = 'p-6 bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-500/10 dark:to-amber-500/10 border-2 border-orange-200/50 dark:border-orange-500/20 rounded-[2rem] flex items-center gap-5 mb-4 transition-all duration-300';
+            notice.innerHTML = `
+                <div class="w-14 h-14 bg-orange-500 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-orange-500/20">
+                    <i class="fas fa-lightbulb text-white text-2xl"></i>
+                </div>
+                <div>
+                    <h4 class="font-black text-orange-600 dark:text-orange-400 text-base leading-tight">Rekomendasi Alternatif</h4>
+                    <p class="text-xs font-bold text-orange-500/80 dark:text-orange-300/80 mt-1 leading-relaxed">Maaf, tiket sesuai kriteria Anda tidak ditemukan. Kami menampilkan beberapa pilihan terbaik lainnya untuk kategori ini agar Anda tetap bisa merencanakan perjalanan.</p>
+                </div>
+            `;
+            container.appendChild(notice);
+        }
 
         if (tickets.length === 0) {
           container.innerHTML = '<div class="text-center py-20 bg-white dark:bg-dark-card rounded-[2rem] border-2 border-dashed border-gray-100 dark:border-dark-border transition-colors duration-300"><i class="fas fa-ticket text-5xl text-gray-200 mb-4"></i><p class="font-bold text-gray-400">Belum ada tiket tersedia untuk kategori ini.</p></div>';
