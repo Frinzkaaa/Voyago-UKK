@@ -43,7 +43,7 @@
                         <h3 class="text-sm font-black text-gray-900 dark:text-white uppercase tracking-widest italic">Ketentuan Layanan</h3>
                     </div>
                     <textarea name="terms" rows="4" placeholder="Sebutkan poin pembatalan, refund, atau syarat penggunaan produk secara detail..."
-                        class="w-full bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 focus:border-orange-500 rounded-[32px] py-6 px-8 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white leading-relaxed resize-none"></textarea>
+                        class="w-full bg-gray-50 dark:bg-zinc-950/50 border border-gray-100 dark:border-zinc-800 focus:border-orange-500 rounded-[32px] py-6 px-8 outline-none transition-all text-sm font-bold text-gray-900 dark:text-white leading-relaxed resize-none shadow-sm"></textarea>
                 </div>
             </div>
 
