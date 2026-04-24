@@ -11,6 +11,15 @@ class BookingPolicy
 {
     use HandlesAuthorization;
 
+    private function matchesUserId($left, $right): bool
+    {
+        if ($left === null || $right === null) {
+            return false;
+        }
+
+        return (int) $left === (int) $right;
+    }
+
     /**
      * Admin can view all bookings.
      */
@@ -32,10 +41,10 @@ class BookingPolicy
         }
 
         if ($user->role === UserRole::PARTNER) {
-            return $user->id === $booking->mitra_id;
+            return $this->matchesUserId($user->id, $booking->mitra_id);
         }
 
-        return $user->id === $booking->user_id;
+        return $this->matchesUserId($user->id, $booking->user_id);
     }
 
     /**
@@ -51,6 +60,6 @@ class BookingPolicy
      */
     public function confirm(User $user, Booking $booking): bool
     {
-        return $user->role === UserRole::PARTNER && $user->id === $booking->mitra_id;
+        return $user->role === UserRole::PARTNER && $this->matchesUserId($user->id, $booking->mitra_id);
     }
 }

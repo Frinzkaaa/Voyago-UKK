@@ -11,6 +11,17 @@ class ProductPolicy
 {
     use HandlesAuthorization;
 
+    private function isOwnedBy(User $user, $product): bool
+    {
+        $ownerId = $product->user_id ?? $product->mitra_id ?? null;
+
+        if ($ownerId === null) {
+            return false;
+        }
+
+        return (int) $user->id === (int) $ownerId;
+    }
+
     /**
      * Admin can view all products.
      * Partner can only view their own.
@@ -21,7 +32,7 @@ class ProductPolicy
             return true;
         }
 
-        return $user->id === ($product->user_id ?? $product->mitra_id);
+        return $this->isOwnedBy($user, $product);
     }
 
     /**
@@ -41,7 +52,7 @@ class ProductPolicy
             return true;
         }
 
-        return $user->role === UserRole::PARTNER && $user->id === ($product->user_id ?? $product->mitra_id);
+        return $user->role === UserRole::PARTNER && $this->isOwnedBy($user, $product);
     }
 
     /**
