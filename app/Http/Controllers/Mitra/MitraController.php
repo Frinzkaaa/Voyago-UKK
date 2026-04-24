@@ -341,40 +341,14 @@ class MitraController extends Controller
 
     public function editProduct($id)
     {
-        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-        $type = $this->resolveProductType($serviceType);
-
-        $product = match ($type) {
-            'hotel' => Hotel::findOrFail($id),
-            'pesawat' => FlightTicket::findOrFail($id),
-            'kereta' => TrainTicket::findOrFail($id),
-            'bus' => BusTicket::findOrFail($id),
-            default => WisataSpot::findOrFail($id),
-        };
-
-        if ($product->user_id !== Auth::id()) {
-            abort(403);
-        }
+        [$product, $type] = $this->findManagedProductOrFail($id);
 
         return view('mitra.products.edit', compact('product', 'type'));
     }
 
     public function updateProduct(Request $request, $id)
     {
-        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-        $type = $this->resolveProductType($serviceType);
-
-        $product = match ($type) {
-            'hotel' => Hotel::findOrFail($id),
-            'pesawat' => FlightTicket::findOrFail($id),
-            'kereta' => TrainTicket::findOrFail($id),
-            'bus' => BusTicket::findOrFail($id),
-            default => WisataSpot::findOrFail($id),
-        };
-
-        if ($product->user_id !== Auth::id()) {
-            abort(403);
-        }
+        [$product, $type] = $this->findManagedProductOrFail($id);
 
         $data = [
             'status' => ProductStatus::PENDING_REVIEW, // Re-verify on update
@@ -477,20 +451,7 @@ class MitraController extends Controller
 
     public function toggleProductStatus($id)
     {
-        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-        $type = $this->resolveProductType($serviceType);
-
-        $product = match ($type) {
-            'hotel' => Hotel::findOrFail($id),
-            'pesawat' => FlightTicket::findOrFail($id),
-            'kereta' => TrainTicket::findOrFail($id),
-            'bus' => BusTicket::findOrFail($id),
-            default => WisataSpot::findOrFail($id),
-        };
-
-        if ($product->user_id !== Auth::id()) {
-            abort(403);
-        }
+        [$product] = $this->findManagedProductOrFail($id);
 
         $product->is_active = !($product->is_active);
         $product->save();
@@ -500,20 +461,7 @@ class MitraController extends Controller
 
     public function deleteProduct($id)
     {
-        $serviceType = Auth::user()->partner->service_type ?? 'Lainnya';
-        $type = $this->resolveProductType($serviceType);
-
-        $product = match ($type) {
-            'hotel' => Hotel::findOrFail($id),
-            'pesawat' => FlightTicket::findOrFail($id),
-            'kereta' => TrainTicket::findOrFail($id),
-            'bus' => BusTicket::findOrFail($id),
-            default => WisataSpot::findOrFail($id),
-        };
-
-        if ($product->user_id !== Auth::id()) {
-            abort(403);
-        }
+        [$product] = $this->findManagedProductOrFail($id);
 
         $product->delete();
         return redirect()->route('partner.products')->with('success', 'Produk berhasil dihapus dari katalog.');
@@ -600,6 +548,48 @@ class MitraController extends Controller
     {
         Auth::logout();
         return redirect()->route('partner.auth.page');
+    }
+
+    /**
+     * Product IDs can overlap across tables, so we can't trust service_type alone.
+     */
+    private function findManagedProductOrFail($id): array
+    {
+        $preferredType = $this->resolveProductType(Auth::user()->partner->service_type ?? 'Lainnya');
+        $orderedTypes = array_values(array_unique(array_merge([$preferredType], array_keys($this->productModelMap()))));
+        $firstExistingProduct = null;
+
+        foreach ($orderedTypes as $type) {
+            $modelClass = $this->productModelMap()[$type];
+            $product = $modelClass::find($id);
+
+            if (!$product) {
+                continue;
+            }
+
+            $firstExistingProduct ??= $product;
+
+            if (Gate::allows('update', $product)) {
+                return [$product, $type];
+            }
+        }
+
+        if ($firstExistingProduct) {
+            abort(403);
+        }
+
+        abort(404);
+    }
+
+    private function productModelMap(): array
+    {
+        return [
+            'hotel' => Hotel::class,
+            'pesawat' => FlightTicket::class,
+            'kereta' => TrainTicket::class,
+            'bus' => BusTicket::class,
+            'wisata' => WisataSpot::class,
+        ];
     }
 
     /**
